@@ -3,11 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Portfolio</title>
+    <meta
+      name="description"
+      content="Rabie Abdulrahman | Backend PHP Laravel Developer specializing in scalable APIs, MySQL architecture, business automation, and production-ready web systems."
+    />
+    <title>Rabie Abdulrahman | Backend PHP Laravel Developer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
     <link
@@ -16,182 +20,511 @@
     />
     <style>
       :root {
-        --primary: #7c3aed;
-        --primary-dark: #4c1d95;
-        --secondary: #f8fafc;
-        --text: #1f2937;
-        --muted: #6b7280;
-        --card: #ffffff;
+        --bg: #07111f;
+        --bg-soft: #0d1b2a;
+        --panel: rgba(15, 24, 39, 0.9);
+        --panel-light: rgba(17, 24, 39, 0.75);
+        --line: rgba(148, 163, 184, 0.18);
+        --text: #e5eefb;
+        --muted: #9bb1c8;
+        --primary: #22c55e;
+        --primary-2: #38bdf8;
+        --accent: #a78bfa;
+        --warning: #fbbf24;
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
       }
 
       * {
-        font-family: "Poppins", sans-serif;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
       }
 
       body {
-        background: #f4f7fb;
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(34, 197, 94, 0.12), transparent 30%),
+          radial-gradient(circle at right, rgba(56, 189, 248, 0.14), transparent 35%),
+          var(--bg);
         color: var(--text);
       }
 
+      a {
+        text-decoration: none;
+      }
+
+      .container {
+        max-width: 1180px;
+      }
+
       .navbar {
-        background: rgba(17, 24, 39, 0.95);
-        backdrop-filter: blur(10px);
+        background: rgba(7, 17, 31, 0.8);
+        backdrop-filter: blur(18px);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .navbar-brand {
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        color: #fff !important;
       }
 
       .nav-link {
-        color: #e5e7eb !important;
-        font-weight: 500;
+        color: var(--muted) !important;
+        font-weight: 600;
+        transition: 0.25s ease;
+      }
+
+      .nav-link:hover {
+        color: var(--primary-2) !important;
       }
 
       .hero {
-        background: linear-gradient(135deg, #0f172a, #1e293b 50%, #7c3aed);
-        color: white;
-        padding: 120px 0 80px;
-      }
-
-      .hero h1 {
-        font-size: clamp(2.5rem, 5vw, 4.2rem);
-        font-weight: 800;
-      }
-
-      .hero p {
-        color: rgba(255, 255, 255, 0.85);
-        font-size: 1.1rem;
-      }
-
-      .btn-primary {
-        background: var(--primary);
-        border-color: var(--primary);
-        padding: 0.8rem 1.5rem;
-        border-radius: 30px;
-        font-weight: 600;
-      }
-
-      .btn-primary:hover {
-        background: var(--primary-dark);
-        border-color: var(--primary-dark);
-      }
-
-      .btn-outline-light {
-        border-radius: 30px;
-        padding: 0.8rem 1.5rem;
-        font-weight: 600;
-      }
-
-      .profile-box {
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 24px;
-        padding: 1.5rem;
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-      }
-
-      .profile-box img {
-        width: 100%;
-        max-width: 360px;
-        height: 420px;
-        object-fit: cover;
-        border-radius: 20px;
-        border: 4px solid rgba(255, 255, 255, 0.5);
-      }
-
-      .section {
-        padding: 90px 0;
-      }
-
-      .section-title {
-        font-weight: 700;
-        margin-bottom: 16px;
         position: relative;
-        display: inline-block;
+        overflow: hidden;
+        padding: 120px 0 80px;
+        background: linear-gradient(135deg, rgba(4, 9, 19, 0.96), rgba(8, 18, 31, 0.94));
       }
 
-      .section-title::after {
+      .hero::before,
+      .hero::after {
         content: "";
         position: absolute;
-        left: 0;
-        bottom: -10px;
-        width: 70px;
-        height: 4px;
-        background: var(--primary);
-        border-radius: 20px;
+        width: 420px;
+        height: 420px;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.28;
       }
 
-      .about-card,
-      .skill-card,
-      .project-card {
-        background: var(--card);
-        border: none;
+      .hero::before {
+        background: rgba(34, 197, 94, 0.45);
+        top: -80px;
+        left: -40px;
+      }
+
+      .hero::after {
+        background: rgba(56, 189, 248, 0.38);
+        right: -30px;
+        bottom: -100px;
+      }
+
+      .badge-soft {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border-radius: 999px;
+        background: rgba(34, 197, 94, 0.12);
+        border: 1px solid rgba(34, 197, 94, 0.25);
+        color: #b9f5ce;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        font-size: clamp(2.7rem, 5vw, 5rem);
+        line-height: 1.08;
+        font-weight: 900;
+        margin-bottom: 18px;
+      }
+
+      .highlight {
+        background: linear-gradient(90deg, var(--primary), var(--primary-2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .lead {
+        color: var(--muted);
+        font-size: 1.08rem;
+        line-height: 1.8;
+        max-width: 620px;
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-top: 30px;
+      }
+
+      .btn-primary-custom,
+      .btn-secondary-custom {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 180px;
+        padding: 14px 24px;
+        border-radius: 999px;
+        font-weight: 700;
+        transition: 0.3s ease;
+      }
+
+      .btn-primary-custom {
+        background: linear-gradient(135deg, var(--primary), var(--primary-2));
+        color: #031018;
+        box-shadow: 0 16px 30px rgba(34, 197, 94, 0.28);
+      }
+
+      .btn-primary-custom:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 35px rgba(34, 197, 94, 0.4);
+      }
+
+      .btn-secondary-custom {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--line);
+        color: var(--text);
+      }
+
+      .btn-secondary-custom:hover {
+        transform: translateY(-2px);
+        border-color: rgba(56, 189, 248, 0.5);
+      }
+
+      .stat-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 22px;
+        margin-top: 34px;
+      }
+
+      .stat-box {
+        min-width: 130px;
+        padding: 18px 20px;
+        border-radius: 18px;
+        background: rgba(148, 163, 184, 0.05);
+        border: 1px solid var(--line);
+      }
+
+      .stat-number {
+        display: block;
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: #fff;
+      }
+
+      .stat-label {
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+
+      .profile-card {
+        position: relative;
+        background: linear-gradient(180deg, rgba(13, 22, 34, 0.9), rgba(11, 17, 29, 0.9));
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        padding: 24px;
+        box-shadow: var(--shadow);
+        animation: floatCard 6s ease-in-out infinite;
+      }
+
+      @keyframes floatCard {
+        0%,
+        100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+      }
+
+      .profile-card-inner {
+        overflow: hidden;
         border-radius: 20px;
-        box-shadow: 0 15px 30px rgba(15, 23, 42, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .profile-card img {
+        width: 100%;
+        height: 520px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .mini-panel {
+        position: absolute;
+        right: 18px;
+        bottom: 18px;
+        background: rgba(7, 17, 31, 0.8);
+        border: 1px solid rgba(34, 197, 94, 0.4);
+        border-radius: 16px;
+        padding: 14px 16px;
+        backdrop-filter: blur(10px);
+      }
+
+      .mini-panel strong {
+        display: block;
+        font-size: 1rem;
+      }
+
+      .mini-panel span {
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+
+      section {
+        padding: 100px 0;
+      }
+
+      .section-header {
+        margin-bottom: 42px;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        margin-bottom: 12px;
+        color: var(--primary-2);
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 800;
+        margin-bottom: 14px;
+      }
+
+      .section-copy {
+        color: var(--muted);
+        line-height: 1.8;
+        max-width: 760px;
+        margin-bottom: 0;
+      }
+
+      .glass-card,
+      .skill-card,
+      .project-card,
+      .contact-panel {
+        background: rgba(15, 24, 39, 0.9);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: var(--shadow);
       }
 
       .about-card {
-        padding: 2rem;
+        padding: 28px 26px;
+      }
+
+      .info-list {
+        display: grid;
+        gap: 14px;
+      }
+
+      .info-item {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        color: var(--muted);
+      }
+
+      .info-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+
+      .info-item strong {
+        color: #fff;
+      }
+
+      .stack-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 0;
+        list-style: none;
+        margin-top: 20px;
+      }
+
+      .stack-list li {
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(56, 189, 248, 0.08);
+        border: 1px solid rgba(56, 189, 248, 0.2);
+        color: #cfeaff;
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+
+      .skill-grid,
+      .project-grid {
+        margin-top: 30px;
       }
 
       .skill-card {
-        padding: 1.5rem 1rem;
-        text-align: center;
-        transition: transform 0.2s ease;
+        padding: 26px 18px;
+        height: 100%;
+        transition: 0.3s ease;
       }
 
       .skill-card:hover,
       .project-card:hover {
-        transform: translateY(-8px);
+        transform: translateY(-10px);
+        border-color: rgba(56, 189, 248, 0.4);
       }
 
-      .icon-circle {
-        width: 70px;
-        height: 70px;
-        margin: 0 auto 1rem;
+      .icon-box {
+        width: 74px;
+        height: 74px;
+        margin: 0 auto 16px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 50%;
-        background: rgba(124, 58, 237, 0.1);
-        color: var(--primary);
-        font-size: 1.8rem;
+        border-radius: 20px;
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.14), rgba(56, 189, 248, 0.12));
+        border: 1px solid rgba(56, 189, 248, 0.15);
+        color: var(--primary-2);
+        font-size: 1.5rem;
+        font-weight: 800;
+      }
+
+      .skill-card h4 {
+        font-size: 1.15rem;
+        margin-bottom: 8px;
+      }
+
+      .skill-card p {
+        color: var(--muted);
+        line-height: 1.7;
+        margin-bottom: 0;
       }
 
       .project-card {
         overflow: hidden;
+        height: 100%;
+        transition: 0.3s ease;
       }
 
       .project-card img {
+        width: 100%;
         height: 220px;
         object-fit: cover;
+        display: block;
       }
 
-      .badge-custom {
-        background: rgba(124, 58, 237, 0.12);
-        color: var(--primary);
-        padding: 0.5rem 0.8rem;
+      .project-body {
+        padding: 24px;
+      }
+
+      .tag {
+        display: inline-block;
+        padding: 8px 12px;
         border-radius: 999px;
-        font-weight: 600;
+        background: rgba(167, 139, 250, 0.12);
+        border: 1px solid rgba(167, 139, 250, 0.2);
+        color: #dccdff;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
       }
 
-      .contact-box {
-        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-        color: white;
-        border-radius: 26px;
-        padding: 2.5rem;
+      .project-body h4 {
+        margin: 18px 0 12px;
+        font-size: 1.35rem;
+      }
+
+      .project-body p {
+        color: var(--muted);
+        line-height: 1.7;
+        margin-bottom: 18px;
+      }
+
+      .project-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 8px;
+      }
+
+      .project-list li {
+        position: relative;
+        padding-left: 18px;
+        color: #d9e7f7;
+        font-size: 0.9rem;
+      }
+
+      .project-list li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: var(--primary);
+        font-size: 1.2rem;
+      }
+
+      .contact-panel {
+        padding: 32px;
+        background: linear-gradient(135deg, rgba(14, 25, 38, 0.96), rgba(9, 17, 29, 0.96));
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .contact-item {
+        padding: 22px 18px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .contact-item .label {
+        display: block;
+        color: var(--muted);
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 10px;
+      }
+
+      .contact-item a,
+      .contact-item span {
+        color: #fff;
+        font-weight: 700;
       }
 
       footer {
-        background: #0f172a;
-        color: rgba(255, 255, 255, 0.8);
-        padding: 1.5rem 0;
+        padding: 32px 0 46px;
+        color: var(--muted);
+        border-top: 1px solid var(--line);
+        background: rgba(7, 17, 31, 0.8);
+      }
+
+      @media (max-width: 991px) {
+        .profile-card img {
+          height: 420px;
+        }
+
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
       }
 
       @media (max-width: 767px) {
         .hero {
-          text-align: center;
           padding-top: 100px;
         }
 
-        .hero .d-flex {
-          justify-content: center;
+        .cta-row {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .btn-primary-custom,
+        .btn-secondary-custom {
+          width: 100%;
+        }
+
+        .profile-card {
+          margin-top: 30px;
         }
       }
     </style>
@@ -199,7 +532,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
       <div class="container">
-        <a class="navbar-brand fw-bold" href="#home">MyPortfolio</a>
+        <a class="navbar-brand" href="#home">RABIE</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -226,24 +559,49 @@
       <div class="container">
         <div class="row align-items-center g-5">
           <div class="col-lg-6">
-            <span class="badge rounded-pill bg-light text-dark px-3 py-2 mb-3">Hello, I am</span>
-            <h1>John Doe</h1>
-            <p class="mb-4">
-              I am a passionate web designer and front-end developer creating clean,
-              modern, and user-friendly digital experiences.
+            <div class="badge-soft">Backend PHP Laravel Developer</div>
+            <h1>
+              Hello, I’m <span class="highlight">Rabie Abdulrahman</span>
+            </h1>
+            <p class="lead">
+              I design and build scalable backend systems, REST APIs, and business-critical software using
+              Laravel, PHP, MySQL, and modern development practices. I focus on clean architecture, secure
+              authentication, API quality, and reliable production systems.
             </p>
-            <div class="d-flex gap-3 flex-wrap">
-              <a href="#projects" class="btn btn-primary">View Projects</a>
-              <a href="#contact" class="btn btn-outline-light">Hire Me</a>
+
+            <div class="cta-row">
+              <a class="btn-primary-custom" href="#projects">View Projects</a>
+              <a class="btn-secondary-custom" href="#contact">Hire Me</a>
+            </div>
+
+            <div class="stat-row">
+              <div class="stat-box">
+                <span class="stat-number">9+</span>
+                <span class="stat-label">Projects</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-number">5+</span>
+                <span class="stat-label">Years</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-number">API</span>
+                <span class="stat-label">Driven</span>
+              </div>
             </div>
           </div>
 
           <div class="col-lg-6">
-            <div class="profile-box text-center">
-              <img
-                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80"
-                alt="Profile photo"
-              />
+            <div class="profile-card">
+              <div class="profile-card-inner">
+                <img
+                  src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80"
+                  alt="Rabie Abdulrahman portrait"
+                />
+              </div>
+              <div class="mini-panel">
+                <strong>Available for work</strong>
+                <span>Laravel / PHP / Backend Projects</span>
+              </div>
             </div>
           </div>
         </div>
@@ -251,34 +609,49 @@
     </header>
 
     <main>
-      <section class="section" id="about">
+      <section id="about">
         <div class="container">
-          <div class="row align-items-center g-4">
+          <div class="section-header">
+            <span class="eyebrow">About Me</span>
+            <h2>Backend engineer with a strong product mindset</h2>
+            <p class="section-copy">
+              I am a backend developer focused on building secure, high-performance, and scalable systems for
+              startups and enterprise applications. My work spans RESTful API development, database design,
+              authentication, business logic, integrations, and production-ready architecture.
+            </p>
+          </div>
+
+          <div class="row g-4">
             <div class="col-lg-6">
-              <h2 class="section-title">About Me</h2>
-              <p class="text-muted">
-                I enjoy transforming ideas into engaging and responsive web experiences.
-                My work focuses on design, performance, and accessibility to help brands
-                communicate clearly online.
-              </p>
-              <div class="about-card mt-4">
-                <p class="mb-2"><strong>Name:</strong> John Doe</p>
-                <p class="mb-2"><strong>Email:</strong> john@example.com</p>
-                <p class="mb-0"><strong>Location:</strong> New York, USA</p>
+              <div class="glass-card about-card">
+                <div class="info-list">
+                  <div class="info-item"><span>Name</span><strong>Rabie Abdulrahman</strong></div>
+                  <div class="info-item"><span>Specialty</span><strong>PHP &amp; Laravel Backend</strong></div>
+                  <div class="info-item"><span>Email</span><strong>khashabarabie@gmail.com</strong></div>
+                  <div class="info-item"><span>Phone</span><strong>01008781912</strong></div>
+                  <div class="info-item"><span>LinkedIn</span><strong>rabie-khashaba</strong></div>
+                </div>
               </div>
             </div>
 
             <div class="col-lg-6">
-              <div class="about-card">
-                <h4 class="fw-bold mb-3">What I do</h4>
-                <p class="text-muted">
-                  I design and develop websites with a strong focus on user experience,
-                  mobile responsiveness, and modern visual design.
+              <div class="glass-card about-card">
+                <h3 class="mb-3">Core strengths</h3>
+                <p class="section-copy mb-3">
+                  I create system foundations that support real business operations, from onboarding and workflow
+                  automation to notification systems, databases, and integrations.
                 </p>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">UI/UX design</li>
-                  <li class="list-group-item">Responsive web development</li>
-                  <li class="list-group-item">Landing pages and portfolio websites</li>
+                <ul class="stack-list">
+                  <li>Laravel</li>
+                  <li>PHP</li>
+                  <li>MySQL</li>
+                  <li>REST APIs</li>
+                  <li>Authentication</li>
+                  <li>Roles &amp; Permissions</li>
+                  <li>Payments</li>
+                  <li>FCM</li>
+                  <li>Cloudflare R2</li>
+                  <li>Git &amp; GitHub</li>
                 </ul>
               </div>
             </div>
@@ -286,96 +659,155 @@
         </div>
       </section>
 
-      <section class="section bg-white" id="skills">
+      <section id="skills" style="background: rgba(9, 17, 29, 0.8);">
         <div class="container">
-          <div class="text-center mb-5">
-            <h2 class="section-title">My Skills</h2>
+          <div class="section-header text-center">
+            <span class="eyebrow">Skills</span>
+            <h2>Professional backend capability</h2>
           </div>
 
-          <div class="row g-4">
+          <div class="row g-4 skill-grid">
             <div class="col-md-6 col-lg-3">
-              <div class="skill-card h-100">
-                <div class="icon-circle">HTML</div>
-                <h5>HTML5</h5>
-                <p class="text-muted mb-0">Semantic structure and modern layout</p>
+              <div class="skill-card">
+                <div class="icon-box">API</div>
+                <h4>REST API Design</h4>
+                <p>Scalable, secure, testable APIs for products, mobile apps, and admin systems.</p>
               </div>
             </div>
 
             <div class="col-md-6 col-lg-3">
-              <div class="skill-card h-100">
-                <div class="icon-circle">CSS</div>
-                <h5>CSS3</h5>
-                <p class="text-muted mb-0">Modern styling and responsive design</p>
+              <div class="skill-card">
+                <div class="icon-box">LAR</div>
+                <h4>Laravel Architecture</h4>
+                <p>Clean Laravel applications using service layers, repositories, and maintainable patterns.</p>
               </div>
             </div>
 
             <div class="col-md-6 col-lg-3">
-              <div class="skill-card h-100">
-                <div class="icon-circle">JS</div>
-                <h5>JavaScript</h5>
-                <p class="text-muted mb-0">Interactive user experiences</p>
+              <div class="skill-card">
+                <div class="icon-box">DB</div>
+                <h4>Database Design</h4>
+                <p>MySQL schema modeling, indexing, relationship mapping, and optimized query performance.</p>
               </div>
             </div>
 
             <div class="col-md-6 col-lg-3">
-              <div class="skill-card h-100">
-                <div class="icon-circle">BS</div>
-                <h5>Bootstrap</h5>
-                <p class="text-muted mb-0">Fast, clean, mobile-ready UI</p>
+              <div class="skill-card">
+                <div class="icon-box">INT</div>
+                <h4>System Integrations</h4>
+                <p>Payment gateways, Firebase, notifications, storage, webhooks, and third-party APIs.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section" id="projects">
+      <section id="projects">
         <div class="container">
-          <div class="text-center mb-5">
-            <h2 class="section-title">Featured Projects</h2>
+          <div class="section-header">
+            <span class="eyebrow">Featured Projects</span>
+            <h2>Real-world systems I built</h2>
           </div>
 
-          <div class="row g-4">
+          <div class="row g-4 project-grid">
             <div class="col-md-6 col-lg-4">
-              <div class="project-card h-100">
-                <img
-                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80"
-                  class="card-img-top"
-                  alt="Project 1"
-                />
-                <div class="card-body p-4">
-                  <span class="badge-custom">Website</span>
-                  <h5 class="mt-3">Business Landing Page</h5>
-                  <p class="text-muted mb-0">A modern landing page for a digital business brand.</p>
+              <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80" alt="Home Plate" />
+                <div class="project-body">
+                  <span class="tag">Food Delivery</span>
+                  <h4>Home Plate</h4>
+                  <p>Complete delivery ecosystem connecting customers, vendors, riders, wallets, payments, notifications, and admin workflows.</p>
+                  <ul class="project-list">
+                    <li>REST APIs</li>
+                    <li>Wallet &amp; refunds</li>
+                    <li>FCM notifications</li>
+                    <li>Cloudflare R2</li>
+                  </ul>
                 </div>
               </div>
             </div>
 
             <div class="col-md-6 col-lg-4">
-              <div class="project-card h-100">
-                <img
-                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80"
-                  class="card-img-top"
-                  alt="Project 2"
-                />
-                <div class="card-body p-4">
-                  <span class="badge-custom">App UI</span>
-                  <h5 class="mt-3">Portfolio Showcase</h5>
-                  <p class="text-muted mb-0">A clean portfolio structure designed for personal branding.</p>
+              <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=900&q=80" alt="Farra" />
+                <div class="project-body">
+                  <span class="tag">Transportation</span>
+                  <h4>Farra</h4>
+                  <p>Laravel backend for transportation and service operations with structured request management and role-based access.</p>
+                  <ul class="project-list">
+                    <li>User &amp; role management</li>
+                    <li>Service workflows</li>
+                    <li>Notifications</li>
+                    <li>Admin APIs</li>
+                  </ul>
                 </div>
               </div>
             </div>
 
             <div class="col-md-6 col-lg-4">
-              <div class="project-card h-100">
-                <img
-                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80"
-                  class="card-img-top"
-                  alt="Project 3"
-                />
-                <div class="card-body p-4">
-                  <span class="badge-custom">Branding</span>
-                  <h5 class="mt-3">Creative Agency Site</h5>
-                  <p class="text-muted mb-0">A polished website concept focused on creative marketing.</p>
+              <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=900&q=80" alt="Baby-Track" />
+                <div class="project-body">
+                  <span class="tag">AI &amp; ML</span>
+                  <h4>Baby-Track</h4>
+                  <p>AI-powered baby cry classification platform integrating machine learning with Laravel APIs for prediction and results storage.</p>
+                  <ul class="project-list">
+                    <li>Audio validation</li>
+                    <li>ML prediction pipeline</li>
+                    <li>Confidence scoring</li>
+                    <li>REST backend</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+              <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80" alt="MovePoint" />
+                <div class="project-body">
+                  <span class="tag">Enterprise</span>
+                  <h4>MovePoint</h4>
+                  <p>Management system for employees, attendance, leave, salary, documents, requests, and admin workflows.</p>
+                  <ul class="project-list">
+                    <li>HR workflow APIs</li>
+                    <li>Salary management</li>
+                    <li>Documents upload</li>
+                    <li>Role-based access</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+              <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80" alt="MVL Lamousine" />
+                <div class="project-body">
+                  <span class="tag">Booking Platform</span>
+                  <h4>MVL Lamousine</h4>
+                  <p>Car rental and limousine booking platform with booking lifecycle, quotations, payments, and vendor operations.</p>
+                  <ul class="project-list">
+                    <li>Booking management</li>
+                    <li>Fleet records</li>
+                    <li>Vendor APIs</li>
+                    <li>Payment workflows</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+              <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=900&q=80" alt="WhatsApp Messaging Platform" />
+                <div class="project-body">
+                  <span class="tag">SaaS</span>
+                  <h4>WhatsApp Messaging</h4>
+                  <p>SaaS messaging platform for subscriptions, campaigns, OTP flows, customer management, and admin backend APIs.</p>
+                  <ul class="project-list">
+                    <li>Campaign automation</li>
+                    <li>OTP auth</li>
+                    <li>Customer subscriptions</li>
+                    <li>Messaging integrations</li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -383,12 +815,28 @@
         </div>
       </section>
 
-      <section class="section" id="contact">
+      <section id="contact" style="background: rgba(9, 17, 29, 0.7);">
         <div class="container">
-          <div class="contact-box text-center">
-            <h2 class="mb-3">Let’s build something amazing together</h2>
-            <p class="mb-4">I am available for freelance work and creative collaborations.</p>
-            <a href="mailto:john@example.com" class="btn btn-light btn-lg">Contact Me</a>
+          <div class="section-header text-center">
+            <span class="eyebrow">Contact</span>
+            <h2>Let’s build the next reliable backend system</h2>
+          </div>
+
+          <div class="contact-panel">
+            <div class="contact-grid">
+              <div class="contact-item">
+                <span class="label">Email</span>
+                <a href="mailto:khashabarabie@gmail.com">khashabarabie@gmail.com</a>
+              </div>
+              <div class="contact-item">
+                <span class="label">Phone</span>
+                <a href="tel:+201008781912">01008781912</a>
+              </div>
+              <div class="contact-item">
+                <span class="label">LinkedIn</span>
+                <a href="https://www.linkedin.com/in/rabie-khashaba/" target="_blank" rel="noreferrer">rabie-khashaba</a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -396,7 +844,7 @@
 
     <footer>
       <div class="container text-center">
-        <p class="mb-0">© 2026 MyPortfolio. All rights reserved.</p>
+        © 2026 Rabie Abdulrahman. Built with PHP, Laravel, and passion for scalable backend systems.
       </div>
     </footer>
 
