@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -10,28 +10,20 @@
     <title>Rabie Abdulrahman | Backend PHP Laravel Developer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
       :root {
-        --bg: #07111f;
-        --bg-soft: #0d1b2a;
-        --panel: rgba(15, 24, 39, 0.9);
-        --panel-light: rgba(17, 24, 39, 0.75);
+        --bg: #07131f;
+        --bg-soft: #0c1b2b;
+        --panel: rgba(15, 24, 39, 0.92);
         --line: rgba(148, 163, 184, 0.18);
-        --text: #e5eefb;
-        --muted: #9bb1c8;
-        --primary: #22c55e;
-        --primary-2: #38bdf8;
-        --accent: #a78bfa;
-        --warning: #fbbf24;
-        --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+        --text: #edf4ff;
+        --muted: #a6bbd4;
+        --primary: #8b5cf6;
+        --primary-2: #22d3ee;
+        --primary-3: #10b981;
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
       }
 
       * {
@@ -41,49 +33,42 @@
 
       body {
         margin: 0;
-        font-family: "Inter", sans-serif;
+        font-family: 'Manrope', sans-serif;
         background:
-          radial-gradient(circle at top left, rgba(34, 197, 94, 0.12), transparent 30%),
-          radial-gradient(circle at right, rgba(56, 189, 248, 0.14), transparent 35%),
+          radial-gradient(circle at top left, rgba(139, 92, 246, 0.16), transparent 28%),
+          radial-gradient(circle at right center, rgba(34, 211, 238, 0.15), transparent 32%),
           var(--bg);
         color: var(--text);
       }
 
-      a {
-        text-decoration: none;
-      }
-
-      .container {
-        max-width: 1180px;
-      }
+      a { text-decoration: none; }
+      .container { max-width: 1180px; }
 
       .navbar {
-        background: rgba(7, 17, 31, 0.8);
+        background: rgba(7, 19, 31, 0.8);
         backdrop-filter: blur(18px);
         border-bottom: 1px solid var(--line);
       }
 
       .navbar-brand {
         font-weight: 800;
-        letter-spacing: 0.04em;
+        letter-spacing: 0.08em;
         color: #fff !important;
       }
 
       .nav-link {
         color: var(--muted) !important;
-        font-weight: 600;
+        font-weight: 700;
         transition: 0.25s ease;
       }
 
-      .nav-link:hover {
-        color: var(--primary-2) !important;
-      }
+      .nav-link:hover { color: var(--primary-2) !important; }
 
       .hero {
         position: relative;
         overflow: hidden;
         padding: 120px 0 80px;
-        background: linear-gradient(135deg, rgba(4, 9, 19, 0.96), rgba(8, 18, 31, 0.94));
+        background: linear-gradient(135deg, #081521, #0e1a2c 42%, #0f1d2c 100%);
       }
 
       .hero::before,
@@ -93,18 +78,18 @@
         width: 420px;
         height: 420px;
         border-radius: 50%;
-        filter: blur(80px);
-        opacity: 0.28;
+        filter: blur(90px);
+        opacity: 0.25;
       }
 
       .hero::before {
-        background: rgba(34, 197, 94, 0.45);
-        top: -80px;
+        background: rgba(139, 92, 246, 0.55);
         left: -40px;
+        top: -80px;
       }
 
       .hero::after {
-        background: rgba(56, 189, 248, 0.38);
+        background: rgba(34, 211, 238, 0.48);
         right: -30px;
         bottom: -100px;
       }
@@ -115,25 +100,25 @@
         gap: 8px;
         padding: 10px 18px;
         border-radius: 999px;
-        background: rgba(34, 197, 94, 0.12);
-        border: 1px solid rgba(34, 197, 94, 0.25);
-        color: #b9f5ce;
-        font-size: 0.82rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
+        background: rgba(16, 185, 129, 0.12);
+        border: 1px solid rgba(16, 185, 129, 0.28);
+        color: #b8f1d8;
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
         margin-bottom: 20px;
       }
 
       h1 {
-        font-size: clamp(2.7rem, 5vw, 5rem);
-        line-height: 1.08;
-        font-weight: 900;
+        font-size: clamp(2.8rem, 5vw, 5rem);
+        font-weight: 800;
+        line-height: 1.05;
         margin-bottom: 18px;
       }
 
       .highlight {
-        background: linear-gradient(90deg, var(--primary), var(--primary-2));
+        background: linear-gradient(90deg, var(--primary), var(--primary-2), var(--primary-3));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
@@ -141,7 +126,7 @@
       .lead {
         color: var(--muted);
         font-size: 1.08rem;
-        line-height: 1.8;
+        line-height: 1.9;
         max-width: 620px;
       }
 
@@ -160,30 +145,30 @@
         min-width: 180px;
         padding: 14px 24px;
         border-radius: 999px;
-        font-weight: 700;
+        font-weight: 800;
         transition: 0.3s ease;
       }
 
       .btn-primary-custom {
         background: linear-gradient(135deg, var(--primary), var(--primary-2));
         color: #031018;
-        box-shadow: 0 16px 30px rgba(34, 197, 94, 0.28);
+        box-shadow: 0 18px 32px rgba(34, 211, 238, 0.2);
       }
 
       .btn-primary-custom:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 18px 35px rgba(34, 197, 94, 0.4);
+        transform: translateY(-3px);
+        box-shadow: 0 22px 40px rgba(139, 92, 246, 0.28);
       }
 
       .btn-secondary-custom {
-        background: rgba(255, 255, 255, 0.03);
+        background: rgba(255, 255, 255, 0.02);
         border: 1px solid var(--line);
         color: var(--text);
       }
 
       .btn-secondary-custom:hover {
-        transform: translateY(-2px);
-        border-color: rgba(56, 189, 248, 0.5);
+        transform: translateY(-3px);
+        border-color: rgba(34, 211, 238, 0.4);
       }
 
       .stat-row {
@@ -194,8 +179,8 @@
       }
 
       .stat-box {
-        min-width: 130px;
-        padding: 18px 20px;
+        min-width: 120px;
+        padding: 18px 22px;
         border-radius: 18px;
         background: rgba(148, 163, 184, 0.05);
         border: 1px solid var(--line);
@@ -203,37 +188,29 @@
 
       .stat-number {
         display: block;
-        font-size: 1.6rem;
+        font-size: 1.5rem;
         font-weight: 800;
         color: #fff;
       }
 
       .stat-label {
         color: var(--muted);
-        font-size: 0.8rem;
+        font-size: 0.78rem;
       }
 
       .profile-card {
         position: relative;
-        background: linear-gradient(180deg, rgba(13, 22, 34, 0.9), rgba(11, 17, 29, 0.9));
+        background: linear-gradient(180deg, rgba(12, 24, 38, 0.9), rgba(8, 17, 28, 0.96));
         border: 1px solid var(--line);
-        border-radius: 26px;
+        border-radius: 28px;
         padding: 24px;
         box-shadow: var(--shadow);
-        animation: floatCard 6s ease-in-out infinite;
+        animation: floatCard 7s ease-in-out infinite;
       }
 
       @keyframes floatCard {
-        0%,
-        100% { transform: translateY(0px); }
-        50% { transform: translateY(-10px); }
-      }
-
-      .profile-card-inner {
-        overflow: hidden;
-        border-radius: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(255, 255, 255, 0.02);
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-12px); }
       }
 
       .profile-card img {
@@ -241,14 +218,15 @@
         height: 520px;
         object-fit: cover;
         display: block;
+        border-radius: 22px;
       }
 
       .mini-panel {
         position: absolute;
         right: 18px;
         bottom: 18px;
-        background: rgba(7, 17, 31, 0.8);
-        border: 1px solid rgba(34, 197, 94, 0.4);
+        background: rgba(7, 17, 31, 0.82);
+        border: 1px solid rgba(16, 185, 129, 0.4);
         border-radius: 16px;
         padding: 14px 16px;
         backdrop-filter: blur(10px);
@@ -269,14 +247,14 @@
       }
 
       .section-header {
-        margin-bottom: 42px;
+        margin-bottom: 36px;
       }
 
       .eyebrow {
         display: inline-block;
         margin-bottom: 12px;
         color: var(--primary-2);
-        font-size: 0.8rem;
+        font-size: 0.78rem;
         font-weight: 800;
         letter-spacing: 0.12em;
         text-transform: uppercase;
@@ -299,7 +277,7 @@
       .skill-card,
       .project-card,
       .contact-panel {
-        background: rgba(15, 24, 39, 0.9);
+        background: rgba(15, 24, 39, 0.92);
         border: 1px solid var(--line);
         border-radius: 22px;
         box-shadow: var(--shadow);
@@ -317,7 +295,7 @@
       .info-item {
         display: flex;
         justify-content: space-between;
-        gap: 18px;
+        gap: 16px;
         padding-bottom: 14px;
         border-bottom: 1px solid rgba(148, 163, 184, 0.12);
         color: var(--muted);
@@ -328,9 +306,7 @@
         padding-bottom: 0;
       }
 
-      .info-item strong {
-        color: #fff;
-      }
+      .info-item strong { color: #fff; }
 
       .stack-list {
         display: flex;
@@ -344,9 +320,9 @@
       .stack-list li {
         padding: 10px 14px;
         border-radius: 999px;
-        background: rgba(56, 189, 248, 0.08);
-        border: 1px solid rgba(56, 189, 248, 0.2);
-        color: #cfeaff;
+        background: rgba(34, 211, 238, 0.08);
+        border: 1px solid rgba(34, 211, 238, 0.18);
+        color: #d1f4ff;
         font-size: 0.8rem;
         font-weight: 700;
       }
@@ -365,7 +341,7 @@
       .skill-card:hover,
       .project-card:hover {
         transform: translateY(-10px);
-        border-color: rgba(56, 189, 248, 0.4);
+        border-color: rgba(34, 211, 238, 0.4);
       }
 
       .icon-box {
@@ -376,15 +352,15 @@
         align-items: center;
         justify-content: center;
         border-radius: 20px;
-        background: linear-gradient(135deg, rgba(34, 197, 94, 0.14), rgba(56, 189, 248, 0.12));
-        border: 1px solid rgba(56, 189, 248, 0.15);
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.14), rgba(34, 211, 238, 0.12));
+        border: 1px solid rgba(34, 211, 238, 0.16);
         color: var(--primary-2);
-        font-size: 1.5rem;
+        font-size: 1.45rem;
         font-weight: 800;
       }
 
       .skill-card h4 {
-        font-size: 1.15rem;
+        font-size: 1.1rem;
         margin-bottom: 8px;
       }
 
@@ -395,9 +371,17 @@
       }
 
       .project-card {
+        display: block;
         overflow: hidden;
         height: 100%;
         transition: 0.3s ease;
+        cursor: pointer;
+        text-align: left;
+        width: 100%;
+        padding: 0;
+        color: inherit;
+        border: 1px solid var(--line);
+        background: rgba(15, 24, 39, 0.92);
       }
 
       .project-card img {
@@ -405,6 +389,11 @@
         height: 220px;
         object-fit: cover;
         display: block;
+      }
+
+      .project-card.selected {
+        border-color: rgba(34, 211, 238, 0.5);
+        box-shadow: 0 22px 55px rgba(34, 211, 238, 0.1);
       }
 
       .project-body {
@@ -415,18 +404,18 @@
         display: inline-block;
         padding: 8px 12px;
         border-radius: 999px;
-        background: rgba(167, 139, 250, 0.12);
-        border: 1px solid rgba(167, 139, 250, 0.2);
-        color: #dccdff;
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 0.04em;
+        background: rgba(139, 92, 246, 0.12);
+        border: 1px solid rgba(139, 92, 246, 0.2);
+        color: #e0d6ff;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
         text-transform: uppercase;
       }
 
       .project-body h4 {
         margin: 18px 0 12px;
-        font-size: 1.35rem;
+        font-size: 1.38rem;
       }
 
       .project-body p {
@@ -446,7 +435,7 @@
       .project-list li {
         position: relative;
         padding-left: 18px;
-        color: #d9e7f7;
+        color: #dfeaf8;
         font-size: 0.9rem;
       }
 
@@ -454,8 +443,12 @@
         content: "•";
         position: absolute;
         left: 0;
-        color: var(--primary);
-        font-size: 1.2rem;
+        color: var(--primary-3);
+        font-size: 1.3rem;
+      }
+
+      #project-detail {
+        transition: 0.28s ease;
       }
 
       .contact-panel {
@@ -499,33 +492,16 @@
       }
 
       @media (max-width: 991px) {
-        .profile-card img {
-          height: 420px;
-        }
-
-        .contact-grid {
-          grid-template-columns: 1fr;
-        }
+        .profile-card img { height: 420px; }
+        .contact-grid { grid-template-columns: 1fr; }
       }
 
       @media (max-width: 767px) {
-        .hero {
-          padding-top: 100px;
-        }
-
-        .cta-row {
-          flex-direction: column;
-          align-items: stretch;
-        }
-
+        .hero { padding-top: 100px; }
+        .cta-row { flex-direction: column; align-items: stretch; }
         .btn-primary-custom,
-        .btn-secondary-custom {
-          width: 100%;
-        }
-
-        .profile-card {
-          margin-top: 30px;
-        }
+        .btn-secondary-custom { width: 100%; }
+        .profile-card { margin-top: 30px; }
       }
     </style>
   </head>
@@ -533,15 +509,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
       <div class="container">
         <a class="navbar-brand" href="#home">RABIE</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#mainNav"
-          aria-controls="mainNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="mainNav">
@@ -560,13 +528,9 @@
         <div class="row align-items-center g-5">
           <div class="col-lg-6">
             <div class="badge-soft">Backend PHP Laravel Developer</div>
-            <h1>
-              Hello, I’m <span class="highlight">Rabie Abdulrahman</span>
-            </h1>
+            <h1>Hello, I’m <span class="highlight">Rabie Abdulrahman</span></h1>
             <p class="lead">
-              I design and build scalable backend systems, REST APIs, and business-critical software using
-              Laravel, PHP, MySQL, and modern development practices. I focus on clean architecture, secure
-              authentication, API quality, and reliable production systems.
+              I design and build scalable backend systems, REST APIs, and business-critical software using Laravel, PHP, MySQL, and modern development practices. I focus on clean architecture, secure authentication, API quality, and reliable production systems.
             </p>
 
             <div class="cta-row">
@@ -592,12 +556,7 @@
 
           <div class="col-lg-6">
             <div class="profile-card">
-              <div class="profile-card-inner">
-                <img
-                  src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80"
-                  alt="Rabie Abdulrahman portrait"
-                />
-              </div>
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80" alt="Rabie Abdulrahman portrait" />
               <div class="mini-panel">
                 <strong>Available for work</strong>
                 <span>Laravel / PHP / Backend Projects</span>
@@ -615,9 +574,7 @@
             <span class="eyebrow">About Me</span>
             <h2>Backend engineer with a strong product mindset</h2>
             <p class="section-copy">
-              I am a backend developer focused on building secure, high-performance, and scalable systems for
-              startups and enterprise applications. My work spans RESTful API development, database design,
-              authentication, business logic, integrations, and production-ready architecture.
+              I am a backend developer focused on building secure, high-performance, and scalable systems for startups and enterprise applications. My work spans RESTful API development, database design, authentication, business logic, integrations, and production-ready architecture.
             </p>
           </div>
 
@@ -638,8 +595,7 @@
               <div class="glass-card about-card">
                 <h3 class="mb-3">Core strengths</h3>
                 <p class="section-copy mb-3">
-                  I create system foundations that support real business operations, from onboarding and workflow
-                  automation to notification systems, databases, and integrations.
+                  I create system foundations that support real business operations, from onboarding and workflow automation to notification systems, databases, and integrations.
                 </p>
                 <ul class="stack-list">
                   <li>Laravel</li>
@@ -711,7 +667,7 @@
 
           <div class="row g-4 project-grid">
             <div class="col-md-6 col-lg-4">
-              <div class="project-card">
+              <button class="project-card btn btn-link text-start w-100 p-0 border-0" data-project="home-plate">
                 <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80" alt="Home Plate" />
                 <div class="project-body">
                   <span class="tag">Food Delivery</span>
@@ -724,11 +680,11 @@
                     <li>Cloudflare R2</li>
                   </ul>
                 </div>
-              </div>
+              </button>
             </div>
 
             <div class="col-md-6 col-lg-4">
-              <div class="project-card">
+              <button class="project-card btn btn-link text-start w-100 p-0 border-0" data-project="farra">
                 <img src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=900&q=80" alt="Farra" />
                 <div class="project-body">
                   <span class="tag">Transportation</span>
@@ -741,11 +697,11 @@
                     <li>Admin APIs</li>
                   </ul>
                 </div>
-              </div>
+              </button>
             </div>
 
             <div class="col-md-6 col-lg-4">
-              <div class="project-card">
+              <button class="project-card btn btn-link text-start w-100 p-0 border-0" data-project="baby-track">
                 <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=900&q=80" alt="Baby-Track" />
                 <div class="project-body">
                   <span class="tag">AI &amp; ML</span>
@@ -758,11 +714,11 @@
                     <li>REST backend</li>
                   </ul>
                 </div>
-              </div>
+              </button>
             </div>
 
             <div class="col-md-6 col-lg-4">
-              <div class="project-card">
+              <button class="project-card btn btn-link text-start w-100 p-0 border-0" data-project="movepoint">
                 <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80" alt="MovePoint" />
                 <div class="project-body">
                   <span class="tag">Enterprise</span>
@@ -775,11 +731,11 @@
                     <li>Role-based access</li>
                   </ul>
                 </div>
-              </div>
+              </button>
             </div>
 
             <div class="col-md-6 col-lg-4">
-              <div class="project-card">
+              <button class="project-card btn btn-link text-start w-100 p-0 border-0" data-project="mvl-lamousine">
                 <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80" alt="MVL Lamousine" />
                 <div class="project-body">
                   <span class="tag">Booking Platform</span>
@@ -792,11 +748,11 @@
                     <li>Payment workflows</li>
                   </ul>
                 </div>
-              </div>
+              </button>
             </div>
 
             <div class="col-md-6 col-lg-4">
-              <div class="project-card">
+              <button class="project-card btn btn-link text-start w-100 p-0 border-0" data-project="whatsapp-messaging">
                 <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=900&q=80" alt="WhatsApp Messaging Platform" />
                 <div class="project-body">
                   <span class="tag">SaaS</span>
@@ -807,6 +763,46 @@
                     <li>OTP auth</li>
                     <li>Customer subscriptions</li>
                     <li>Messaging integrations</li>
+                  </ul>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <div class="mt-5 glass-card about-card" id="project-detail" style="padding: 30px 28px;">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
+              <div>
+                <span class="eyebrow" style="margin-bottom: 8px;">Project detail</span>
+                <h3 id="detail-title">Home Plate</h3>
+              </div>
+              <span class="tag" id="detail-tag">Food Delivery</span>
+            </div>
+
+            <p id="detail-text" class="section-copy mb-4">
+              A complete food delivery ecosystem that connects customers, vendors, riders, and administrators through a scalable Laravel backend and secure REST APIs.
+            </p>
+
+            <div class="row g-4">
+              <div class="col-lg-6">
+                <div class="glass-card" style="padding: 22px; background: rgba(255,255,255,0.02);">
+                  <h5>Key capabilities</h5>
+                  <ul class="project-list mb-0" id="detail-features">
+                    <li>RESTful APIs</li>
+                    <li>Order lifecycle management</li>
+                    <li>Wallet and payments</li>
+                    <li>Notifications and push</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="glass-card" style="padding: 22px; background: rgba(255,255,255,0.02);">
+                  <h5>Technology stack</h5>
+                  <ul class="stack-list mb-0" id="detail-stack">
+                    <li>Laravel</li>
+                    <li>PHP</li>
+                    <li>MySQL</li>
+                    <li>REST API</li>
                   </ul>
                 </div>
               </div>
@@ -849,5 +845,45 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const projects = {
+        'home-plate': { title: 'Home Plate', tag: 'Food Delivery', text: 'A complete food delivery ecosystem that connects customers, vendors, riders, and administrators through a scalable Laravel backend and secure REST APIs.', features: ['RESTful APIs', 'Order lifecycle management', 'Wallet and payments', 'Notifications and push', 'Vendor/rider workflows', 'Admin dashboards'], stack: ['Laravel', 'PHP', 'MySQL', 'REST API', 'Sanctum', 'Firebase', 'Cloudflare R2'] },
+        'farra': { title: 'Farra', tag: 'Transportation', text: 'A backend system built for transportation and service operations, covering request management, role-based access, and operational workflows across users and services.', features: ['User management', 'Role-based access', 'Service management', 'Request workflows', 'Notification systems', 'Admin APIs'], stack: ['Laravel', 'PHP', 'MySQL', 'REST API', 'Firebase'] },
+        'baby-track': { title: 'Baby-Track', tag: 'AI & ML', text: 'An AI-powered platform that classifies baby crying sounds using audio processing and machine learning models, with Laravel APIs for validation, prediction, and result handling.', features: ['Audio upload', 'Validation flow', 'Cry classification', 'Prediction handling', 'Confidence scoring', 'History storage'], stack: ['Laravel 12', 'PHP', 'Python', 'MySQL', 'Machine Learning', 'REST API'] },
+        'movepoint': { title: 'MovePoint', tag: 'Enterprise', text: 'A business management platform designed to organize employees, attendance, leave requests, salary tracking, documentation, and operational admin processes.', features: ['Employee management', 'Attendance tracking', 'Salary workflows', 'Document uploads', 'Permissions', 'Admin APIs'], stack: ['Laravel', 'PHP', 'MySQL', 'REST API', 'Firebase'] },
+        'mvl-lamousine': { title: 'MVL Lamousine', tag: 'Booking Platform', text: 'A transportation booking backend handling customers, vendors, quotations, bookings, notifications, and payment flows for rental and limousine services.', features: ['Booking workflow', 'Fleet management', 'Quotation system', 'Vendor handling', 'Payment integration', 'Notifications'], stack: ['Laravel', 'PHP', 'MySQL', 'REST API', 'Firebase'] },
+        'whatsapp-messaging': { title: 'WhatsApp Messaging', tag: 'SaaS', text: 'A SaaS messaging system for customer communication, campaigns, subscriptions, OTP authentication, and account-based messaging business flows.', features: ['Subscription management', 'OTP auth', 'Campaign control', 'Customer APIs', 'Messaging integrations', 'Admin backend'], stack: ['Laravel', 'PHP', 'MySQL', 'Sanctum', 'REST API'] }
+      };
+
+      const detailTitle = document.getElementById('detail-title');
+      const detailTag = document.getElementById('detail-tag');
+      const detailText = document.getElementById('detail-text');
+      const detailFeatures = document.getElementById('detail-features');
+      const detailStack = document.getElementById('detail-stack');
+
+      function renderProject(projectKey) {
+        const project = projects[projectKey];
+        if (!project) return;
+
+        detailTitle.textContent = project.title;
+        detailTag.textContent = project.tag;
+        detailText.textContent = project.text;
+        detailFeatures.innerHTML = project.features.map(item => `<li>${item}</li>`).join('');
+        detailStack.innerHTML = project.stack.map(item => `<li>${item}</li>`).join('');
+
+        document.querySelectorAll('.project-card').forEach(card => {
+          card.classList.toggle('selected', card.dataset.project === projectKey);
+        });
+      }
+
+      document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('click', () => {
+          renderProject(card.dataset.project);
+          document.getElementById('project-detail').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+
+      renderProject('home-plate');
+    </script>
   </body>
 </html>
