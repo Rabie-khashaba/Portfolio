@@ -160,7 +160,7 @@ export default function Hero({ locale }: HeroProps) {
                 <MapPin size={14} className="text-accent" /> Egypt
               </span>
               <span className="flex items-center gap-1.5">
-                <Calendar size={14} className="text-accent" /> {t('experience')} Experience
+                <Calendar size={14} className="text-accent" /> {t('experience')}
               </span>
             </motion.div>
 
@@ -215,24 +215,24 @@ export default function Hero({ locale }: HeroProps) {
             initial={{ opacity: 0, scale: 0.96, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="relative mx-auto w-full max-w-[340px] flex-shrink-0 sm:max-w-[400px] lg:mx-0 lg:max-w-[460px]"
+            className="relative mx-auto w-full max-w-[320px] flex-shrink-0 px-1 sm:max-w-[400px] sm:px-0 lg:mx-0 lg:max-w-[460px]"
           >
             {/* Decorative rings */}
-            <div className="absolute -inset-3 rounded-[2.5rem] border border-accent/15 opacity-70" />
-            <div className="absolute -inset-6 rounded-[3rem] border border-border" />
+            <div className="absolute -inset-2 rounded-[2rem] border border-accent/15 opacity-70 sm:-inset-3 sm:rounded-[2.5rem]" />
+            <div className="absolute -inset-4 rounded-[2.5rem] border border-border sm:-inset-6 sm:rounded-[3rem]" />
 
             {/* Glow blobs */}
             <div className="absolute -right-4 -top-4 h-40 w-40 rounded-full bg-accent/20 blur-[60px] sm:-right-8 sm:-top-8 sm:h-52 sm:w-52 sm:blur-[70px]" />
             <div className="absolute -bottom-4 -left-4 h-36 w-36 rounded-full bg-accent/10 blur-[50px] sm:-bottom-8 sm:-left-8 sm:h-48 sm:w-48 sm:blur-[60px]" />
 
             {/* Photo */}
-            <div className="relative overflow-hidden rounded-[2rem] border border-border bg-card shadow-2xl">
-              <div className="relative h-[420px] w-full sm:h-[540px] lg:h-[620px]">
+            <div className="relative overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-2xl sm:rounded-[2rem]">
+              <div className="relative h-[440px] w-full xs:h-[500px] sm:h-[540px] lg:h-[620px]">
                 <Image
                   src="/main.jpg"
                   alt="Rabie Abdelrahman — Laravel 12 Backend Engineer"
                   fill
-                  className="object-cover object-top"
+                  className="object-cover object-[50%_18%] sm:object-top"
                   priority
                   sizes="(max-width: 768px) 100vw, 460px"
                 />
@@ -240,16 +240,16 @@ export default function Hero({ locale }: HeroProps) {
               </div>
 
               {/* Overlay info */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
-                <div className="rounded-2xl border border-border bg-card/90 p-3.5 sm:p-4 backdrop-blur-md shadow-lg">
+              <div className="absolute bottom-0 left-0 right-0 p-3.5 sm:p-5">
+                <div className="rounded-2xl border border-border bg-card/90 p-3 sm:p-4 backdrop-blur-md shadow-lg">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-text-muted sm:text-[10px]">
+                      <p className="text-[8px] font-bold uppercase tracking-[0.14em] text-text-muted xs:text-[9px] sm:text-[10px] sm:tracking-[0.18em]">
                         Laravel 12 · PHP 8.2 · Python
                       </p>
                       <p className="mt-0.5 text-xs font-bold text-heading sm:text-sm">Backend Engineer</p>
                     </div>
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-accent/20 text-accent sm:h-10 sm:w-10">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent sm:h-10 sm:w-10">
                       <Sparkles size={16} />
                     </div>
                   </div>
@@ -258,15 +258,15 @@ export default function Hero({ locale }: HeroProps) {
             </div>
 
             {/* Floating badge top-right */}
-            <div className="absolute -right-2 top-6 rounded-2xl border border-border bg-card/95 px-3 py-2 shadow-xl backdrop-blur-md sm:-right-8 sm:top-10 sm:px-4 sm:py-3">
+            <div className="absolute right-3 top-5 max-w-[190px] rounded-2xl border border-border bg-card/95 px-3 py-2 shadow-xl backdrop-blur-md sm:-right-8 sm:top-10 sm:max-w-none sm:px-4 sm:py-3">
               <p className="text-[9px] uppercase tracking-widest text-text-muted sm:text-[10px]">Open To Work</p>
-              <p className="mt-0.5 text-xs font-bold text-heading sm:text-sm">Freelance · Full-time</p>
+              <p className="mt-0.5 text-[11px] font-bold text-heading xs:text-xs sm:text-sm">Freelance · Full-time</p>
             </div>
 
             {/* Floating badge bottom-left */}
-            <div className="absolute -left-2 bottom-20 rounded-2xl border border-accent/30 bg-card/95 px-3 py-2 shadow-xl backdrop-blur-md sm:-left-8 sm:bottom-28 sm:px-4 sm:py-3">
+            <div className="absolute bottom-24 left-3 max-w-[210px] rounded-2xl border border-accent/30 bg-card/95 px-3 py-2 shadow-xl backdrop-blur-md sm:-left-8 sm:bottom-28 sm:max-w-none sm:px-4 sm:py-3">
               <p className="text-[9px] uppercase tracking-widest text-accent font-bold sm:text-[10px]">Stack</p>
-              <p className="mt-0.5 text-xs font-bold text-heading sm:text-sm">Laravel · FastAPI · AWS</p>
+              <p className="mt-0.5 text-[11px] font-bold text-heading xs:text-xs sm:text-sm">Laravel · FastAPI · AWS</p>
             </div>
           </motion.div>
         </div>

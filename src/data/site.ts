@@ -8,7 +8,7 @@ export const siteConfig = {
   email: 'khashabarabie@gmail.com',
   location: 'Egypt',
   availableForHire: true,
-  experienceYears: 5,
+  experienceYears: 1.5,
   completedProjectsCount: 15,
   shippedAppsCount: 7,
 };

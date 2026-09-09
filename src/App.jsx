@@ -601,7 +601,7 @@ export default function App() {
                       <div className="grid gap-3 sm:grid-cols-2">
                         <div className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
                           <p className="text-[10px] uppercase tracking-[0.22em] text-muted">{t.experience}</p>
-                          <p className="mt-2 text-xl font-semibold text-white">5+ Years</p>
+                          <p className="mt-2 text-xl font-semibold text-white">1.5 Years</p>
                         </div>
                         <div className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
                           <p className="text-[10px] uppercase tracking-[0.22em] text-muted">{t.focus}</p>
