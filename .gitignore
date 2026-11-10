@@ -1,7 +1,4 @@
 node_modules
 dist
-.next
-out
 .vite
 .DS_Store
-*.log

@@ -2,7 +2,9 @@
   "name": "portfolio",
   "compatibility_date": "2026-09-07",
   "assets": {
-    "directory": "./out",
+    "directory": "./dist",
     "not_found_handling": "single-page-application"
   }
 }
+
+

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 3, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"","debugId":null}},
+    {"offset": {"line": 11, "column": 0}, "map": {"version":3,"sources":["file:///F:/Web%20Develop/Porfolio/src/app/page.tsx"],"sourcesContent":["export default function RootPage() {\r\n  return (\r\n    <main className=\"flex min-h-screen items-center justify-center bg-primary px-6 text-center text-white\">\r\n      <div>\r\n        <p className=\"text-sm font-semibold uppercase tracking-widest text-accent\">Redirecting</p>\r\n        <h1 className=\"mt-3 text-2xl font-bold\">Opening portfolio...</h1>\r\n        <a className=\"mt-5 inline-flex rounded-full border border-accent/40 px-5 py-2 text-sm font-bold text-accent\" href=\"/en/\">\r\n          Continue to English version\r\n        </a>\r\n        <script dangerouslySetInnerHTML={{ __html: \"window.location.replace('/en/');\" }} />\r\n      </div>\r\n    </main>\r\n  );\r\n}\r\n"],"names":[],"mappings":";;;;;;AAAe,SAAS;IACtB,qBACE,8OAAC;QAAK,WAAU;kBACd,cAAA,8OAAC;;8BACC,8OAAC;oBAAE,WAAU;8BAA8D;;;;;;8BAC3E,8OAAC;oBAAG,WAAU;8BAA0B;;;;;;8BACxC,8OAAC;oBAAE,WAAU;oBAAgG,MAAK;8BAAO;;;;;;8BAGzH,8OAAC;oBAAO,yBAAyB;wBAAE,QAAQ;oBAAmC;;;;;;;;;;;;;;;;;AAItF","debugId":null}}]
+}
