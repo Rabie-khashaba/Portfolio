@@ -1012,18 +1012,17 @@ a {
 .portfolio-prompt {
   position: relative;
   display: flex;
-  width: min(100%, 820px);
-  min-height: 230px;
+  width: min(100%, 760px);
   flex-direction: column;
-  justify-content: space-between;
-  margin: 38px auto 0;
+  gap: 16px;
+  margin: 34px auto 0;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 30px;
-  padding: 28px;
+  border-radius: 26px;
+  padding: clamp(20px, 3.2vw, 30px);
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(124, 58, 237, 0.1), transparent 65%),
+    radial-gradient(ellipse at 8% 0%, rgba(124, 58, 237, 0.16), transparent 52%),
     rgba(20, 19, 27, 0.82);
-  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.27), inset 0 1px rgba(255, 255, 255, 0.035);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24), inset 0 1px rgba(255, 255, 255, 0.035);
   backdrop-filter: blur(20px);
   transition: border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
 }
@@ -1033,27 +1032,104 @@ a {
   box-shadow: 0 30px 90px rgba(76, 29, 149, 0.16), inset 0 1px rgba(255, 255, 255, 0.04);
 }
 
+.portfolio-prompt-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.portfolio-prompt-icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgba(196, 181, 253, 0.2);
+  border-radius: 14px;
+  color: #d8c8ff;
+  background: linear-gradient(145deg, rgba(139, 92, 246, 0.24), rgba(168, 85, 247, 0.1));
+}
+
+.portfolio-prompt-heading-copy {
+  min-width: 0;
+}
+
+.portfolio-prompt-eyebrow,
+.portfolio-prompt-links-label {
+  color: #a78bfa;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  line-height: 1.4;
+}
+
 .portfolio-prompt-title {
-  padding-top: 14px;
-  color: #85848f;
-  font-size: 13.16px;
+  margin-top: 4px;
+  color: #f4f1fa;
+  font-size: clamp(15px, 2vw, 18px);
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  line-height: 1.35;
+}
+
+.portfolio-prompt-status {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 7px;
+  margin-inline-start: auto;
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  border-radius: 999px;
+  padding: 6px 9px;
+  color: #d8c8ff;
+  background: rgba(139, 92, 246, 0.08);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.portfolio-prompt-status i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #a78bfa;
+  box-shadow: 0 0 10px rgba(167, 139, 250, 0.55);
+}
+
+.portfolio-prompt-description {
+  max-width: 52ch;
+  color: #a1a1aa;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.portfolio-prompt-links-label {
+  color: #777383;
+  font-size: 8px;
+  letter-spacing: 0.14em;
 }
 
 .portfolio-prompt-form {
+  order: initial;
+  gap: 10px;
   min-height: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 5px 6px 5px 17px;
-  background: rgba(9, 9, 13, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 5px 6px 5px 15px;
+  background: rgba(9, 9, 13, 0.58);
+  transition: border-color 200ms ease, box-shadow 200ms ease, background 200ms ease;
 }
 
 .portfolio-prompt-form:focus-within {
   border-color: rgba(139, 92, 246, 0.48);
   box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+  background: rgba(9, 9, 13, 0.82);
 }
 
 .portfolio-prompt-form input {
+  min-width: 0;
   color: #f4f4f5;
-  font-size: 12.22px;
+  font-size: 13px;
 }
 
 .portfolio-prompt-form input::placeholder {
@@ -1061,8 +1137,9 @@ a {
 }
 
 .portfolio-prompt-form button {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   color: #fff;
   background: linear-gradient(135deg, #7c3aed, #a855f7);
 }
@@ -1071,23 +1148,27 @@ a {
   background: linear-gradient(135deg, #8b5cf6, #c084fc);
 }
 
-.portfolio-prompt-links {
-  order: 2;
-  justify-content: center;
-  gap: 8px;
-  padding: 0 0 8px;
+.portfolio-prompt-form button:disabled {
+  cursor: wait;
+  opacity: 0.72;
 }
 
-.portfolio-prompt-form {
-  order: 3;
+.portfolio-prompt-links {
+  order: initial;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
 }
 
 .portfolio-prompt-links a {
-  border: 1px solid rgba(255, 255, 255, 0.075);
-  padding: 7px 13px;
-  color: #a1a1aa;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 999px;
+  padding: 7px 12px;
+  color: #b7b3c2;
   background: rgba(255, 255, 255, 0.035);
-  font-size: 11px;
+  font-size: 10px;
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
 }
 
 .portfolio-prompt-links a:hover {
@@ -1097,13 +1178,21 @@ a {
 }
 
 .portfolio-prompt-answer {
-  order: 4;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 14px;
+  order: initial;
+  border: 1px solid rgba(196, 181, 253, 0.14);
+  border-radius: 14px;
+  padding: 14px 15px;
   color: #c4c0ce;
-  font-size: 12.22px;
+  font-size: 13px;
   line-height: 1.7;
   text-align: left;
+  background: rgba(139, 92, 246, 0.055);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+[dir='rtl'] .portfolio-prompt-answer {
+  text-align: right;
 }
 
 .portfolio-prompt-answer span {
@@ -1114,6 +1203,22 @@ a {
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+
+.portfolio-prompt-answer p {
+  margin: 0;
+}
+
+.portfolio-prompt-answer.is-error {
+  border-color: rgba(248, 113, 113, 0.2);
+  color: #fecaca;
+  background: rgba(239, 68, 68, 0.07);
+}
+
+.portfolio-prompt-answer.is-error span {
+  color: #fca5a5;
+  letter-spacing: 0.04em;
+  text-transform: none;
 }
 
 .portfolio-scroll-cue {
@@ -2623,6 +2728,59 @@ a {
   color: #7b8597;
 }
 
+.theme-light .portfolio-prompt-icon {
+  border-color: #e2dcf1;
+  color: #6747c7;
+  background: #f5f2fb;
+}
+
+.theme-light .portfolio-prompt-eyebrow {
+  color: #6747c7;
+}
+
+.theme-light .portfolio-prompt-title {
+  color: #172033;
+}
+
+.theme-light .portfolio-prompt-description {
+  color: #5d687b;
+}
+
+.theme-light .portfolio-prompt-links-label {
+  color: #7b8597;
+}
+
+.theme-light .portfolio-prompt-status {
+  border-color: #e2dcf1;
+  color: #6747c7;
+  background: #f5f2fb;
+}
+
+.theme-light .portfolio-prompt-answer {
+  border-color: #e6def5;
+  color: #344158;
+  background: #faf8fe;
+}
+
+.theme-light .portfolio-prompt-answer span {
+  color: #6747c7;
+}
+
+.theme-light .portfolio-prompt-answer.is-error {
+  border-color: #f1d8d8;
+  color: #7f3030;
+  background: #fff7f7;
+}
+
+.theme-light .portfolio-prompt-answer.is-error span {
+  color: #a33d3d;
+}
+
+.theme-light .portfolio-prompt-form:focus-within {
+  border-color: #b7a5e3;
+  background: #fff;
+}
+
 .theme-light .portfolio-prompt-links a {
   border-color: #e2e7ef;
   color: #566176;
@@ -3191,17 +3349,37 @@ a {
 
   .portfolio-prompt {
     min-height: 0;
+    gap: 14px;
     margin-top: 24px;
     padding: 18px 16px 14px;
   }
 
+  .portfolio-prompt-heading {
+    gap: 11px;
+  }
+
+  .portfolio-prompt-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+
   .portfolio-prompt-title {
-    font-size: 0.875rem;
+    font-size: clamp(0.9rem, 3.8vw, 1rem);
     line-height: 1.5;
+  }
+
+  .portfolio-prompt-description {
+    font-size: 0.8rem;
+  }
+
+  .portfolio-prompt-links {
+    gap: 7px;
   }
 
   .portfolio-prompt-form {
     min-height: 48px;
+    padding-inline-start: 12px;
   }
 
   .portfolio-prompt-form input {
@@ -3386,6 +3564,30 @@ a {
   .case-study-stack li {
     padding: 8px 11px;
     font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .portfolio-prompt {
+    padding: 16px 13px;
+  }
+
+  .portfolio-prompt-heading {
+    gap: 9px;
+  }
+
+  .portfolio-prompt-status {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font-size: 0;
+  }
+
+  .portfolio-prompt-status i {
+    width: 8px;
+    height: 8px;
   }
 }
 

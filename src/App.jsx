@@ -12,6 +12,7 @@ import {
   Github,
   Linkedin,
   Mail,
+  LoaderCircle,
   Menu,
   Moon,
   ShieldCheck,
@@ -54,14 +55,15 @@ const translations = {
       'With 2+ years of experience, I design and develop secure, scalable backend systems in Laravel and PHP to power APIs, business workflows, and digital products.',
     ctaPrimary: 'View My Work',
     ctaSecondary: 'Get In Touch',
-    answerLabel: 'A quick answer',
-    answers: {
-      projects: 'I build backend systems for delivery, transportation, health, HR, bookings, and messaging products. Explore the selected projects below for details.',
-      skills: 'My core stack is PHP, Laravel, MySQL, and REST APIs, with experience in integrations, authentication, payments, Firebase, and cloud services.',
-      experience: 'I work as a backend engineer building production-ready Laravel systems, APIs, integrations, and data workflows.',
-      about: 'I’m Rabie, a backend engineer focused on secure, maintainable Laravel and PHP systems that support real products and business workflows.',
-      contact: 'You can reach me at khashabarabie@gmail.com. I’m happy to talk about a project or backend challenge.',
-      general: 'I can tell you about my projects, skills, experience, or how to get in touch. Try asking about one of those topics.',
+    answerLabel: 'AI assistant',
+    chatLoading: 'Thinking...',
+    chatErrorLabel: 'Assistant notice',
+    chatErrors: {
+      chat_api_unavailable: 'The chat service is not connected. Start the local Worker or deploy the API.',
+      ai_not_configured: 'Workers AI is not enabled for this deployment. Configure the AI binding and deploy again.',
+      ai_request_failed: 'Cloudflare AI could not answer. Check your account, model availability, and daily usage limit.',
+      empty_ai_response: 'The AI returned an empty answer. Please try asking another way.',
+      default: 'The assistant could not complete your request. Please try again in a moment.',
     },
     profile: 'Profile',
     available: 'Available',
@@ -178,14 +180,15 @@ const translations = {
       'لدي خبرة تزيد عن سنتين في تصميم وبناء أنظمة باك إند آمنة وقابلة للتوسع باستخدام Laravel وPHP لدعم واجهات API وعمليات الأعمال والمنتجات الرقمية.',
     ctaPrimary: 'عرض الأعمال',
     ctaSecondary: 'تواصل معي',
-    answerLabel: 'إجابة سريعة',
-    answers: {
-      projects: 'أبني أنظمة باك إند للتوصيل والنقل والصحة والموارد البشرية والحجوزات والمراسلات. استكشف المشاريع المختارة بالأسفل لمعرفة التفاصيل.',
-      skills: 'تقنياتي الأساسية هي PHP وLaravel وMySQL وواجهات REST، إلى جانب التكاملات والمصادقة والمدفوعات وFirebase والخدمات السحابية.',
-      experience: 'أعمل مهندس باك إند على بناء أنظمة Laravel جاهزة للإنتاج وواجهات API والتكاملات وسير البيانات.',
-      about: 'أنا ربيع، مهندس باك إند أركز على أنظمة Laravel وPHP الآمنة والقابلة للصيانة لدعم المنتجات وعمليات الأعمال الفعلية.',
-      contact: 'يمكنك التواصل معي عبر khashabarabie@gmail.com لمناقشة مشروع أو تحدٍ تقني.',
-      general: 'يمكنني إخبارك عن مشاريعي أو مهاراتي أو خبرتي أو طريقة التواصل معي. جرّب السؤال عن أحد هذه المواضيع.',
+    answerLabel: 'مساعد ذكي',
+    chatLoading: 'جاري تجهيز الإجابة...',
+    chatErrorLabel: 'تنبيه المساعد',
+    chatErrors: {
+      chat_api_unavailable: 'خدمة المحادثة غير متصلة. شغّل Worker محليًا أو انشر واجهة API.',
+      ai_not_configured: 'Workers AI غير مفعّل لهذا النشر. أضف ربط AI ثم أعد النشر.',
+      ai_request_failed: 'تعذر الحصول على إجابة من Cloudflare AI. تحقق من الحساب وتوفر النموذج وحد الاستخدام اليومي.',
+      empty_ai_response: 'لم يُرجع الذكاء الاصطناعي إجابة. حاول صياغة السؤال بطريقة أخرى.',
+      default: 'تعذر إكمال الطلب. حاول مرة أخرى بعد قليل.',
     },
     profile: 'الملف الشخصي',
     available: 'متاح',
@@ -308,6 +311,9 @@ export default function App() {
   });
   const [heroQuestion, setHeroQuestion] = useState('');
   const [heroAnswer, setHeroAnswer] = useState('');
+  const [chatMessages, setChatMessages] = useState([]);
+  const [isAnswering, setIsAnswering] = useState(false);
+  const [chatError, setChatError] = useState('');
   const [selectedProjectSlug, setSelectedProjectSlug] = useState(() =>
     typeof window === 'undefined' ? null : getProjectSlugFromPath(),
   );
@@ -362,17 +368,48 @@ export default function App() {
   }, []);
 
   const handleNavClick = () => setMobileMenuOpen(false);
-  const handleQuestionSubmit = (event) => {
+  const handleQuestionSubmit = async (event) => {
     event.preventDefault();
-    const question = heroQuestion.trim().toLowerCase();
-    const answerKey =
-      /(project|work|built|portfolio|مشروع|أعمال|عمل|بنيت)/i.test(question) ? 'projects'
-          : /(skill|tech|stack|technology|مهار|تقن|مكدس)/i.test(question) ? 'skills'
-          : /(experience|career|job|خبرة|مسار)/i.test(question) ? 'experience'
-            : /(contact|email|hire|تواصل|بريد|وظف)/i.test(question) ? 'contact'
-              : /(about|who|yourself|من أنت|عنك|عن نفسي|عني)/i.test(question) ? 'about'
-                : 'general';
-    setHeroAnswer(answerKey);
+    const question = heroQuestion.trim();
+    if (!question || isAnswering) return;
+
+    setIsAnswering(true);
+    setChatError(false);
+    setHeroAnswer('');
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ question, history: chatMessages.slice(-6), language }),
+      });
+      const responseText = await response.text();
+      let result;
+      try {
+        result = JSON.parse(responseText);
+      } catch {
+        throw new Error('chat_api_unavailable');
+      }
+
+      if (!response.ok) {
+        throw new Error(result?.error || 'chat_api_unavailable');
+      }
+      if (typeof result?.answer !== 'string' || !result.answer.trim()) {
+        throw new Error('invalid_chat_response');
+      }
+
+      const answer = result.answer.trim();
+      setHeroAnswer(answer);
+      setChatMessages((messages) =>
+        [...messages, { role: 'user', content: question }, { role: 'assistant', content: answer }].slice(-6),
+      );
+      setHeroQuestion('');
+    } catch (error) {
+      console.error('Portfolio AI chat request failed.', error);
+      setChatError(error instanceof TypeError ? 'chat_api_unavailable' : error.message);
+    } finally {
+      setIsAnswering(false);
+    }
   };
 
   const navItems = navigation.map((item) => ({
@@ -697,28 +734,31 @@ export default function App() {
               <p className="portfolio-hero-role">{t.role}</p>
 
               <div className="portfolio-prompt">
-                <p className="portfolio-prompt-title">
-                  {language === 'ar' ? 'اسألني أي شيء عن عملي' : 'Ask me anything about my work'}
+                <div className="portfolio-prompt-heading">
+                  <span className="portfolio-prompt-icon" aria-hidden="true">
+                    <Sparkles size={18} />
+                  </span>
+                  <div className="portfolio-prompt-heading-copy">
+                    <span className="portfolio-prompt-eyebrow">
+                      {language === 'ar' ? 'مساعد البورتفوليو الذكي' : 'PORTFOLIO AI ASSISTANT'}
+                    </span>
+                    <p className="portfolio-prompt-title">
+                      {language === 'ar' ? 'اسألني أي شيء عن عملي' : 'Ask me anything about my work'}
+                    </p>
+                  </div>
+                  <span className="portfolio-prompt-status">
+                    <i />
+                    {language === 'ar' ? 'تجريبي' : 'BETA'}
+                  </span>
+                </div>
+                <p className="portfolio-prompt-description">
+                  {language === 'ar'
+                    ? 'اكتشف مشاريعي وخبراتي ومهاراتي — واسأل بلغتك.'
+                    : 'Explore my projects, experience, and skills. Ask in your own words.'}
                 </p>
-                <form className="portfolio-prompt-form" onSubmit={handleQuestionSubmit}>
-                  <input
-                    type="text"
-                    value={heroQuestion}
-                    onChange={(event) => setHeroQuestion(event.target.value)}
-                    placeholder={language === 'ar' ? 'اسألني عن مشاريعي أو مهاراتي...' : 'Ask about my projects, skills, or experience...'}
-                    aria-label={language === 'ar' ? 'اسألني عن مشاريعي' : 'Ask me about my work'}
-                    required
-                  />
-                  <button type="submit" aria-label={language === 'ar' ? 'إرسال السؤال' : 'Send your question'}>
-                    <ArrowUpRight size={18} />
-                  </button>
-                </form>
-                {heroAnswer ? (
-                  <p className="portfolio-prompt-answer" role="status" aria-live="polite">
-                    <span>{t.answerLabel}</span>
-                    {t.answers[heroAnswer]}
-                  </p>
-                ) : null}
+                <div className="portfolio-prompt-links-label">
+                  {language === 'ar' ? 'مواضيع مقترحة' : 'EXPLORE'}
+                </div>
                 <div className="portfolio-prompt-links">
                   {[
                     { href: '#projects', label: language === 'ar' ? 'المشاريع' : 'Projects' },
@@ -729,6 +769,42 @@ export default function App() {
                     <a href={item.href} key={item.href}>{item.label}</a>
                   ))}
                 </div>
+                <form className="portfolio-prompt-form" onSubmit={handleQuestionSubmit}>
+                  <input
+                    type="text"
+                    value={heroQuestion}
+                    onChange={(event) => setHeroQuestion(event.target.value)}
+                    placeholder={language === 'ar' ? 'اسألني عن مشاريعي أو مهاراتي...' : 'Ask about my projects, skills, or experience...'}
+                    aria-label={language === 'ar' ? 'اسألني عن مشاريعي' : 'Ask me about my work'}
+                    maxLength={1200}
+                    required
+                  />
+                  <button
+                    type="submit"
+                    aria-label={isAnswering ? t.chatLoading : language === 'ar' ? 'إرسال السؤال' : 'Send your question'}
+                    disabled={isAnswering}
+                  >
+                    {isAnswering
+                      ? <LoaderCircle size={18} className="animate-spin" />
+                      : <ArrowUpRight size={18} />}
+                  </button>
+                </form>
+                {heroAnswer || isAnswering || chatError ? (
+                  <div
+                    className={`portfolio-prompt-answer${chatError ? ' is-error' : ''}`}
+                    role="status"
+                    aria-live="polite"
+                  >
+                    <span>{chatError ? t.chatErrorLabel : t.answerLabel}</span>
+                    <p>
+                      {isAnswering
+                        ? t.chatLoading
+                        : chatError
+                          ? t.chatErrors[chatError] || t.chatErrors.default
+                          : heroAnswer}
+                    </p>
+                  </div>
+                ) : null}
               </div>
 
               <a className="portfolio-scroll-cue" href="#about">

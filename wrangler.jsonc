@@ -1,10 +1,15 @@
 {
   "name": "portfolio",
+  "main": "./worker.js",
   "compatibility_date": "2026-09-07",
+  "ai": {
+    "binding": "AI",
+    "remote": true
+  },
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "single-page-application"
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
   }
 }
-
-
