@@ -62,7 +62,7 @@ const translations = {
       chat_api_unavailable: 'The chat service is not connected. Start the local Worker or deploy the API.',
       ai_not_configured: 'Workers AI is not enabled for this deployment. Configure the AI binding and deploy again.',
       ai_request_failed: 'Cloudflare AI could not answer. Check your account, model availability, and daily usage limit.',
-      empty_ai_response: 'The AI returned an empty answer. Please try asking another way.',
+      empty_ai_response: 'The assistant did not return a reply this time. Please try again shortly.',
       default: 'The assistant could not complete your request. Please try again in a moment.',
     },
     profile: 'Profile',
@@ -187,7 +187,7 @@ const translations = {
       chat_api_unavailable: 'خدمة المحادثة غير متصلة. شغّل Worker محليًا أو انشر واجهة API.',
       ai_not_configured: 'Workers AI غير مفعّل لهذا النشر. أضف ربط AI ثم أعد النشر.',
       ai_request_failed: 'تعذر الحصول على إجابة من Cloudflare AI. تحقق من الحساب وتوفر النموذج وحد الاستخدام اليومي.',
-      empty_ai_response: 'لم يُرجع الذكاء الاصطناعي إجابة. حاول صياغة السؤال بطريقة أخرى.',
+      empty_ai_response: 'لم يرسل المساعد إجابة هذه المرة. حاول مجددًا بعد قليل.',
       default: 'تعذر إكمال الطلب. حاول مرة أخرى بعد قليل.',
     },
     profile: 'الملف الشخصي',
@@ -753,8 +753,8 @@ export default function App() {
                 </div>
                 <p className="portfolio-prompt-description">
                   {language === 'ar'
-                    ? 'اكتشف مشاريعي وخبراتي ومهاراتي — واسأل بلغتك.'
-                    : 'Explore my projects, experience, and skills. Ask in your own words.'}
+                    ? 'أنا مساعد ذكاء اصطناعي أجيب اعتمادًا على معلومات هذا الموقع. اسأل بطريقتك وبالعربية أو الإنجليزية.'
+                    : 'I’m an AI assistant that answers from this portfolio. Ask naturally in English or Arabic.'}
                 </p>
                 <div className="portfolio-prompt-links-label">
                   {language === 'ar' ? 'مواضيع مقترحة' : 'EXPLORE'}
