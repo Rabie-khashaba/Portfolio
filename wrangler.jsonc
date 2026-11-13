@@ -3,7 +3,7 @@
   "main": "./worker.js",
   "compatibility_date": "2026-09-07",
   "secrets": {
-    "required": ["OPENAI_API_KEY"]
+    "required": ["GEMINI_API_KEY"]
   },
   "assets": {
     "directory": "./dist",

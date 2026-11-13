@@ -3,8 +3,7 @@ import { projectCaseStudies } from './src/data/projectCaseStudies.js';
 import { techGroups } from './src/data/technologies.js';
 import { experience } from './src/data/experience.js';
 
-const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
-const MODEL = 'gpt-4o-mini';
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent';
 const MAX_BODY_LENGTH = 12000;
 const MAX_MESSAGE_LENGTH = 1200;
 
@@ -53,14 +52,13 @@ const isValidHistory = (history) =>
   );
 
 const getAnswerText = (result) => {
-  const candidates = [
-    result?.response,
-    result?.choices?.[0]?.message?.content,
-    result?.choices?.[0]?.text,
-    result?.output_text,
-  ];
-
-  return candidates.find((candidate) => typeof candidate === 'string' && candidate.trim())?.trim() || '';
+  return (
+    result?.candidates?.[0]?.content?.parts
+      ?.map((part) => part.text)
+      .filter((text) => typeof text === 'string' && text.trim())
+      .join('\n')
+      .trim() || ''
+  );
 };
 
 export default {
@@ -121,8 +119,8 @@ export default {
       return jsonResponse({ error: 'invalid_request' }, 400);
     }
 
-    if (!env.OPENAI_API_KEY) {
-      return jsonResponse({ error: 'openai_not_configured' }, 503);
+    if (!env.GEMINI_API_KEY) {
+      return jsonResponse({ error: 'gemini_not_configured' }, 503);
     }
 
     const systemPrompt = [
@@ -136,58 +134,63 @@ export default {
     ].join('\n\n');
 
     try {
-      const response = await fetch(OPENAI_API_URL, {
+      const response = await fetch(GEMINI_API_URL, {
         method: 'POST',
         headers: {
-          authorization: `Bearer ${env.OPENAI_API_KEY}`,
+          'x-goog-api-key': env.GEMINI_API_KEY,
           'content-type': 'application/json',
         },
         body: JSON.stringify({
-          model: MODEL,
-          messages: [
-            { role: 'system', content: systemPrompt },
-            ...history,
-            { role: 'user', content: question },
+          systemInstruction: {
+            parts: [{ text: systemPrompt }],
+          },
+          contents: [
+            ...history.map(({ role, content }) => ({
+              role: role === 'assistant' ? 'model' : 'user',
+              parts: [{ text: content }],
+            })),
+            { role: 'user', parts: [{ text: question }] },
           ],
-          max_completion_tokens: 400,
-          temperature: 0.3,
+          generationConfig: {
+            maxOutputTokens: 400,
+            temperature: 0.3,
+          },
         }),
         signal: AbortSignal.timeout(25000),
       });
 
       const result = await response.json().catch(() => null);
       if (!response.ok) {
-        const providerErrorCode = result?.error?.code;
-        console.error('OpenAI chat request failed.', {
+        const providerErrorStatus = result?.error?.status;
+        console.error('Gemini chat request failed.', {
           status: response.status,
-          code: providerErrorCode || null,
-          requestId: response.headers.get('x-request-id'),
+          providerStatus: providerErrorStatus || null,
         });
 
         if (response.status === 401 || response.status === 403) {
-          return jsonResponse({ error: 'openai_auth_failed' }, 502);
+          return jsonResponse({ error: 'gemini_auth_failed' }, 502);
         }
-        if (response.status === 429 || providerErrorCode === 'insufficient_quota') {
-          return jsonResponse({ error: 'openai_quota_exceeded' }, 503);
+        if (response.status === 429 || providerErrorStatus === 'RESOURCE_EXHAUSTED') {
+          return jsonResponse({ error: 'gemini_quota_exceeded' }, 503);
         }
-        return jsonResponse({ error: 'openai_request_failed' }, 502);
+        return jsonResponse({ error: 'gemini_request_failed' }, 502);
       }
 
       const answer = getAnswerText(result);
       if (!answer) {
-        console.error('OpenAI returned no text content.', {
+        console.error('Gemini returned no text content.', {
           resultKeys: result && typeof result === 'object' ? Object.keys(result) : [],
-          finishReason: result?.choices?.[0]?.finish_reason,
-          requestId: response.headers.get('x-request-id'),
+          finishReason: result?.candidates?.[0]?.finishReason || null,
+          blockReason: result?.promptFeedback?.blockReason || null,
         });
         return jsonResponse({ error: 'empty_ai_response' }, 502);
       }
 
       return jsonResponse({ answer });
     } catch (error) {
-      console.error('OpenAI chat request failed.', error);
+      console.error('Gemini chat request failed.', error);
       if (error?.name === 'TimeoutError' || error?.name === 'AbortError') {
-        return jsonResponse({ error: 'openai_timeout' }, 504);
+        return jsonResponse({ error: 'gemini_timeout' }, 504);
       }
       return jsonResponse({ error: 'ai_request_failed' }, 502);
     }
