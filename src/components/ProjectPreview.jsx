@@ -6,16 +6,18 @@ const previews = {
     section: 'Orders overview',
     accent: '#f5a65b',
     metrics: [
-      ['TODAY’S ORDERS', '1,284', '+12.8%'],
-      ['IN PROGRESS', '86', 'Live'],
-      ['REVENUE', '$8,420', '+8.2%'],
+      ['ORDER FLOW', '—', 'Lifecycle'],
+      ['FULFILLMENT', '—', 'Vendors & riders'],
+      ['OPERATIONS', '—', 'Admin dashboard'],
     ],
     rows: [
-      ['#HP-2841', 'Downtown Kitchen', 'Preparing', '#f5a65b'],
-      ['#HP-2840', 'Green Bowl Co.', 'On the way', '#75c6a5'],
-      ['#HP-2839', 'The Daily Table', 'New order', '#a990f5'],
+      ['Customer order', 'Vendor fulfillment', 'In progress', '#f5a65b'],
+      ['Rider handoff', 'Delivery workflow', 'In progress', '#75c6a5'],
+      ['Support ticket', 'Customer service', 'Open', '#a990f5'],
     ],
     kind: 'orders',
+    activityHeading: 'Order workflows',
+    listHeading: 'Delivery operations',
   },
   farra: {
     title: 'Farra',
@@ -51,19 +53,21 @@ const previews = {
   },
   movepoint: {
     title: 'MovePoint',
-    section: 'People overview',
+    section: 'ERP & CRM overview',
     accent: '#83a9ff',
     metrics: [
-      ['TEAM MEMBERS', '284', '+12 this month'],
-      ['PRESENT TODAY', '261', '92% attendance'],
-      ['PENDING REQUESTS', '08', 'Needs review'],
+      ['RECRUITMENT', '—', 'Lifecycle'],
+      ['SALES PIPELINE', '—', 'Lead tracking'],
+      ['PAYROLL', '—', 'Operations'],
     ],
     rows: [
-      ['AM', 'Amira Mahmoud', 'Product team', 'Present'],
-      ['OK', 'Omar Khaled', 'Operations', 'On leave'],
-      ['YS', 'Yara Samir', 'Engineering', 'Present'],
+      ['Recruitment', 'Candidate workflow', 'In progress', '#83a9ff'],
+      ['Sales pipeline', 'Lead tracking', 'In progress', '#a990f5'],
+      ['Payroll', 'Payroll workflow', 'Managed', '#75c6a5'],
     ],
     kind: 'people',
+    activityHeading: 'Business workflows',
+    listHeading: 'Operations overview',
   },
   mvl: {
     title: 'MVL Lamousine',
@@ -82,20 +86,76 @@ const previews = {
     kind: 'bookings',
   },
   whatsapp: {
-    title: 'Message Studio',
-    section: 'Campaign overview',
+    title: 'WhatsApp Platform',
+    section: 'Instances overview',
     accent: '#70d4a0',
     metrics: [
-      ['MESSAGES SENT', '24.8k', '+21.4%'],
-      ['DELIVERY RATE', '98.6%', '+2.1%'],
-      ['ACTIVE CAMPAIGNS', '06', 'Running'],
+      ['ACCOUNT ACCESS', '—', 'QR authentication'],
+      ['ACCESS TOKENS', '—', 'Secure sessions'],
+      ['AUTOMATION', '—', 'Messaging workflows'],
     ],
     rows: [
-      ['Spring launch', '12,480 recipients', 'Delivered', '#70d4a0'],
-      ['Order updates', '8,206 recipients', 'Sending', '#a990f5'],
-      ['Welcome series', '4,115 recipients', 'Scheduled', '#e8c879'],
+      ['WhatsApp instance 01', 'Phone account', 'Connected', '#70d4a0'],
+      ['WhatsApp instance 02', 'Phone account', 'Connected', '#a990f5'],
+      ['QR authentication', 'Access workflow', 'Available', '#e8c879'],
     ],
     kind: 'campaigns',
+    activityHeading: 'Instance activity',
+    listHeading: 'Connected instances',
+  },
+  wander: {
+    title: 'Wander',
+    section: 'Community overview',
+    accent: '#7dd3c7',
+    metrics: [
+      ['PROFILES', '—', 'Community'],
+      ['CHECK-INS', '—', 'Location-based'],
+      ['CONVERSATIONS', '—', 'Social features'],
+    ],
+    rows: [
+      ['Location check-in', 'Nearby discovery', 'Available', '#7dd3c7'],
+      ['Follow request', 'Privacy controls', 'Managed', '#a990f5'],
+      ['Media post', 'Cloud storage', 'Shared', '#f5c46b'],
+    ],
+    kind: 'overview',
+    activityHeading: 'Social activity',
+    listHeading: 'Community features',
+  },
+  'real-estate': {
+    title: 'Real Estate Management',
+    section: 'Property overview',
+    accent: '#e8c879',
+    metrics: [
+      ['LISTINGS', '—', 'Property records'],
+      ['CLIENTS', '—', 'Client management'],
+      ['OPERATIONS', '—', 'Workflows'],
+    ],
+    rows: [
+      ['Property listing', 'Listing management', 'Managed', '#e8c879'],
+      ['Client record', 'Client information', 'Managed', '#7dd3c7'],
+      ['Operational workflow', 'Property operations', 'Supported', '#a990f5'],
+    ],
+    kind: 'overview',
+    activityHeading: 'Property activity',
+    listHeading: 'Management workflows',
+  },
+  'course-management': {
+    title: 'Course Management',
+    section: 'Courses overview',
+    accent: '#a990f5',
+    metrics: [
+      ['COURSES', '—', 'English & Dutch'],
+      ['STUDENTS', '—', 'Coordination'],
+      ['SCHEDULING', '—', 'Course operations'],
+    ],
+    rows: [
+      ['English course', 'Student coordination', 'Managed', '#a990f5'],
+      ['Dutch course', 'Course scheduling', 'Managed', '#7dd3c7'],
+      ['College teams', 'Internal operations', 'Supported', '#f5c46b'],
+    ],
+    kind: 'overview',
+    activityHeading: 'Course activity',
+    listHeading: 'Education workflows',
   },
 };
 
@@ -230,17 +290,17 @@ function PreviewBody({ preview, config }) {
     return (
       <>
         <rect x={0} y={0} width={740} height={173} rx={12} fill="#171923" stroke="#292c36" />
-        <text x={16} y={24} fill="#dfe1e8" fontSize={10} fontWeight="600">Team directory</text>
-        <text x={18} y={49} fill="#858998" fontSize={8}>EMPLOYEE</text>
-        <text x={377} y={49} fill="#858998" fontSize={8}>DEPARTMENT</text>
+        <text x={16} y={24} fill="#dfe1e8" fontSize={10} fontWeight="600">Business workflows</text>
+        <text x={18} y={49} fill="#858998" fontSize={8}>MODULE</text>
+        <text x={377} y={49} fill="#858998" fontSize={8}>WORKFLOW</text>
         <text x={603} y={49} fill="#858998" fontSize={8}>STATUS</text>
         {config.rows.map((row, index) => (
           <g key={row[0]} transform={`translate(18 ${74 + index * 31})`}>
-            <Avatar initials={row[0]} index={index} />
-            <text x={22} y={3} fill="#dfe1e8" fontSize={8}>{row[1]}</text>
-            <text x={359} y={3} fill="#a1a5b1" fontSize={8}>{row[2]}</text>
-            <circle cx={591} cy={0} r={3} fill={row[3] === 'Present' ? '#75c6a5' : '#e8c879'} />
-            <text x={601} y={3} fill="#c5c8d0" fontSize={8}>{row[3]}</text>
+            <circle cx={6} cy={0} r={4} fill={row[3]} />
+            <text x={22} y={3} fill="#dfe1e8" fontSize={8}>{row[0]}</text>
+            <text x={359} y={3} fill="#a1a5b1" fontSize={8}>{row[1]}</text>
+            <circle cx={591} cy={0} r={3} fill={row[3]} />
+            <text x={601} y={3} fill="#c5c8d0" fontSize={8}>{row[2]}</text>
             <line x1={0} y1={15} x2={700} y2={15} stroke="#292c36" />
           </g>
         ))}
@@ -270,17 +330,41 @@ function PreviewBody({ preview, config }) {
     return (
       <>
         <rect x={0} y={0} width={445} height={173} rx={12} fill="#171923" stroke="#292c36" />
-        <text x={16} y={23} fill="#dfe1e8" fontSize={10} fontWeight="600">Campaign performance</text>
-        <TrendChart accent={config.accent} />
+        <text x={16} y={23} fill="#dfe1e8" fontSize={10} fontWeight="600">Account access</text>
+        <rect x={16} y={39} width={413} height={112} rx={10} fill="#1d2029" stroke="#292c36" />
+        <circle cx={222} cy={91} r={31} fill="#202c28" />
+        <path d="M208 84 Q211 76 221 77 Q234 78 235 89 Q236 101 225 105 L212 103 L205 107 L208 98 Q204 91 208 84 Z" fill={config.accent} opacity=".9" />
+        <text x={222} y={130} fill="#a1a5b1" fontSize={8} textAnchor="middle">QR-based authentication</text>
         <rect x={460} y={0} width={280} height={173} rx={12} fill="#171923" stroke="#292c36" />
-        <text x={478} y={23} fill="#dfe1e8" fontSize={10} fontWeight="600">Recent campaigns</text>
+        <text x={478} y={23} fill="#dfe1e8" fontSize={10} fontWeight="600">Connected instances</text>
         {config.rows.map((row, index) => (
           <g key={row[0]} transform={`translate(478 ${49 + index * 39})`}>
-            <rect x={0} y={-7} width={25} height={25} rx={8} fill="#202c28" />
-            <path d="M7 1 Q8 -3 13 -2 Q19 0 17 5 L20 8 L15 8 Q9 10 6 6 Z" fill={config.accent} opacity=".85" />
-            <text x={34} y={1} fill="#dfe1e8" fontSize={8}>{row[0]}</text>
-            <text x={34} y={14} fill="#858998" fontSize={7}>{row[1]}</text>
-            <circle cx={260} cy={0} r={3} fill={row[3]} />
+            <circle cx={5} cy={0} r={4} fill={row[3]} />
+            <text x={17} y={1} fill="#dfe1e8" fontSize={8}>{row[0]}</text>
+            <text x={17} y={14} fill="#858998" fontSize={7}>{row[2]}</text>
+          </g>
+        ))}
+      </>
+    );
+  }
+
+  if (['wander', 'real-estate', 'course-management'].includes(preview)) {
+    return (
+      <>
+        <rect x={0} y={0} width={445} height={173} rx={12} fill="#171923" stroke="#292c36" />
+        <text x={16} y={23} fill="#dfe1e8" fontSize={10} fontWeight="600">{config.activityHeading}</text>
+        <rect x={16} y={39} width={413} height={112} rx={10} fill="#1d2029" stroke="#292c36" />
+        <path d="M39 113 C93 109 88 71 145 77 S218 122 266 91 S335 62 399 53" fill="none" stroke={config.accent} strokeWidth={3} strokeLinecap="round" />
+        {[39, 145, 266, 399].map((x, index) => (
+          <circle key={x} cx={x} cy={[113, 77, 91, 53][index]} r={5} fill={config.accent} />
+        ))}
+        <rect x={460} y={0} width={280} height={173} rx={12} fill="#171923" stroke="#292c36" />
+        <text x={478} y={23} fill="#dfe1e8" fontSize={10} fontWeight="600">{config.listHeading}</text>
+        {config.rows.map((row, index) => (
+          <g key={row[0]} transform={`translate(478 ${50 + index * 37})`}>
+            <circle cx={5} cy={0} r={4} fill={row[3]} />
+            <text x={18} y={1} fill="#dfe1e8" fontSize={8}>{row[0]}</text>
+            <text x={18} y={14} fill="#858998" fontSize={7}>{row[1]}</text>
           </g>
         ))}
       </>
@@ -336,7 +420,7 @@ export default function ProjectPreview({ project, className = '' }) {
       <circle cx="43" cy="26" r="5" fill="#e9bd69" />
       <circle cx="62" cy="26" r="5" fill="#70c69a" />
       <rect x="465" y="14" width="270" height="24" rx="8" fill="#1d2029" />
-      <text x="600" y="30" fill="#8c909d" fontSize="9" textAnchor="middle">app.workspace / dashboard</text>
+      <text x="600" y="30" fill="#8c909d" fontSize="9" textAnchor="middle">project.preview / interface</text>
       <rect x="0" y="52" width="208" height="708" fill="#14161d" />
       <rect x="17" y="70" width="31" height="31" rx="10" fill={config.accent} opacity=".2" />
       <path d="M27 86 L32 80 L38 86 L32 92 Z" fill={config.accent} />
@@ -351,7 +435,18 @@ export default function ProjectPreview({ project, className = '' }) {
       ))}
       <line x1="16" y1="316" x2="192" y2="316" stroke="#292c36" />
       <text x="19" y="339" fill="#777d8a" fontSize="8" fontWeight="600" letterSpacing="1">MANAGE</text>
-      {['Orders', 'Team', 'Settings'].map((item, index) => (
+      {(preview === 'home-plate'
+        ? ['Orders', 'Vendors', 'Riders']
+        : preview === 'movepoint'
+          ? ['Recruitment', 'Sales', 'Payroll']
+          : preview === 'whatsapp'
+            ? ['Instances', 'Access', 'Automation']
+            : preview === 'wander'
+              ? ['Profiles', 'Check-ins', 'Messages']
+              : preview === 'real-estate'
+                ? ['Listings', 'Clients', 'Operations']
+                : ['Courses', 'Students', 'Schedule']
+      ).map((item, index) => (
         <g key={item} transform={`translate(30 ${365 + index * 34})`}>
           <circle cx="0" cy="0" r="3" fill="#626875" />
           <text x="13" y="3" fill="#858a98" fontSize="9">{item}</text>
@@ -363,10 +458,10 @@ export default function ProjectPreview({ project, className = '' }) {
       <text x="53" y="719" fill="#777d8a" fontSize="7">Administrator</text>
       <rect x="208" y="52" width="992" height="708" fill="#101219" />
       <text x="237" y="94" fill="#f1f2f5" fontSize="19" fontWeight="650">{config.section}</text>
-      <text x="237" y="115" fill="#858998" fontSize="9">Here’s what’s happening with your workspace today.</text>
+      <text x="237" y="115" fill="#858998" fontSize="9">Illustrative view of project workflows.</text>
       <rect x="1016" y="74" width="145" height="31" rx="8" fill="#1b1e27" stroke="#2c303b" />
       <circle cx="1033" cy="89" r="4" fill={config.accent} />
-      <text x="1045" y="92" fill="#c4c7d0" fontSize="8">Last 7 days</text>
+      <text x="1045" y="92" fill="#c4c7d0" fontSize="8">Project view</text>
       <g transform="translate(237 142)">
         {config.metrics.map((metric, index) => (
           <g key={metric[0]} transform={`translate(${index * 250} 0) scale(.83 1)`}>
@@ -378,7 +473,7 @@ export default function ProjectPreview({ project, className = '' }) {
         <PreviewBody preview={preview} config={config} />
       </g>
       <rect x="237" y="453" width="740" height="160" rx="12" fill="#171923" stroke="#292c36" />
-      <text x="254" y="478" fill="#dfe1e8" fontSize="10" fontWeight="600">Recent {preview === 'whatsapp' ? 'campaigns' : preview === 'farra' ? 'activity' : preview === 'mvl' ? 'bookings' : preview === 'movepoint' ? 'requests' : preview === 'baby-track' ? 'updates' : 'orders'}</text>
+      <text x="254" y="478" fill="#dfe1e8" fontSize="10" fontWeight="600">{config.listHeading || 'Recent orders'}</text>
       <text x="942" y="478" fill={config.accent} fontSize="8" textAnchor="end">View all ↗</text>
       {config.rows.map((row, index) => (
         <g key={row[0]} transform={`translate(254 ${505 + index * 32})`}>
@@ -390,13 +485,13 @@ export default function ProjectPreview({ project, className = '' }) {
         </g>
       ))}
       <rect x="997" y="453" width="164" height="160" rx="12" fill="#171923" stroke="#292c36" />
-      <text x="1014" y="478" fill="#dfe1e8" fontSize="9" fontWeight="600">Quick status</text>
+      <text x="1014" y="478" fill="#dfe1e8" fontSize="9" fontWeight="600">Project scope</text>
       <circle cx="1033" cy="524" r="16" fill={config.accent} opacity=".13" />
       <circle cx="1033" cy="524" r="6" fill={config.accent} />
-      <text x="1059" y="520" fill="#e6e7ed" fontSize="9">All systems</text>
-      <text x="1059" y="534" fill={config.accent} fontSize="8">operational</text>
+      <text x="1059" y="520" fill="#e6e7ed" fontSize="9">Interface</text>
+      <text x="1059" y="534" fill={config.accent} fontSize="8">illustration</text>
       <line x1="1014" y1="556" x2="1144" y2="556" stroke="#292c36" />
-      <text x="1014" y="578" fill="#858998" fontSize="8">Updated just now</text>
+      <text x="1014" y="578" fill="#858998" fontSize="8">Representative layout</text>
       <text x="1014" y="594" fill="#666c78" fontSize="7">ILLUSTRATIVE UI PREVIEW</text>
       <rect x="208" y="52" width="992" height="708" fill="none" stroke="#292c36" />
     </svg>

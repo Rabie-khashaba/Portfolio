@@ -2,11 +2,11 @@ export default function ServiceItem({ item }) {
   const Icon = item.icon;
 
   return (
-    <article className="group rounded-2xl border border-white/10 bg-card p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 md:p-6">
+    <article className="portfolio-service-card group rounded-2xl border border-white/10 bg-card p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 md:p-6">
       <div className="mb-5 flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">{item.number}</span>
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.02] text-primary">
+          <span className="portfolio-service-number text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">{item.number}</span>
+          <div className="portfolio-service-icon flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.02] text-primary">
             <Icon size={18} />
           </div>
         </div>

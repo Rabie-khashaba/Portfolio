@@ -21,12 +21,13 @@ import {
 } from 'lucide-react';
 import Button from './components/Button';
 import ProjectCard from './components/ProjectCard';
-import ProjectPreview from './components/ProjectPreview';
+import ProjectDetailsPage from './components/ProjectDetailsPage';
 import SectionHeading from './components/SectionHeading';
 import ServiceItem from './components/ServiceItem';
 import TechChip from './components/TechChip';
 import { navigation } from './data/navigation';
 import { projects } from './data/projects';
+import { projectCaseStudies } from './data/projectCaseStudies';
 import { services } from './data/services';
 import { techGroups } from './data/technologies';
 import { experience } from './data/experience';
@@ -44,6 +45,8 @@ const translations = {
     },
     logo: 'R.K',
     language: 'EN',
+    switchToLight: 'Switch to light mode',
+    switchToDark: 'Switch to dark mode',
     hello: 'Hello, I’m',
     name: 'Rabie Abdelrahman',
     role: 'Backend Engineer · Laravel Developer',
@@ -100,8 +103,22 @@ const translations = {
     projectsDescription:
       'A selection of backend systems and API-driven products designed for scale, reliability, and real business operations.',
     viewProjectDetails: 'View Details',
-    projectPlatforms: 'Platforms',
-    projectTechnologies: 'Technologies',
+    projectDetails: {
+      backToProjects: 'Back to projects',
+      caseStudy: 'Project case study',
+      projectOverview: 'Project overview',
+      role: 'Role',
+      scope: 'Focus',
+      platform: 'Platform',
+      challenge: 'The challenge',
+      approach: 'The approach',
+      highlights: 'What I worked on',
+      stack: 'Technology stack',
+      stackDescription: 'Tools and technologies used across the project.',
+      nextStep: 'Have a similar challenge?',
+      contactTitle: 'Let’s talk about your project.',
+      contactButton: 'Start a conversation',
+    },
     moreEyebrow: '05 / More to explore',
     moreTitle: 'Find me around the web',
     moreDescription: 'Explore my work, connect with me, or get in touch about a project.',
@@ -152,6 +169,8 @@ const translations = {
     },
     logo: 'ر.ك',
     language: 'AR',
+    switchToLight: 'التبديل إلى الوضع الفاتح',
+    switchToDark: 'التبديل إلى الوضع الداكن',
     hello: 'مرحباً، أنا',
     name: 'ربيع عبد الرحمن',
     role: 'مهندس باك إند · مطور لارافيل',
@@ -208,8 +227,22 @@ const translations = {
     projectsDescription:
       'مجموعة مختارة من أنظمة باك إند ومنتجات قائمة على API مصممة للتوسع، الموثوقية، وتشغيل الأعمال الحقيقية.',
     viewProjectDetails: 'عرض التفاصيل',
-    projectPlatforms: 'المنصات',
-    projectTechnologies: 'التقنيات',
+    projectDetails: {
+      backToProjects: 'العودة إلى المشاريع',
+      caseStudy: 'دراسة حالة المشروع',
+      projectOverview: 'نظرة عامة على المشروع',
+      role: 'الدور',
+      scope: 'التركيز',
+      platform: 'المنصة',
+      challenge: 'التحدي',
+      approach: 'طريقة التنفيذ',
+      highlights: 'ما عملت عليه',
+      stack: 'التقنيات المستخدمة',
+      stackDescription: 'الأدوات والتقنيات المستخدمة في المشروع.',
+      nextStep: 'لديك تحدٍ مشابه؟',
+      contactTitle: 'لنتحدث عن مشروعك.',
+      contactButton: 'ابدأ محادثة',
+    },
     moreEyebrow: '05 / المزيد',
     moreTitle: 'تواصل معي عبر الإنترنت',
     moreDescription: 'استكشف أعمالي أو تواصل معي لمناقشة مشروعك.',
@@ -261,13 +294,23 @@ const sectionReveal = {
   show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
 };
 
+const getProjectSlug = (title) =>
+  title.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+const getProjectSlugFromPath = () => window.location.pathname.match(/^\/projects\/([^/]+)\/?$/)?.[1] || null;
+
 export default function App() {
   const shouldReduceMotion = useReducedMotion();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [lightTheme, setLightTheme] = useState(false);
+  const [lightTheme, setLightTheme] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return localStorage.getItem('portfolio-theme') === 'light';
+  });
   const [heroQuestion, setHeroQuestion] = useState('');
   const [heroAnswer, setHeroAnswer] = useState('');
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProjectSlug, setSelectedProjectSlug] = useState(() =>
+    typeof window === 'undefined' ? null : getProjectSlugFromPath(),
+  );
   const [language, setLanguage] = useState(() => {
     if (typeof window === 'undefined') return 'en';
     return localStorage.getItem('portfolio-lang') || 'en';
@@ -284,25 +327,39 @@ export default function App() {
   }, [language]);
 
   useEffect(() => {
-    if (!mobileMenuOpen && !selectedProject) return;
+    localStorage.setItem('portfolio-theme', lightTheme ? 'light' : 'dark');
+    document.documentElement.style.colorScheme = lightTheme ? 'light' : 'dark';
+    document.querySelector('meta[name="theme-color"]')?.setAttribute(
+      'content',
+      lightTheme ? '#F5F7FB' : '#0B1020',
+    );
+  }, [lightTheme]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
     const onKeyDown = (event) => {
       if (event.key === 'Escape') {
         setMobileMenuOpen(false);
-        setSelectedProject(null);
       }
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [mobileMenuOpen, selectedProject]);
+  }, [mobileMenuOpen]);
 
   useEffect(() => {
-    if (!mobileMenuOpen && !selectedProject) return;
+    if (!mobileMenuOpen) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = previousOverflow;
     };
-  }, [mobileMenuOpen, selectedProject]);
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    const handleHistoryChange = () => setSelectedProjectSlug(getProjectSlugFromPath());
+    window.addEventListener('popstate', handleHistoryChange);
+    return () => window.removeEventListener('popstate', handleHistoryChange);
+  }, []);
 
   const handleNavClick = () => setMobileMenuOpen(false);
   const handleQuestionSubmit = (event) => {
@@ -328,66 +385,94 @@ export default function App() {
       ? [
           {
             title: 'Home Plate',
-            category: 'تطبيق جوال',
+            category: 'منصة توصيل طعام',
             description:
-              'نظام توصيل طعام جاهز للإنتاج يربط بين العملاء والبائعين والسائقين والإدارة مع عمليات مبسطة ودفع آمن.',
-            technologies: ['Flutter', 'BLoC / Cubit', 'Clean Architecture', 'Laravel', 'REST APIs', 'MySQL'],
-            platforms: ['Google Play', 'App Store'],
+              'منصة توصيل متعددة الأطراف مبنية باستخدام Laravel، تربط العملاء والمتاجر والسائقين والإدارة عبر تطبيقات الجوال ولوحة للعمليات.',
+            technologies: ['Laravel', 'REST APIs', 'المدفوعات', 'Cloudflare R2', 'Android', 'iOS'],
+            platforms: ['Android', 'iOS', 'لوحة إدارة'],
             preview: 'home-plate',
-            link: '#contact',
-          },
-          {
-            title: 'Farra',
-            category: 'منصة نقل',
-            description:
-              'نظام خلفي للعمليات اللوجستية والخدمات يركز على إدارة الطلبات، صلاحيات المستخدمين، وسير الطلبات عبر أنواع مستخدمين متعددة.',
-            technologies: ['Laravel', 'PHP', 'MySQL', 'REST API', 'Firebase'],
-            platforms: ['Web App'],
-            preview: 'farra',
-            link: '#contact',
-          },
-          {
-            title: 'Baby-Track',
-            category: 'ذكاء اصطناعي وصحة',
-            description:
-              'منصة ذكية لمراقبة الأطفال تجمع بين تصنيف بكاء الطفل عبر الذكاء الاصطناعي ونظام Laravel موثوق لتحليل البيانات والتقارير.',
-            technologies: ['Laravel', 'Python', 'MySQL', 'Machine Learning', 'REST APIs'],
-            platforms: ['Web Platform'],
-            preview: 'baby-track',
-            link: '#contact',
           },
           {
             title: 'MovePoint',
-            category: 'نظام مؤسسي',
+            category: 'منصة ERP وCRM',
             description:
-              'مركز إداري للموظفين لإدارة الحضور، طلبات الإجازة، الرواتب، الوثائق، والعمليات الداخلية داخل المؤسسة.',
-            technologies: ['Laravel', 'PHP', 'REST APIs', 'MySQL', 'Admin Dashboards'],
-            platforms: ['Web App'],
+              'نظام مؤسسي لإدارة التوظيف ومسارات المبيعات والعملاء المحتملين والرواتب، مع تكامل WhatsApp ولوحات لمتابعة العمليات.',
+            technologies: ['PHP', 'Laravel', 'MySQL', 'JavaScript', 'WhatsApp API'],
+            platforms: ['منصة ويب'],
             preview: 'movepoint',
-            link: '#contact',
-          },
-          {
-            title: 'MVL Lamousine',
-            category: 'منصة حجوزات',
-            description:
-              'منصة حجز سيارات فاخرة مع إدارة دورة الحياة، تدفقات البائعين، العروض، ومعالجة المدفوعات.',
-            technologies: ['Laravel', 'PHP', 'REST APIs', 'MySQL', 'Payments'],
-            platforms: ['Web App'],
-            preview: 'mvl',
-            link: '#contact',
           },
           {
             title: 'WhatsApp Messaging',
-            category: 'برمجيات مراسلات',
+            category: 'المراسلة والأتمتة',
             description:
-              'خلفية رسائل SaaS لإدارة الاشتراكات، الحملات، التواصل مع العملاء، وسيروات OTP.',
-            technologies: ['Laravel', 'PHP', 'MySQL', 'Sanctum', 'REST APIs'],
-            platforms: ['Web SaaS'],
+              'منصة لأتمتة WhatsApp تتيح المصادقة عبر رمز QR وإصدار رموز الوصول وإدارة عدة نسخ لكل رقم هاتف.',
+            technologies: ['Laravel', 'PHP', 'المصادقة عبر QR', 'WhatsApp API'],
+            platforms: ['منصة ويب'],
             preview: 'whatsapp',
-            link: '#contact',
+          },
+          {
+            title: 'Wander',
+            category: 'تطبيق اجتماعي قائم على الموقع',
+            description:
+              'باك إند لتطبيق اجتماعي على الجوال يركز على اكتشاف المستخدمين حسب الموقع وتسجيلات الوصول والمشاركة والخصوصية.',
+            technologies: ['Laravel', 'MySQL', 'REST APIs', 'التخزين السحابي'],
+            platforms: ['تطبيق جوال', 'REST API'],
+            preview: 'wander',
+          },
+          {
+            title: 'Real Estate Management',
+            category: 'إدارة العقارات',
+            description:
+              'نظام لإدارة العقارات طورت فيه الباك إند والفرونت إند، ويجمع بين القوائم العقارية وبيانات العملاء ومسارات العمل اليومية.',
+            technologies: ['Laravel', 'PHP', 'MySQL'],
+            platforms: ['منصة ويب'],
+            preview: 'real-estate',
+          },
+          {
+            title: 'Course Management System',
+            category: 'إدارة الدورات والعمليات',
+            description:
+              'نظام لإدارة دورات الإنجليزية والهولندية، وتنظيم الطلاب والجداول وعمليات فرق الكلية.',
+            technologies: ['Laravel', 'PHP', 'إدارة الدورات', 'الجدولة'],
+            platforms: ['منصة ويب'],
+            preview: 'course-management',
           },
         ]
       : projects;
+
+  const selectedProject = localizedProjects.find((project) => getProjectSlug(project.title) === selectedProjectSlug);
+  const projectIndex = localizedProjects.findIndex((project) => getProjectSlug(project.title) === selectedProjectSlug) + 1;
+  const projectDetails = selectedProjectSlug ? projectCaseStudies[selectedProjectSlug]?.[language] : null;
+
+  useEffect(() => {
+    if (selectedProjectSlug && !selectedProject) {
+      window.history.replaceState(null, '', '/');
+      setSelectedProjectSlug(null);
+    }
+  }, [selectedProject, selectedProjectSlug]);
+
+  useEffect(() => {
+    document.title = selectedProject
+      ? `${selectedProject.title} | Rabie Abdelrahman`
+      : 'Rabie Abdelrahman | Backend Engineer & Laravel Developer';
+  }, [selectedProject]);
+
+  const handleProjectOpen = (project) => {
+    const slug = getProjectSlug(project.title);
+    window.history.pushState({ projectSlug: slug }, '', `/projects/${slug}`);
+    setSelectedProjectSlug(slug);
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  };
+
+  const handleBackToProjects = () => {
+    window.history.pushState(null, '', '/#projects');
+    setSelectedProjectSlug(null);
+    window.setTimeout(() => {
+      document.getElementById('projects')?.scrollIntoView({
+        behavior: shouldReduceMotion ? 'auto' : 'smooth',
+      });
+    }, 0);
+  };
 
   const localizedServices =
     language === 'ar'
@@ -427,6 +512,7 @@ export default function App() {
     language === 'ar'
       ? [
           { title: 'الباك إند', items: ['PHP', 'Laravel', 'REST APIs', 'MySQL', 'Redis'] },
+          { title: 'الفرونت إند', items: ['HTML', 'CSS', 'JavaScript', 'Bootstrap 5', 'React.js'] },
           { title: 'الموبايل', items: ['Flutter', 'Dart', 'BLoC', 'Cubit'] },
           { title: 'البنية التقنية', items: ['Docker', 'Git', 'Cloudflare', 'AWS', 'Linux'] },
           { title: 'التكاملات', items: ['Firebase', 'Google APIs', 'Payment APIs'] },
@@ -489,7 +575,7 @@ export default function App() {
             type="button"
             className="portfolio-icon-button"
             onClick={() => setLightTheme((isLight) => !isLight)}
-            aria-label={lightTheme ? 'Switch to dark theme' : 'Switch to light theme'}
+            aria-label={lightTheme ? t.switchToDark : t.switchToLight}
             aria-pressed={lightTheme}
           >
             {lightTheme ? <Sun size={19} /> : <Moon size={19} />}
@@ -508,16 +594,16 @@ export default function App() {
 
           <div className="portfolio-desktop-nav" aria-label={language === 'ar' ? 'التنقل' : 'Navigation'}>
             {navItems.filter((item) => item.href !== '#contact').map((item) => (
-              <a key={item.href} href={item.href}>{item.label}</a>
+              <a key={item.href} href={selectedProject ? `/${item.href}` : item.href}>{item.label}</a>
             ))}
           </div>
 
           <div className="flex items-center gap-3">
-            <Button as="a" href="#contact" variant="secondary" className="hidden px-5 py-3 text-sm sm:inline-flex">
+            <Button as="a" href={selectedProject ? '/#contact' : '#contact'} variant="secondary" className="hidden px-5 py-3 text-sm sm:inline-flex">
               <CalendarDays size={16} />
               {language === 'ar' ? 'تواصل معي' : 'Book a Call'}
             </Button>
-            <Button as="a" href="#contact" variant="secondary" className="px-4 py-3 text-sm sm:hidden" aria-label={t.ctaSecondary}>
+            <Button as="a" href={selectedProject ? '/#contact' : '#contact'} variant="secondary" className="px-4 py-3 text-sm sm:hidden" aria-label={t.ctaSecondary}>
               <CalendarDays size={16} />
             </Button>
           </div>
@@ -551,7 +637,7 @@ export default function App() {
               {navItems.map((item, index) => (
                 <motion.a
                   key={item.href}
-                  href={item.href}
+                  href={selectedProject ? `/${item.href}` : item.href}
                   onClick={handleNavClick}
                   initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -562,7 +648,7 @@ export default function App() {
               ))}
             </nav>
             <div className="portfolio-menu-footer">
-              <Button as="a" href="#contact" onClick={handleNavClick} className="px-5 py-3 text-sm">
+              <Button as="a" href={selectedProject ? '/#contact' : '#contact'} onClick={handleNavClick} className="px-5 py-3 text-sm">
                 <CalendarDays size={16} />
                 {language === 'ar' ? 'تواصل معي' : 'Book a Call'}
               </Button>
@@ -587,68 +673,16 @@ export default function App() {
         ) : null}
       </AnimatePresence>
 
-      <AnimatePresence>
-        {selectedProject ? (
-          <motion.div
-            className="project-details-backdrop"
-            initial={shouldReduceMotion ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={shouldReduceMotion ? {} : { opacity: 0 }}
-            onClick={(event) => {
-              if (event.target === event.currentTarget) setSelectedProject(null);
-            }}
-          >
-          <motion.article
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="project-details-title"
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 24, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={shouldReduceMotion ? {} : { opacity: 0, y: 24, scale: 0.97 }}
-            transition={{ duration: shouldReduceMotion ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="project-details-panel"
-          >
-            <button
-              type="button"
-              onClick={() => setSelectedProject(null)}
-              className="portfolio-icon-button project-details-close"
-              aria-label={language === 'ar' ? 'إغلاق تفاصيل المشروع' : 'Close project details'}
-            >
-              <X size={19} />
-            </button>
-            <div className="project-details-image">
-              <ProjectPreview project={selectedProject} />
-            </div>
-            <div className="project-details-content">
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-                {selectedProject.category}
-              </p>
-              <h2 id="project-details-title">{selectedProject.title}</h2>
-              <p className="project-details-description">{selectedProject.description}</p>
-              <div className="project-details-meta">
-                <div>
-                  <h3>{t.projectPlatforms}</h3>
-                  <p>{selectedProject.platforms.join(' / ')}</p>
-                </div>
-                <div>
-                  <h3>{t.projectTechnologies}</h3>
-                  <ul>
-                    {selectedProject.technologies.map((technology) => (
-                      <li key={technology}>{technology}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-              <a className="project-details-contact" href="mailto:khashabarabie@gmail.com">
-                {t.startConversation}
-                <ArrowUpRight size={17} />
-              </a>
-            </div>
-          </motion.article>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-
+      {selectedProject ? (
+        <ProjectDetailsPage
+          project={selectedProject}
+          details={projectDetails}
+          labels={t.projectDetails}
+          index={projectIndex}
+          isArabic={language === 'ar'}
+          onBack={handleBackToProjects}
+        />
+      ) : (
       <main id="home">
         <section className="portfolio-hero">
           <div className="container-shell portfolio-hero-inner">
@@ -793,7 +827,7 @@ export default function App() {
                     project={project}
                     index={index + 1}
                     viewDetailsLabel={t.viewProjectDetails}
-                    onViewDetails={setSelectedProject}
+                    onViewDetails={handleProjectOpen}
                   />
                 </motion.div>
               ))}
@@ -846,22 +880,22 @@ export default function App() {
           <div className="container-shell">
             <SectionHeading eyebrow={t.experienceEyebrow} title={t.experienceTitle} />
 
-            <div className="relative mx-auto max-w-5xl">
-              <div className="absolute left-3 top-0 h-full w-px bg-white/10 md:left-1/2" aria-hidden="true" />
+            <div className="portfolio-timeline relative mx-auto max-w-5xl">
+              <div className="portfolio-timeline-line absolute left-3 top-0 h-full w-px bg-white/10 md:left-1/2" aria-hidden="true" />
 
               <div className="space-y-8">
                 {localizedExperience.map((item, index) => (
                   <div key={item.company} className="relative grid gap-5 md:grid-cols-2 md:gap-10">
                     <div className={`${index % 2 === 0 ? 'md:pr-10 md:text-right' : 'md:col-start-2 md:pl-10'}`}>
-                      <div className="inline-flex items-center rounded-full border border-white/10 bg-card px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
+                      <div className="portfolio-timeline-period inline-flex items-center rounded-full border border-white/10 bg-card px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
                         {item.period}
                       </div>
                     </div>
 
                     <div className="md:col-span-1">
-                      <div className="absolute left-[10px] top-2 h-5 w-5 rounded-full border border-primary/40 bg-primary/20 md:left-1/2 md:-translate-x-1/2" aria-hidden="true" />
-                      <div className="rounded-2xl border border-white/10 bg-card p-6">
-                        <div className="mb-3 flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted">
+                      <div className="portfolio-timeline-marker absolute left-[10px] top-2 h-5 w-5 rounded-full border border-primary/40 bg-primary/20 md:left-1/2 md:-translate-x-1/2" aria-hidden="true" />
+                      <div className="portfolio-timeline-card rounded-2xl border border-white/10 bg-card p-6">
+                        <div className="portfolio-timeline-meta mb-3 flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted">
                           <span>{item.role}</span>
                           <span className="text-primary">•</span>
                           <span>{item.company}</span>
@@ -869,7 +903,7 @@ export default function App() {
                         <p className="text-sm leading-7 text-muted md:text-[15px]">{item.description}</p>
                         <ul className="mt-4 space-y-2">
                           {item.responsibilities.map((task) => (
-                            <li key={task} className="flex items-start gap-2 text-sm text-[#E5E7EB]">
+                            <li key={task} className="portfolio-timeline-task flex items-start gap-2 text-sm text-[#E5E7EB]">
                               <span className="mt-1 text-primary">•</span>
                               <span>{task}</span>
                             </li>
@@ -884,10 +918,10 @@ export default function App() {
           </div>
         </motion.section>
 
-        <motion.section className="section-shell" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={sectionReveal}>
+        <motion.section id="expectations" className="section-shell" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={sectionReveal}>
           <div className="container-shell">
             <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-              <div className="rounded-2xl border border-white/10 bg-card p-6 md:p-8">
+              <div className="portfolio-expectations-card rounded-2xl border border-white/10 bg-card p-6 md:p-8">
                 <div className="mb-5 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
                   <ShieldCheck size={16} />
                   <span>{t.checklistTitle}</span>
@@ -895,7 +929,7 @@ export default function App() {
 
                 <div className="grid gap-4 sm:grid-cols-2">
                   {t.checklist.map((item) => (
-                    <div key={item} className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-3">
+                    <div key={item} className="portfolio-expectation-item flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-3">
                       <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-success/12 text-success">
                         <Check size={14} />
                       </span>
@@ -905,7 +939,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-card p-6 md:p-8">
+              <div className="portfolio-value-card rounded-2xl border border-white/10 bg-card p-6 md:p-8">
                 <div className="mb-4 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
                   <Sparkles size={16} />
                   <span>{t.valueTitle}</span>
@@ -1008,6 +1042,7 @@ export default function App() {
           </div>
         </motion.section>
       </main>
+      )}
 
       <footer>
         <div className="container-shell flex flex-col gap-4 py-8 text-sm text-muted md:flex-row md:items-center md:justify-between">

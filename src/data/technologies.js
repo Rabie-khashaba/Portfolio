@@ -4,6 +4,10 @@ export const techGroups = [
     items: ['PHP', 'Laravel', 'REST APIs', 'MySQL', 'Redis'],
   },
   {
+    title: 'Frontend',
+    items: ['HTML', 'CSS', 'JavaScript', 'Bootstrap 5', 'React.js'],
+  },
+  {
     title: 'Mobile',
     items: ['Flutter', 'Dart', 'BLoC', 'Cubit'],
   },
