@@ -10,6 +10,7 @@ import {
   CalendarDays,
   Code2,
   Github,
+  Languages,
   Linkedin,
   Mail,
   LoaderCircle,
@@ -566,20 +567,24 @@ export default function App() {
     language === 'ar'
       ? [
           {
-            period: '2024 — حتى الآن',
-            role: 'مهندس باك إند',
+            period: 'سبتمبر 2025 — حتى الآن',
+            role: 'مطور باك إند وفرونت إند',
             company: 'Triple Agency',
             description:
-              'بناء أنظمة باك إند قابلة للتوسع وواجهات API موثوقة لتطبيقات الجوال مع تركيز قوي على الموثوقية وقابلية الصيانة والهندسة النظيفة.',
+              'تطوير وظائف الباك إند وواجهات الفرونت إند لمشاريع الويب في Triple Agency.',
             responsibilities: [
-              'تطوير Laravel',
-              'هندسة REST API',
-              'تصميم قواعد البيانات',
-              'المصادقة',
-              'تكامل المدفوعات',
-              'أنظمة الإشعارات',
-              'التخزين السحابي',
-              'النشر في الإنتاج',
+              'تطوير الباك إند',
+              'تطوير الفرونت إند',
+            ],
+          },
+          {
+            period: '1 يوليو — 1 سبتمبر 2025',
+            role: 'متدرب تطوير برمجيات',
+            company: 'Harvest',
+            description:
+              'إتمام فترة تدريب في تطوير البرمجيات لمدة ثلاثة أشهر في Harvest.',
+            responsibilities: [
+              'تدريب في تطوير البرمجيات',
             ],
           },
           {
@@ -642,6 +647,20 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-3">
+            <div className="portfolio-language-switch" aria-label={language === 'ar' ? 'اختيار اللغة' : 'Language selection'}>
+              <Languages size={16} aria-hidden="true" />
+              {['en', 'ar'].map((code) => (
+                <button
+                  key={code}
+                  type="button"
+                  onClick={() => setLanguage(code)}
+                  aria-label={`Switch language to ${code === 'en' ? 'English' : 'Arabic'}`}
+                  aria-pressed={language === code}
+                >
+                  {code.toUpperCase()}
+                </button>
+              ))}
+            </div>
             <Button as="a" href={selectedProject ? '/#contact' : '#contact'} variant="secondary" className="hidden px-5 py-3 text-sm sm:inline-flex">
               <CalendarDays size={16} />
               {language === 'ar' ? 'تواصل معي' : 'Book a Call'}

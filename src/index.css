@@ -3620,6 +3620,116 @@ a {
   }
 }
 
+.portfolio-language-switch {
+  display: none;
+}
+
+.portfolio-prompt {
+  align-items: center;
+  text-align: center;
+}
+
+.portfolio-prompt-heading {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr auto 1fr;
+  justify-items: center;
+}
+
+.portfolio-prompt-icon {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.portfolio-prompt-heading-copy {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  text-align: center;
+}
+
+.portfolio-prompt-status {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+  margin-inline-start: 0;
+}
+
+.portfolio-prompt-description {
+  margin-inline: auto;
+}
+
+.portfolio-prompt-links-label {
+  width: 100%;
+  text-align: center;
+}
+
+.portfolio-prompt-links {
+  justify-content: center;
+}
+
+.portfolio-prompt-form {
+  width: 100%;
+}
+
+.portfolio-prompt-form input {
+  text-align: center;
+}
+
+.portfolio-prompt-answer {
+  width: 100%;
+  text-align: center;
+}
+
+@media (min-width: 960px) {
+  .portfolio-language-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    padding: 4px;
+    color: #a1a1aa;
+    background: rgba(23, 23, 29, 0.78);
+    direction: ltr;
+  }
+
+  .portfolio-language-switch > svg {
+    margin-inline: 7px 3px;
+  }
+
+  .portfolio-language-switch button {
+    min-width: 38px;
+    min-height: 34px;
+    border: 0;
+    border-radius: 999px;
+    padding: 0 9px;
+    color: inherit;
+    background: transparent;
+    font: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: color 180ms ease, background 180ms ease;
+  }
+
+  .portfolio-language-switch button[aria-pressed='true'] {
+    color: #fff;
+    background: #7c3aed;
+  }
+
+  .portfolio-language-switch button:focus-visible {
+    outline: 2px solid #c4b5fd;
+    outline-offset: 2px;
+  }
+
+  .theme-light .portfolio-language-switch {
+    border-color: rgba(37, 32, 48, 0.1);
+    color: #696575;
+    background: rgba(255, 255, 255, 0.82);
+  }
+}
+
 @media (min-width: 721px) and (max-width: 1023px) {
   .portfolio-root [class~='text-xs'] {
     font-size: 0.75rem !important;
