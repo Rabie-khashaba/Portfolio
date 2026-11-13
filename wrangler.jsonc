@@ -2,10 +2,6 @@
   "name": "portfolio",
   "main": "./worker.js",
   "compatibility_date": "2026-09-07",
-  "ai": {
-    "binding": "AI",
-    "remote": true
-  },
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
