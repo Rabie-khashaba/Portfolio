@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import {
   ArrowDown,
@@ -8,7 +8,9 @@ import {
   BriefcaseBusiness,
   Check,
   CalendarDays,
+  ChevronDown,
   Code2,
+  Download,
   Github,
   Languages,
   Linkedin,
@@ -312,6 +314,8 @@ const getProjectSlugFromPath = () => window.location.pathname.match(/^\/projects
 export default function App() {
   const shouldReduceMotion = useReducedMotion();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [callMenuOpen, setCallMenuOpen] = useState(false);
+  const callMenuRef = useRef(null);
   const [lightTheme, setLightTheme] = useState(() => {
     if (typeof window === 'undefined') return false;
     return localStorage.getItem('portfolio-theme') === 'light';
@@ -358,6 +362,29 @@ export default function App() {
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    if (!callMenuOpen) return;
+
+    const handlePointerDown = (event) => {
+      if (!callMenuRef.current?.contains(event.target)) {
+        setCallMenuOpen(false);
+      }
+    };
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setCallMenuOpen(false);
+        callMenuRef.current?.querySelector('button')?.focus();
+      }
+    };
+
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [callMenuOpen]);
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
@@ -661,13 +688,67 @@ export default function App() {
                 </button>
               ))}
             </div>
-            <Button as="a" href={selectedProject ? '/#contact' : '#contact'} variant="secondary" className="hidden px-5 py-3 text-sm sm:inline-flex">
-              <CalendarDays size={16} />
-              {language === 'ar' ? 'تواصل معي' : 'Book a Call'}
-            </Button>
-            <Button as="a" href={selectedProject ? '/#contact' : '#contact'} variant="secondary" className="px-4 py-3 text-sm sm:hidden" aria-label={t.ctaSecondary}>
-              <CalendarDays size={16} />
-            </Button>
+            <div className="portfolio-call-dropdown" ref={callMenuRef}>
+              <Button
+                type="button"
+                variant="secondary"
+                className="portfolio-call-trigger px-4 py-3 text-sm sm:px-5"
+                aria-label={language === 'ar' ? 'فتح قائمة التواصل والسيرة الذاتية' : 'Open contact and CV menu'}
+                aria-expanded={callMenuOpen}
+                aria-haspopup="menu"
+                aria-controls="portfolio-call-menu"
+                onClick={() => setCallMenuOpen((open) => !open)}
+              >
+                <CalendarDays size={16} aria-hidden="true" />
+                <span className="portfolio-call-label">
+                  {language === 'ar' ? 'لنتحدث' : 'Let’s Talk'}
+                </span>
+                <ChevronDown
+                  className={callMenuOpen ? 'portfolio-call-chevron is-open' : 'portfolio-call-chevron'}
+                  size={15}
+                  aria-hidden="true"
+                />
+              </Button>
+              <AnimatePresence>
+                {callMenuOpen ? (
+                  <motion.div
+                    id="portfolio-call-menu"
+                    className="portfolio-call-menu"
+                    role="menu"
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: -6, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={shouldReduceMotion ? {} : { opacity: 0, y: -6, scale: 0.98 }}
+                    transition={{ duration: shouldReduceMotion ? 0 : 0.16 }}
+                  >
+                    <a
+                      href={selectedProject ? '/#contact' : '#contact'}
+                      role="menuitem"
+                      onClick={() => setCallMenuOpen(false)}
+                    >
+                      <span className="portfolio-call-menu-icon"><CalendarDays size={17} /></span>
+                      <span className="portfolio-call-menu-copy">
+                        <strong>{language === 'ar' ? 'احجز مكالمة' : 'Book a call'}</strong>
+                        <small>{language === 'ar' ? 'لنتحدث عن مشروعك' : 'Let’s discuss your project'}</small>
+                      </span>
+                      <ArrowUpRight size={16} aria-hidden="true" />
+                    </a>
+                    <a
+                      href="/Rabie-Abdelrahman-Software-Engineer-CV.pdf"
+                      download="Rabie-Abdelrahman-Software-Engineer-CV.pdf"
+                      role="menuitem"
+                      onClick={() => setCallMenuOpen(false)}
+                    >
+                      <span className="portfolio-call-menu-icon"><Download size={17} /></span>
+                      <span className="portfolio-call-menu-copy">
+                        <strong>{language === 'ar' ? 'تحميل السيرة الذاتية' : 'Download my CV'}</strong>
+                        <small>{language === 'ar' ? 'ملف PDF · السيرة المهنية' : 'PDF document · Professional resume'}</small>
+                      </span>
+                      <Download size={16} aria-hidden="true" />
+                    </a>
+                  </motion.div>
+                ) : null}
+              </AnimatePresence>
+            </div>
           </div>
 
         </nav>
@@ -888,7 +969,7 @@ export default function App() {
               </article>
 
               <div className="about-portrait overflow-hidden rounded-[1.75rem] border border-white/10">
-                <img src="/main.jpg" alt={t.name} loading="lazy" />
+                <img src="/IMG_20260921_214019_936(1).jpg" alt={t.name} loading="lazy" />
                 <div className="portrait-caption">
                   <span>{t.role}</span>
                   <span className="portrait-stack">PHP <i /> Laravel <i /> APIs</span>
