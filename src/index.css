@@ -886,7 +886,7 @@ a {
   overflow: clip;
   background:
     radial-gradient(ellipse at 50% 2%, rgba(99, 77, 165, 0.16), transparent 38rem),
-    linear-gradient(180deg, #0b1020 0%, #0e1525 48%, #0b1020 100%);
+    linear-gradient(180deg, #1a2639 0%, #202d42 48%, #1a2639 100%);
   color: var(--ink);
   font-family: 'Manrope', sans-serif;
 }
@@ -2624,8 +2624,9 @@ a {
 }
 
 .theme-light .portfolio-header {
-  border-bottom: 1px solid rgba(30, 43, 66, 0.08);
-  background: linear-gradient(180deg, rgba(248, 249, 252, 0.94), rgba(248, 249, 252, 0.72));
+  border: 0;
+  background: linear-gradient(180deg, rgba(248, 249, 252, 0.56), transparent);
+  backdrop-filter: none;
 }
 
 .theme-light .portfolio-icon-button,
@@ -2635,6 +2636,21 @@ a {
   color: #344158;
   background: rgba(255, 255, 255, 0.94);
   box-shadow: 0 8px 26px rgba(27, 39, 61, 0.07);
+}
+
+.theme-light .portfolio-header .portfolio-icon-button,
+.theme-light .portfolio-header .portfolio-desktop-nav {
+  box-shadow: none;
+}
+
+.theme-light .portfolio-header .portfolio-desktop-nav {
+  border-color: rgba(226, 231, 239, 0.8);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.theme-light .portfolio-header .portfolio-desktop-nav.is-scroll-transparent {
+  border-color: transparent;
+  background: transparent;
 }
 
 .theme-light .portfolio-desktop-nav a,

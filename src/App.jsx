@@ -315,6 +315,7 @@ export default function App() {
   const shouldReduceMotion = useReducedMotion();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [callMenuOpen, setCallMenuOpen] = useState(false);
+  const [isScrollingDown, setIsScrollingDown] = useState(false);
   const callMenuRef = useRef(null);
   const [lightTheme, setLightTheme] = useState(() => {
     if (typeof window === 'undefined') return false;
@@ -334,6 +335,18 @@ export default function App() {
   });
 
   const t = translations[language] || translations.en;
+
+  useEffect(() => {
+    let previousScrollY = window.scrollY;
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setIsScrollingDown(currentScrollY > previousScrollY && currentScrollY > 0);
+      previousScrollY = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -667,7 +680,10 @@ export default function App() {
             {mobileMenuOpen ? <X size={21} /> : <Menu size={21} />}
           </button>
 
-          <div className="portfolio-desktop-nav" aria-label={language === 'ar' ? 'التنقل' : 'Navigation'}>
+          <div
+            className={`portfolio-desktop-nav ${isScrollingDown ? 'is-scroll-transparent' : ''}`}
+            aria-label={language === 'ar' ? 'التنقل' : 'Navigation'}
+          >
             {navItems.filter((item) => item.href !== '#contact').map((item) => (
               <a key={item.href} href={selectedProject ? `/${item.href}` : item.href}>{item.label}</a>
             ))}
