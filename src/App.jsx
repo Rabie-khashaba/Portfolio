@@ -53,9 +53,9 @@ const translations = {
     switchToDark: 'Switch to dark mode',
     hello: 'Hello, I’m',
     name: 'Rabie Abdelrahman',
-    role: 'Backend Engineer · Laravel Developer',
+    role: 'Backend Engineer · Backend Developer',
     summary:
-      'With 2+ years of experience, I design and develop secure, scalable backend systems in Laravel and PHP to power APIs, business workflows, and digital products.',
+      'With 2+ years of experience, I build secure backend systems with Laravel and PHP, and create modern frontend experiences with React.js.',
     ctaPrimary: 'View My Work',
     ctaSecondary: 'Get In Touch',
     answerLabel: 'AI assistant',
@@ -181,9 +181,9 @@ const translations = {
     switchToDark: 'التبديل إلى الوضع الداكن',
     hello: 'مرحباً، أنا',
     name: 'ربيع عبد الرحمن',
-    role: 'مهندس باك إند · مطور لارافيل',
+    role: 'مهندس باك إند · مطور باك إند',
     summary:
-      'لدي خبرة تزيد عن سنتين في تصميم وبناء أنظمة باك إند آمنة وقابلة للتوسع باستخدام Laravel وPHP لدعم واجهات API وعمليات الأعمال والمنتجات الرقمية.',
+      'لدي خبرة تزيد عن سنتين في بناء أنظمة باك إند آمنة باستخدام Laravel وPHP، وتطوير واجهات أمامية حديثة باستخدام React.js.',
     ctaPrimary: 'عرض الأعمال',
     ctaSecondary: 'تواصل معي',
     answerLabel: 'مساعد ذكي',
@@ -525,7 +525,7 @@ export default function App() {
   useEffect(() => {
     document.title = selectedProject
       ? `${selectedProject.title} | Rabie Abdelrahman`
-      : 'Rabie Abdelrahman | Backend Engineer & Laravel Developer';
+      : 'Rabie Abdelrahman | Backend Engineer & Backend Developer';
   }, [selectedProject]);
 
   const handleProjectOpen = (project) => {
