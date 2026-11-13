@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Layers3 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Github, Layers3 } from 'lucide-react';
 import ProjectPreview from './ProjectPreview';
 
 export default function ProjectDetailsPage({
@@ -29,6 +29,22 @@ export default function ProjectDetailsPage({
               <span key={platform}>{platform}</span>
             ))}
           </div>
+
+          {project.githubUrl ? (
+            <div className="mt-4">
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white transition-all duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-primary"
+                aria-label={`${labels.repositoryLabel || 'GitHub'}: ${project.title}`}
+              >
+                <Github size={14} />
+                <span>{labels.repositoryLabel || 'GitHub'}</span>
+                <ArrowUpRight size={13} />
+              </a>
+            </div>
+          ) : null}
         </div>
 
         <div className="case-study-preview">

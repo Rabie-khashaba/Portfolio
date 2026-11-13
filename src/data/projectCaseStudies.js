@@ -97,35 +97,35 @@ export const projectCaseStudies = {
       role: 'تطوير الباك إند',
     },
   },
-  wander: {
+  farra: {
     en: {
       challenge:
-        'Support a location-based social app with interconnected profile, content, discovery, privacy, and communication features for mobile users.',
+        'Deliver a reliable, low-latency transportation backend capable of managing real-time ride requests, multi-role dispatching, and high-frequency status updates.',
       approach:
-        'Developed Laravel REST APIs backed by MySQL. Designed relationships for users, posts, tags, check-ins, follows, chats, and reports, and integrated media handling with cloud-storage URLs.',
+        'Built a Laravel and MySQL architecture with Firebase integration for real-time alerts. Designed role-based permissions, automated driver assignment workflows, and comprehensive booking APIs.',
       highlights: [
-        'Profiles, posts, comments, likes, shares, and saved posts',
-        'Location-based check-ins and nearby-user discovery',
-        'Tags, follow requests, and privacy controls',
-        'Notifications, chat, profile views, and reporting',
-        'Media handling for profile and post images and videos',
+        'Live ride dispatching and request management',
+        'Role-based access control for riders, drivers, and admins',
+        'Firebase push notifications and event-driven alerts',
+        'Status tracking, ride history, and trip logging',
+        'Optimized REST APIs for high-concurrency mobile clients',
       ],
-      focus: 'Location-based social features',
+      focus: 'Transportation and dispatch operations',
       role: 'Backend development',
     },
     ar: {
       challenge:
-        'دعم تطبيق اجتماعي قائم على الموقع بميزات مترابطة للملفات الشخصية والمحتوى والاكتشاف والخصوصية والتواصل عبر الجوال.',
+        'توفير باك إند عالي الأداء ومنخفض زمن الاستجابة لخدمات النقل لإدارة طلبات المشاوير اللحظية والتوزيع متعدد الأدوار وتحديثات الحالة السريعة.',
       approach:
-        'تطوير واجهات Laravel REST مع MySQL. تصميم العلاقات بين المستخدمين والمنشورات والوسوم وتسجيلات الوصول والمتابعات والمحادثات والبلاغات، مع ربط الوسائط بروابط التخزين السحابي.',
+        'تطوير بنية معمارية بـLaravel وMySQL مع ربط Firebase للتنبيهات اللحظية. وتصميم نظام صلاحيات حسب الدور، ومسارات توزيع السائقين تلقائياً، وواجهات برمجة تطبيقات متكاملة للحجز.',
       highlights: [
-        'الملفات الشخصية والمنشورات والتعليقات والإعجابات والمشاركات',
-        'تسجيلات الوصول واكتشاف المستخدمين القريبين',
-        'الوسوم وطلبات المتابعة وإعدادات الخصوصية',
-        'الإشعارات والمحادثات ومشاهدات الملف الشخصي والتقارير',
-        'إدارة صور الملفات والمنشورات والفيديوهات',
+        'توزيع وإدارة طلبات المشاوير والرحلات اللحظية',
+        'صلاحيات متعددة الأدوار للمستخدمين والسائقين والإدارة',
+        'إشعارات Firebase اللحظية والتنبيهات الموجهة بالأحداث',
+        'تتبع الحالات وسجل الرحلات والعمليات',
+        'واجهات REST APIs مهيأة للتعامل مع الأحمال العالية لتطبيقات الجوال',
       ],
-      focus: 'ميزات اجتماعية مرتبطة بالموقع',
+      focus: 'عمليات النقل والتوزيع اللحظي',
       role: 'تطوير الباك إند',
     },
   },
@@ -184,6 +184,142 @@ export const projectCaseStudies = {
         'وحدات الموارد البشرية والمالية والعمليات والدعم التقني والمبيعات',
       ],
       focus: 'الدورات وعمليات الكلية',
+      role: 'تطوير الباك إند',
+    },
+  },
+  expresscare: {
+    en: {
+      challenge:
+        'Connect patient bookings, doctor referrals, and administrative work in a healthcare platform that teams can use in both Arabic and English.',
+      approach:
+        'Built a Laravel 12 dashboard and API with role-based access, phone-based WhatsApp OTP authentication, referral and booking workflows, Paymob payment support, and Firebase notifications.',
+      highlights: [
+        'Arabic and English dashboards with RTL support',
+        'Role-based access for platform and care teams',
+        'WhatsApp OTP authentication and account recovery',
+        'Patient booking and doctor referral workflows',
+        'Paymob checkout and verified payment webhooks',
+        'Firebase push notifications and API documentation',
+      ],
+      focus: 'Healthcare operations and patient workflows',
+      role: 'Backend development',
+    },
+    ar: {
+      challenge:
+        'ربط حجوزات المرضى وإحالات الأطباء والمهام الإدارية في منصة رعاية صحية تعمل بالعربية والإنجليزية.',
+      approach:
+        'تطوير لوحة تحكم وواجهات API باستخدام Laravel 12، مع صلاحيات حسب الدور، ومصادقة عبر الهاتف وWhatsApp OTP، ومسارات للحجوزات والإحالات، ودعم مدفوعات Paymob وإشعارات Firebase.',
+      highlights: [
+        'لوحات تحكم بالعربية والإنجليزية مع دعم RTL',
+        'صلاحيات حسب الدور لفرق المنصة والرعاية',
+        'مصادقة WhatsApp OTP واستعادة الحساب',
+        'مسارات حجز المرضى وإحالات الأطباء',
+        'الدفع عبر Paymob والتحقق من إشعارات الدفع',
+        'إشعارات Firebase وتوثيق واجهات API',
+      ],
+      focus: 'عمليات الرعاية الصحية ومسارات المرضى',
+      role: 'تطوير الباك إند',
+    },
+  },
+  'salem-shop': {
+    en: {
+      challenge:
+        'Keep product catalogs, customer quotes, and order workflows organized across a commerce backend and administration dashboard.',
+      approach:
+        'Developed a Laravel commerce backend with API documentation and a dedicated dashboard, including repeatable development data for catalog, quote, and order workflows.',
+      highlights: [
+        'Product catalog and lookup data management',
+        'Customer quote workflows',
+        'Order operations and supporting records',
+        'Administration dashboard',
+        'Authentication and notifications API documentation',
+        'Postman collection for API workflows',
+      ],
+      focus: 'Commerce catalog and order operations',
+      role: 'Backend development',
+    },
+    ar: {
+      challenge:
+        'تنظيم كتالوج المنتجات وعروض الأسعار ومسارات الطلبات بين باك إند التجارة ولوحة الإدارة.',
+      approach:
+        'تطوير باك إند للتجارة باستخدام Laravel مع توثيق للـAPI ولوحة تحكم مخصصة، وبيانات تطوير قابلة لإعادة الإنشاء لمسارات المنتجات وعروض الأسعار والطلبات.',
+      highlights: [
+        'إدارة كتالوج المنتجات وبيانات البحث',
+        'مسارات عروض الأسعار للعملاء',
+        'إدارة الطلبات والسجلات المرتبطة بها',
+        'لوحة تحكم إدارية',
+        'توثيق واجهات المصادقة والإشعارات',
+        'مجموعة Postman لمسارات API',
+      ],
+      focus: 'كتالوج التجارة وإدارة الطلبات',
+      role: 'تطوير الباك إند',
+    },
+  },
+  arzaq: {
+    en: {
+      challenge:
+        'Deliver a fast, responsive classifieds and commercial advertising platform with intuitive browsing, post-ad flows, and clean API integration.',
+      approach:
+        'Built a modern frontend using React, Vite, and Tailwind CSS, featuring categorized directory navigation, image uploads, ad posting forms, and structured REST API communication.',
+      highlights: [
+        'Commercial advertisements directory and search filters',
+        'Multi-step ad posting workflow with validation',
+        'Category and taxonomy navigation system',
+        'Responsive UI with dark theme and RTL support',
+        'Structured REST API integration with timeout and error handling',
+        'Interactive chat and commercial details views',
+      ],
+      focus: 'Commercial classifieds and ads platform',
+      role: 'Frontend & API integration',
+    },
+    ar: {
+      challenge:
+        'تقديم منصة سريعة ومتجاوبة للإعلانات المبوبة والتجارية مع تصفح سلس ومسارات واضحة لإضافة الإعلانات وتكامل فعال مع الـAPI.',
+      approach:
+        'تطوير واجهة مستخدم حديثة بـReact وVite وTailwind CSS، تشمل دليلاً إعلانياً مصنفاً، رفع الصور، نماذج نشر الإعلانات، وتكاملاً منظماً مع REST APIs.',
+      highlights: [
+        'دليل الإعلانات التجارية وفلاتر البحث المتقدمة',
+        'مسار متكامل لإضافة الإعلانات والتحقق من المدخلات',
+        'نظام تصنيف وتصفح الأقسام والأنشطة',
+        'تصميم متجاوب بالكامل مع دعم الوضع المظلم واللغة العربية RTL',
+        'تكامل منظم مع واجهات برمجة التطبيقات مع معالجة الأخطاء',
+        'صفحات تفاصيل الإعلانات والمحادثات التجارية',
+      ],
+      focus: 'منصة الإعلانات التجارية والمبوبة',
+      role: 'تطوير الواجهة الأمامية والتكامل',
+    },
+  },
+  meshwary: {
+    en: {
+      challenge:
+        'Coordinate limousine bookings, fleet vehicle management, driver assignments, and trip dispatching across multiple governorates and service areas.',
+      approach:
+        'Engineered a Laravel backend and operations system managing drivers, vehicle fleets (brands, types, colors), service areas, pricing tiers, and ride booking lifecycles.',
+      highlights: [
+        'Limousine and trip booking management lifecycle',
+        'Fleet vehicle administration (brands, types, specifications)',
+        'Driver assignment, status tracking, and verification',
+        'Governorate and regional service area mapping',
+        'Role-based administrative permissions system',
+        'REST APIs powering customer and driver applications',
+      ],
+      focus: 'Transportation and fleet management platform',
+      role: 'Backend development & operations',
+    },
+    ar: {
+      challenge:
+        'تنسيق حجوزات الليموزين وإدارة أسطول المركبات والسائقين وتوزيع الرحلات عبر مختلف المحافظات والمناطق الجغرافية.',
+      approach:
+        'تطوير نظام باك إند ولوحة تحكم متكاملة باستخدام Laravel لإدارة السائقين، أسطول السيارات (الموديلات والأنواع)، نطاقات الخدمة، ودورة حياة حجز المشاوير.',
+      highlights: [
+        'دورة حياة حجز وإدارة رحلات الليموزين والمشاوير',
+        'إدارة أسطول المركبات (الماركات، الأنواع، المواصفات)',
+        'إدارة وتوزيع وتتبع حالات السائقين والتحقق منهم',
+        'تحديد وتغطية نطاقات الخدمة والمحافظات والمناطق',
+        'نظام صلاحيات إدارية متعدد الأدوار',
+        'واجهات RESTful APIs لتطبيقات العملاء والسائقين',
+      ],
+      focus: 'منصة النقل وإدارة أسطول الرحلات',
       role: 'تطوير الباك إند',
     },
   },

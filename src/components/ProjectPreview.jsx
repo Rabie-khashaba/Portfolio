@@ -19,6 +19,78 @@ const previews = {
     activityHeading: 'Order workflows',
     listHeading: 'Delivery operations',
   },
+  expresscare: {
+    title: 'ExpressCare',
+    section: 'Care operations',
+    accent: '#7dd3c7',
+    metrics: [
+      ['PATIENT BOOKINGS', '—', 'Care workflows'],
+      ['REFERRALS', '—', 'Doctor network'],
+      ['ACCESS', '—', 'Role-based'],
+    ],
+    rows: [
+      ['Patient booking', 'Care appointment', 'Scheduled', '#7dd3c7'],
+      ['Doctor referral', 'Patient workflow', 'In review', '#a990f5'],
+      ['Care team access', 'Permissions', 'Managed', '#75c6a5'],
+    ],
+    kind: 'overview',
+    activityHeading: 'Patient workflows',
+    listHeading: 'Healthcare operations',
+  },
+  'salem-shop': {
+    title: 'Salem Shop',
+    section: 'Commerce overview',
+    accent: '#e8c879',
+    metrics: [
+      ['CATALOG', '—', 'Products & lookups'],
+      ['QUOTES', '—', 'Customer requests'],
+      ['ORDERS', '—', 'Order workflows'],
+    ],
+    rows: [
+      ['Product catalog', 'Catalog management', 'Available', '#e8c879'],
+      ['Customer quote', 'Quote workflow', 'In review', '#a990f5'],
+      ['Shop order', 'Order operations', 'Processing', '#75c6a5'],
+    ],
+    kind: 'overview',
+    activityHeading: 'Commerce activity',
+    listHeading: 'Shop operations',
+  },
+  arzaq: {
+    title: 'Arzaq',
+    section: 'Commercial Classifieds',
+    accent: '#4ecdc4',
+    metrics: [
+      ['AD DIRECTORY', '—', 'Commercial ads'],
+      ['POST AD', '—', 'Multi-step flow'],
+      ['TAXONOMY', '—', 'Categories'],
+    ],
+    rows: [
+      ['Commercial advertisement', 'Listing published', 'Active', '#4ecdc4'],
+      ['Post-ad submission', 'Category selection', 'Verified', '#a990f5'],
+      ['Ad inquiry message', 'Chat workflow', 'Delivered', '#75c6a5'],
+    ],
+    kind: 'overview',
+    activityHeading: 'Classifieds activity',
+    listHeading: 'Ad operations',
+  },
+  meshwary: {
+    title: 'Meshwary',
+    section: 'Fleet & Limousine',
+    accent: '#ffb347',
+    metrics: [
+      ['DISPATCH', '—', 'Active rides'],
+      ['FLEET', '—', 'Vehicles & drivers'],
+      ['AREAS', '—', 'Coverage zones'],
+    ],
+    rows: [
+      ['Limousine ride', 'City transfer', 'En route', '#ffb347'],
+      ['Driver dispatch', 'Vehicle assigned', 'Active', '#7dd3c7'],
+      ['Zone booking', 'Service coverage', 'Completed', '#75c6a5'],
+    ],
+    kind: 'overview',
+    activityHeading: 'Ride dispatching',
+    listHeading: 'Fleet operations',
+  },
   farra: {
     title: 'Farra',
     section: 'Live dispatch',
@@ -102,24 +174,6 @@ const previews = {
     kind: 'campaigns',
     activityHeading: 'Instance activity',
     listHeading: 'Connected instances',
-  },
-  wander: {
-    title: 'Wander',
-    section: 'Community overview',
-    accent: '#7dd3c7',
-    metrics: [
-      ['PROFILES', '—', 'Community'],
-      ['CHECK-INS', '—', 'Location-based'],
-      ['CONVERSATIONS', '—', 'Social features'],
-    ],
-    rows: [
-      ['Location check-in', 'Nearby discovery', 'Available', '#7dd3c7'],
-      ['Follow request', 'Privacy controls', 'Managed', '#a990f5'],
-      ['Media post', 'Cloud storage', 'Shared', '#f5c46b'],
-    ],
-    kind: 'overview',
-    activityHeading: 'Social activity',
-    listHeading: 'Community features',
   },
   'real-estate': {
     title: 'Real Estate Management',
@@ -348,7 +402,7 @@ function PreviewBody({ preview, config }) {
     );
   }
 
-  if (['wander', 'real-estate', 'course-management'].includes(preview)) {
+  if (['real-estate', 'course-management'].includes(preview)) {
     return (
       <>
         <rect x={0} y={0} width={445} height={173} rx={12} fill="#171923" stroke="#292c36" />
@@ -441,8 +495,8 @@ export default function ProjectPreview({ project, className = '' }) {
           ? ['Recruitment', 'Sales', 'Payroll']
           : preview === 'whatsapp'
             ? ['Instances', 'Access', 'Automation']
-            : preview === 'wander'
-              ? ['Profiles', 'Check-ins', 'Messages']
+            : preview === 'farra'
+              ? ['Rides', 'Drivers', 'Dispatch']
               : preview === 'real-estate'
                 ? ['Listings', 'Clients', 'Operations']
                 : ['Courses', 'Students', 'Schedule']

@@ -111,6 +111,7 @@ const translations = {
     projectsDescription:
       'A selection of backend systems and API-driven products designed for scale, reliability, and real business operations.',
     viewProjectDetails: 'View Details',
+    viewRepository: 'GitHub',
     projectDetails: {
       backToProjects: 'Back to projects',
       caseStudy: 'Project case study',
@@ -239,6 +240,7 @@ const translations = {
     projectsDescription:
       'مجموعة مختارة من أنظمة باك إند ومنتجات قائمة على API مصممة للتوسع، الموثوقية، وتشغيل الأعمال الحقيقية.',
     viewProjectDetails: 'عرض التفاصيل',
+    viewRepository: 'المصدر',
     projectDetails: {
       backToProjects: 'العودة إلى المشاريع',
       caseStudy: 'دراسة حالة المشروع',
@@ -302,9 +304,11 @@ const socialLinks = [
 ];
 
 const sectionReveal = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
+  hidden: { opacity: 0.35, y: 14 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.28, ease: 'easeOut' } },
 };
+
+const sectionViewport = { once: true, margin: '140px 0px -40px 0px', amount: 0.02 };
 
 const getProjectSlug = (title) =>
   title.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -317,6 +321,7 @@ export default function App() {
   const [callMenuOpen, setCallMenuOpen] = useState(false);
   const [isScrollingDown, setIsScrollingDown] = useState(false);
   const callMenuRef = useRef(null);
+  const pointerRafRef = useRef(null);
   const [lightTheme, setLightTheme] = useState(() => {
     if (typeof window === 'undefined') return false;
     return localStorage.getItem('portfolio-theme') === 'light';
@@ -338,10 +343,22 @@ export default function App() {
 
   useEffect(() => {
     let previousScrollY = window.scrollY;
+    let ticking = false;
+
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setIsScrollingDown(currentScrollY > previousScrollY && currentScrollY > 0);
-      previousScrollY = currentScrollY;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          const diff = currentScrollY - previousScrollY;
+          if (Math.abs(diff) > 10 || currentScrollY <= 20) {
+            const shouldBeDown = currentScrollY > previousScrollY && currentScrollY > 60;
+            setIsScrollingDown((prev) => (prev !== shouldBeDown ? shouldBeDown : prev));
+            previousScrollY = currentScrollY;
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -414,7 +431,37 @@ export default function App() {
     return () => window.removeEventListener('popstate', handleHistoryChange);
   }, []);
 
-  const handleNavClick = () => setMobileMenuOpen(false);
+  const handleNavClick = (event, href) => {
+    setMobileMenuOpen(false);
+    if (!href) return;
+    if (selectedProject) return;
+    if (href.startsWith('#')) {
+      const targetId = href.slice(1);
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        event?.preventDefault?.();
+        targetEl.scrollIntoView({
+          behavior: shouldReduceMotion ? 'auto' : 'smooth',
+          block: 'start',
+        });
+        window.history.pushState(null, '', href);
+      }
+    }
+  };
+
+  const handlePointerMove = (event) => {
+    if (event.pointerType === 'touch') return;
+    const clientX = event.clientX;
+    const clientY = event.clientY;
+    const target = event.currentTarget;
+    if (pointerRafRef.current) return;
+    pointerRafRef.current = requestAnimationFrame(() => {
+      target.style.setProperty('--pointer-x', `${clientX}px`);
+      target.style.setProperty('--pointer-y', `${clientY}px`);
+      target.style.setProperty('--pointer-glow-opacity', '1');
+      pointerRafRef.current = null;
+    });
+  };
   const handleQuestionSubmit = async (event) => {
     event.preventDefault();
     const question = heroQuestion.trim();
@@ -475,6 +522,7 @@ export default function App() {
             technologies: ['Laravel', 'REST APIs', 'المدفوعات', 'Cloudflare R2', 'Android', 'iOS'],
             platforms: ['Android', 'iOS', 'لوحة إدارة'],
             preview: 'home-plate',
+            githubUrl: 'https://github.com/Rabie-khashaba/Home-Plate',
           },
           {
             title: 'MovePoint',
@@ -484,6 +532,7 @@ export default function App() {
             technologies: ['PHP', 'Laravel', 'MySQL', 'JavaScript', 'WhatsApp API'],
             platforms: ['منصة ويب'],
             preview: 'movepoint',
+            githubUrl: 'https://github.com/Rabie-khashaba/Move-Point',
           },
           {
             title: 'WhatsApp Messaging',
@@ -493,15 +542,16 @@ export default function App() {
             technologies: ['Laravel', 'PHP', 'المصادقة عبر QR', 'WhatsApp API'],
             platforms: ['منصة ويب'],
             preview: 'whatsapp',
+            githubUrl: 'https://github.com/Rabie-khashaba/Whatsapp',
           },
           {
-            title: 'Wander',
-            category: 'تطبيق اجتماعي قائم على الموقع',
+            title: 'Farra',
+            category: 'منصة نقل وخدمات لوجستية',
             description:
-              'باك إند لتطبيق اجتماعي على الجوال يركز على اكتشاف المستخدمين حسب الموقع وتسجيلات الوصول والمشاركة والخصوصية.',
-            technologies: ['Laravel', 'MySQL', 'REST APIs', 'التخزين السحابي'],
-            platforms: ['تطبيق جوال', 'REST API'],
-            preview: 'wander',
+              'باك إند قابل للتوسع لعمليات النقل والخدمات، يدير طلبات المشاوير، والصلاحيات، وتدفقات العمليات، وإشعارات Firebase، والعمليات اللحظية.',
+            technologies: ['Laravel', 'PHP', 'MySQL', 'REST APIs', 'Firebase', 'إدارة الصلاحيات'],
+            platforms: ['تطبيق جوال', 'REST API', 'لوحة تحكم'],
+            preview: 'farra',
           },
           {
             title: 'Real Estate Management',
@@ -511,6 +561,7 @@ export default function App() {
             technologies: ['Laravel', 'PHP', 'MySQL'],
             platforms: ['منصة ويب'],
             preview: 'real-estate',
+            githubUrl: 'https://github.com/Rabie-khashaba/All-star-Real-Estate-Dashboard',
           },
           {
             title: 'Course Management System',
@@ -520,6 +571,47 @@ export default function App() {
             technologies: ['Laravel', 'PHP', 'إدارة الدورات', 'الجدولة'],
             platforms: ['منصة ويب'],
             preview: 'course-management',
+            githubUrl: 'https://github.com/Rabie-khashaba/LMS-project-API-',
+          },
+          {
+            title: 'ExpressCare',
+            category: 'منصة إدارة الرعاية الصحية',
+            description:
+              'منصة صحية مبنية بـLaravel، تضم لوحات عربية وإنجليزية، وصلاحيات حسب الدور، ومصادقة WhatsApp OTP، ومسارات API للمرضى والإحالات والحجوزات.',
+            technologies: ['Laravel 12', 'PHP', 'REST APIs', 'WhatsApp OTP', 'Firebase', 'Paymob'],
+            platforms: ['منصة ويب', 'REST API'],
+            preview: 'expresscare',
+            githubUrl: 'https://github.com/Rabie-khashaba/expresscare-backend',
+          },
+          {
+            title: 'Salem Shop',
+            category: 'باك إند للتجارة الإلكترونية',
+            description:
+              'باك إند للتجارة مبني بـLaravel لإدارة المنتجات وعروض الأسعار والطلبات، مع توثيق للـAPI ولوحة تحكم إدارية.',
+            technologies: ['Laravel', 'PHP', 'REST APIs', 'المنتجات والطلبات', 'لوحة الإدارة'],
+            platforms: ['منصة ويب', 'REST API'],
+            preview: 'salem-shop',
+            githubUrl: 'https://github.com/Rabie-khashaba/salem-shop-backend',
+          },
+          {
+            title: 'Arzaq',
+            category: 'منصة إعلانات تجارية ومبوبة',
+            description:
+              'منصة للإعلانات التجارية والمبوبة تربط البائعين والمشترين مع تصفح مصنف للأقسام، ومسارات نشر الإعلانات، وتكامل منظم مع واجهات REST API.',
+            technologies: ['React', 'Vite', 'Tailwind CSS', 'REST APIs', 'Lucide Icons'],
+            platforms: ['منصة ويب', 'REST API'],
+            preview: 'arzaq',
+            githubUrl: 'https://github.com/Rabie-khashaba/Arzaq-website',
+          },
+          {
+            title: 'Meshwary',
+            category: 'نظام حجز مشاوير وأسطول ليموزين',
+            description:
+              'نظام تشغيلي ولوحة تحكم لإدارة حجوزات الليموزين، ومتابعة السائقين، وأسطول السيارات، والمناطق الجغرافية ومسارات الرحلات.',
+            technologies: ['Laravel', 'PHP', 'MySQL', 'REST APIs', 'إدارة الأساطيل'],
+            platforms: ['منصة ويب', 'REST API', 'لوحة تحكم إدارية'],
+            preview: 'meshwary',
+            githubUrl: 'https://github.com/Rabie-khashaba/meshwary',
           },
         ]
       : projects;
@@ -648,13 +740,7 @@ export default function App() {
     <div
       className={`portfolio-root ${lightTheme ? 'theme-light' : ''}`}
       dir={language === 'ar' ? 'rtl' : 'ltr'}
-      onPointerMove={(event) => {
-        if (event.pointerType === 'touch') return;
-        const bounds = event.currentTarget.getBoundingClientRect();
-        event.currentTarget.style.setProperty('--pointer-x', `${event.clientX - bounds.left}px`);
-        event.currentTarget.style.setProperty('--pointer-y', `${event.clientY - bounds.top}px`);
-        event.currentTarget.style.setProperty('--pointer-glow-opacity', '1');
-      }}
+      onPointerMove={handlePointerMove}
       onPointerLeave={(event) => event.currentTarget.style.setProperty('--pointer-glow-opacity', '0')}
     >
       <header className="portfolio-header sticky top-0 z-50">
@@ -685,7 +771,13 @@ export default function App() {
             aria-label={language === 'ar' ? 'التنقل' : 'Navigation'}
           >
             {navItems.filter((item) => item.href !== '#contact').map((item) => (
-              <a key={item.href} href={selectedProject ? `/${item.href}` : item.href}>{item.label}</a>
+              <a
+                key={item.href}
+                href={selectedProject ? `/${item.href}` : item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
+              >
+                {item.label}
+              </a>
             ))}
           </div>
 
@@ -739,7 +831,10 @@ export default function App() {
                     <a
                       href={selectedProject ? '/#contact' : '#contact'}
                       role="menuitem"
-                      onClick={() => setCallMenuOpen(false)}
+                      onClick={(e) => {
+                        setCallMenuOpen(false);
+                        handleNavClick(e, '#contact');
+                      }}
                     >
                       <span className="portfolio-call-menu-icon"><CalendarDays size={17} /></span>
                       <span className="portfolio-call-menu-copy">
@@ -797,7 +892,7 @@ export default function App() {
                 <motion.a
                   key={item.href}
                   href={selectedProject ? `/${item.href}` : item.href}
-                  onClick={handleNavClick}
+                  onClick={(e) => handleNavClick(e, item.href)}
                   initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: shouldReduceMotion ? 0 : 0.24, delay: shouldReduceMotion ? 0 : 0.04 * index }}
@@ -807,7 +902,7 @@ export default function App() {
               ))}
             </nav>
             <div className="portfolio-menu-footer">
-              <Button as="a" href={selectedProject ? '/#contact' : '#contact'} onClick={handleNavClick} className="px-5 py-3 text-sm">
+              <Button as="a" href={selectedProject ? '/#contact' : '#contact'} onClick={(e) => handleNavClick(e, '#contact')} className="px-5 py-3 text-sm">
                 <CalendarDays size={16} />
                 {language === 'ar' ? 'تواصل معي' : 'Book a Call'}
               </Button>
@@ -836,7 +931,10 @@ export default function App() {
         <ProjectDetailsPage
           project={selectedProject}
           details={projectDetails}
-          labels={t.projectDetails}
+          labels={{
+            ...t.projectDetails,
+            repositoryLabel: t.viewRepository,
+          }}
           index={projectIndex}
           isArabic={language === 'ar'}
           onBack={handleBackToProjects}
@@ -888,7 +986,7 @@ export default function App() {
                     { href: '#skills', label: t.nav.skills },
                     { href: '#contact', label: t.nav.contact },
                   ].map((item) => (
-                    <a href={item.href} key={item.href}>{item.label}</a>
+                    <a href={item.href} key={item.href} onClick={(e) => handleNavClick(e, item.href)}>{item.label}</a>
                   ))}
                 </div>
                 <form className="portfolio-prompt-form" onSubmit={handleQuestionSubmit}>
@@ -929,7 +1027,7 @@ export default function App() {
                 ) : null}
               </div>
 
-              <a className="portfolio-scroll-cue" href="#about">
+              <a className="portfolio-scroll-cue" href="#about" onClick={(e) => handleNavClick(e, '#about')}>
                 <span>{language === 'ar' ? 'اكتشف المزيد' : 'Scroll to explore'}</span>
                 <ArrowDown size={16} />
               </a>
@@ -937,7 +1035,7 @@ export default function App() {
           </div>
         </section>
 
-        <motion.section id="about" className="section-shell" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} variants={sectionReveal}>
+        <motion.section id="about" className="section-shell" initial="hidden" whileInView="show" viewport={sectionViewport} variants={sectionReveal}>
           <div className="container-shell">
             <div className="portfolio-intro-grid">
               <article className="profile-identity-card">
@@ -1004,7 +1102,7 @@ export default function App() {
           </div>
         </motion.section>
 
-        <motion.section id="projects" className="section-shell" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }} variants={sectionReveal}>
+        <motion.section id="projects" className="section-shell" initial="hidden" whileInView="show" viewport={sectionViewport} variants={sectionReveal}>
           <div className="container-shell">
             <SectionHeading
               eyebrow={t.projectsEyebrow}
@@ -1016,10 +1114,10 @@ export default function App() {
               {localizedProjects.map((project, index) => (
                 <motion.div
                   key={project.title}
-                  initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
+                  initial={shouldReduceMotion ? false : { opacity: 0.4, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.15 }}
-                  transition={{ duration: shouldReduceMotion ? 0 : 0.45, delay: shouldReduceMotion ? 0 : index * 0.07 }}
+                  viewport={{ once: true, margin: '140px 0px 0px 0px', amount: 0.02 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.22, delay: shouldReduceMotion ? 0 : (index % 2) * 0.04 }}
                 >
                   <ProjectCard
                     project={project}
@@ -1033,7 +1131,7 @@ export default function App() {
           </div>
         </motion.section>
 
-        <motion.section id="services" className="section-shell" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }} variants={sectionReveal}>
+        <motion.section id="services" className="section-shell" initial="hidden" whileInView="show" viewport={sectionViewport} variants={sectionReveal}>
           <div className="container-shell">
             <SectionHeading
               eyebrow={t.serviceEyebrow}
@@ -1049,7 +1147,7 @@ export default function App() {
           </div>
         </motion.section>
 
-        <motion.section id="skills" className="section-shell" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }} variants={sectionReveal}>
+        <motion.section id="skills" className="section-shell" initial="hidden" whileInView="show" viewport={sectionViewport} variants={sectionReveal}>
           <div className="container-shell">
             <SectionHeading eyebrow={t.techEyebrow} title={t.techTitle} align="center" />
 
@@ -1074,7 +1172,7 @@ export default function App() {
           </div>
         </motion.section>
 
-        <motion.section id="experience" className="section-shell" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }} variants={sectionReveal}>
+        <motion.section id="experience" className="section-shell" initial="hidden" whileInView="show" viewport={sectionViewport} variants={sectionReveal}>
           <div className="container-shell">
             <SectionHeading eyebrow={t.experienceEyebrow} title={t.experienceTitle} />
 
@@ -1116,7 +1214,7 @@ export default function App() {
           </div>
         </motion.section>
 
-        <motion.section id="expectations" className="section-shell" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={sectionReveal}>
+        <motion.section id="expectations" className="section-shell" initial="hidden" whileInView="show" viewport={sectionViewport} variants={sectionReveal}>
           <div className="container-shell">
             <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
               <div className="portfolio-expectations-card rounded-2xl border border-white/10 bg-card p-6 md:p-8">
@@ -1148,7 +1246,7 @@ export default function App() {
           </div>
         </motion.section>
 
-        <motion.section id="other" className="section-shell" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={sectionReveal}>
+        <motion.section id="other" className="section-shell" initial="hidden" whileInView="show" viewport={sectionViewport} variants={sectionReveal}>
           <div className="container-shell">
             <SectionHeading
               eyebrow={t.moreEyebrow}
@@ -1181,10 +1279,11 @@ export default function App() {
                   href={card.href}
                   target={card.href.startsWith('http') ? '_blank' : undefined}
                   rel={card.href.startsWith('http') ? 'noreferrer' : undefined}
-                  initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+                  onClick={(e) => handleNavClick(e, card.href)}
+                  initial={shouldReduceMotion ? false : { opacity: 0.4, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: shouldReduceMotion ? 0 : 0.35, delay: shouldReduceMotion ? 0 : index * 0.08 }}
+                  viewport={{ once: true, margin: '140px 0px 0px 0px', amount: 0.02 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.22, delay: shouldReduceMotion ? 0 : index * 0.04 }}
                   className="portfolio-explore-link group"
                 >
                   <span className="portfolio-explore-main">
@@ -1201,7 +1300,7 @@ export default function App() {
           </div>
         </motion.section>
 
-        <motion.section id="contact" className="section-shell" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={sectionReveal}>
+        <motion.section id="contact" className="section-shell" initial="hidden" whileInView="show" viewport={sectionViewport} variants={sectionReveal}>
           <div className="container-shell">
             <SectionHeading
               eyebrow={t.contactEyebrow}
