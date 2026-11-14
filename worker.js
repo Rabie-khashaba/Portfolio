@@ -12,9 +12,9 @@ const getProjectSlug = (title) =>
 
 const portfolioKnowledge = JSON.stringify({
   name: 'Rabie Abdelrahman',
-  role: 'Backend Engineer and Laravel Developer',
+  role: 'Backend Developer (PHP - Laravel)',
   email: 'khashabarabie@gmail.com',
-  location: 'Egypt; open to remote work',
+  location: 'Egypt; open to work',
   experience: experience.map(({ period, role, company, description, responsibilities }) => ({
     period,
     role,

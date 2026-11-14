@@ -53,7 +53,7 @@ const translations = {
     switchToDark: 'Switch to dark mode',
     hello: 'Hello, I’m',
     name: 'Rabie Abdelrahman',
-    role: 'Backend Engineer · Backend Developer',
+    role: 'Backend Developer (PHP - Laravel)',
     summary:
       'With 2+ years of experience, I build secure backend systems with Laravel and PHP, and create modern frontend experiences with React.js.',
     ctaPrimary: 'View My Work',
@@ -77,7 +77,7 @@ const translations = {
     focus: 'Focus',
     backend: 'Backend',
     shipped: 'Shipped & Live',
-    mobileApps: '3+ Mobile Apps',
+    mobileApps: '10+ Apps',
     apis: '10+ APIs',
     systems: 'Systems',
     live: 'Live',
@@ -88,7 +88,9 @@ const translations = {
     profileFactsTitle: 'A little more about me',
     profileFocus: 'Core focus',
     profileLocation: 'Based in',
-    profileLocationValue: 'Egypt · Open to remote',
+    profileLocationValue: 'Egypt · Open to work',
+    profileCountry: 'Egypt',
+    profileStatusBadge: 'Open to work',
     profileExperience: 'Experience',
     experienceDuration: '2+ years',
     mindsetTitle: 'Mindset',
@@ -159,8 +161,10 @@ const translations = {
     contactDescription: 'Have a project, product, or backend challenge? Let’s talk.',
     startConversation: 'Start a conversation',
     conversationText: 'I build backend systems designed to scale with your product.',
-    footerText: '© 2026 Rabie Abdelrahman',
-    builtWith: 'Built with React + Tailwind CSS',
+    footerText: '© 2026 Rabie Abdelrahman. All rights reserved.',
+    footerRole: 'Backend Developer (PHP - Laravel)',
+    footerStatus: 'Available for work',
+    footerRights: 'Crafted for performance, scalability & clean architecture',
     top: 'Back to top',
     email: 'Email',
     github: 'GitHub',
@@ -182,7 +186,7 @@ const translations = {
     switchToDark: 'التبديل إلى الوضع الداكن',
     hello: 'مرحباً، أنا',
     name: 'ربيع عبد الرحمن',
-    role: 'مهندس باك إند · مطور باك إند',
+    role: 'مطور باك إند (PHP - Laravel)',
     summary:
       'لدي خبرة تزيد عن سنتين في بناء أنظمة باك إند آمنة باستخدام Laravel وPHP، وتطوير واجهات أمامية حديثة باستخدام React.js.',
     ctaPrimary: 'عرض الأعمال',
@@ -206,7 +210,7 @@ const translations = {
     focus: 'التركيز',
     backend: 'الباك إند',
     shipped: 'تم الإطلاق',
-    mobileApps: '3+ تطبيقات جوال',
+    mobileApps: 'أكثر من 10 تطبيقات',
     apis: '10+ واجهات',
     systems: 'الأنظمة',
     live: 'مباشر',
@@ -217,7 +221,9 @@ const translations = {
     profileFactsTitle: 'نبذة سريعة عني',
     profileFocus: 'مجال التركيز',
     profileLocation: 'الموقع',
-    profileLocationValue: 'مصر · متاح للعمل عن بُعد',
+    profileLocationValue: 'مصر · متاح للعمل',
+    profileCountry: 'مصر',
+    profileStatusBadge: 'متاح للعمل',
     profileExperience: 'سنوات الخبرة',
     experienceDuration: 'سنتان من الخبرة',
     mindsetTitle: 'منهجيتي',
@@ -288,9 +294,11 @@ const translations = {
     contactDescription: 'هل لديك مشروع أو تحدي باك إند؟ دعنا نتحدث.',
     startConversation: 'ابدأ محادثة',
     conversationText: 'أبني أنظمة باك إند مصممة لتتكامل مع منتجك وتوسع معه.',
-    footerText: '© 2026 ربيع عبد الرحمن',
-    builtWith: 'بنيت باستخدام React + Tailwind CSS',
-    top: 'عودة إلى الأعلى',
+    footerText: '© 2026 ربيع عبد الرحمن. جميع الحقوق محفوظة.',
+    footerRole: 'مطور باك إند (PHP - Laravel)',
+    footerStatus: 'متاح للعمل',
+    footerRights: 'مصمم ومبني لمعايير الأداء العالي والبنية المعمارية النظيفة',
+    top: 'العودة للأعلى',
     email: 'البريد الإلكتروني',
     github: 'GitHub',
     linkedin: 'LinkedIn',
@@ -719,20 +727,6 @@ export default function App() {
               'تدريب في تطوير البرمجيات',
             ],
           },
-          {
-            period: '2023 — 2024',
-            role: 'مطور لارافيل',
-            company: 'Product Teams',
-            description:
-              'تسليم أنظمة باك إند للوجستيات والتجارة والعمليات التشغيلية مع التركيز على الكود المعياري، سلامة البيانات، والاستقرار في بيئة الإنتاج.',
-            responsibilities: [
-              'أنظمة الإدارة الداخلية',
-              'واجهات للعملاء',
-              'صلاحيات حسب الدور',
-              'تصميم MySQL',
-              'تكاملات خارجية',
-            ],
-          },
         ]
       : experience;
 
@@ -968,7 +962,7 @@ export default function App() {
                   </div>
                   <span className="portfolio-prompt-status">
                     <i />
-                    {language === 'ar' ? 'تجريبي' : 'BETA'}
+                    {language === 'ar' ? 'متاح' : 'Available'}
                   </span>
                 </div>
                 <p className="portfolio-prompt-description">
@@ -1061,14 +1055,33 @@ export default function App() {
                 <div className="profile-facts-grid">
                   {[
                     { label: t.profileFocus, value: 'Laravel · PHP · APIs' },
-                    { label: t.profileLocation, value: t.profileLocationValue },
+                    {
+                      label: t.profileLocation,
+                      value: t.profileLocationValue,
+                      isLocation: true,
+                      country: t.profileCountry,
+                      badge: t.profileStatusBadge,
+                    },
                     { label: t.profileExperience, value: t.experienceDuration },
                     { label: t.shipped, value: t.mobileApps },
                   ].map((fact, index) => (
                     <div className="profile-fact" key={fact.label}>
                       <span>0{index + 1}</span>
                       <p>{fact.label}</p>
-                      <strong>{fact.value}</strong>
+                      {fact.isLocation ? (
+                        <div className="mt-[5px] flex flex-row items-center justify-between gap-2">
+                          <span className="text-[11px] font-semibold text-[#dedee5]">{fact.country}</span>
+                          <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-400">
+                            <span className="relative flex h-1.5 w-1.5">
+                              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                            </span>
+                            {fact.badge}
+                          </span>
+                        </div>
+                      ) : (
+                        <strong>{fact.value}</strong>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -1189,7 +1202,7 @@ export default function App() {
                     </div>
 
                     <div className="md:col-span-1">
-                      <div className="portfolio-timeline-marker absolute left-[10px] top-2 h-5 w-5 rounded-full border border-primary/40 bg-primary/20 md:left-1/2 md:-translate-x-1/2" aria-hidden="true" />
+                      <div className="portfolio-timeline-marker absolute top-2 h-5 w-5 rounded-full border border-primary/40 bg-primary/20 left-[10px] md:left-1/2 md:rtl:left-auto md:rtl:right-1/2 md:-translate-x-1/2 md:rtl:translate-x-1/2" aria-hidden="true" />
                       <div className="portfolio-timeline-card rounded-2xl border border-white/10 bg-card p-6">
                         <div className="portfolio-timeline-meta mb-3 flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted">
                           <span>{item.role}</span>
@@ -1341,24 +1354,74 @@ export default function App() {
       </main>
       )}
 
-      <footer>
-        <div className="container-shell flex flex-col gap-4 py-8 text-sm text-muted md:flex-row md:items-center md:justify-between">
-          <p>{t.footerText}</p>
-          <div className="flex flex-wrap items-center gap-4">
-            <a href="https://github.com/Rabie-khashaba" target="_blank" rel="noreferrer" className="hover:text-primary">GitHub</a>
-            <a href="https://www.linkedin.com/in/rabie-khashaba/" target="_blank" rel="noreferrer" className="hover:text-primary">LinkedIn</a>
-            <a href="mailto:khashabarabie@gmail.com" className="hover:text-primary">{t.email}</a>
+      <footer className="portfolio-footer border-t border-white/10 bg-card/30 backdrop-blur-md">
+        <div className="container-shell py-10 md:py-14">
+          <div className="flex flex-col gap-6 pb-8 border-b border-white/10 md:flex-row md:items-center md:justify-between">
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-primary/40 bg-primary/10 text-xs font-bold text-primary">
+                  RK
+                </span>
+                <div>
+                  <h3 className="text-sm font-semibold text-white">{t.name}</h3>
+                  <p className="text-xs text-muted">{t.footerRole}</p>
+                </div>
+              </div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] font-medium text-success">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
+                </span>
+                <span>{t.footerStatus}</span>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+              <a
+                href="https://github.com/Rabie-khashaba"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2 text-xs font-medium text-white transition-all duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-primary active:scale-95"
+                aria-label="GitHub Profile"
+              >
+                <Github size={15} />
+                <span>GitHub</span>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/rabie-khashaba/"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2 text-xs font-medium text-white transition-all duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-primary active:scale-95"
+                aria-label="LinkedIn Profile"
+              >
+                <Linkedin size={15} />
+                <span>LinkedIn</span>
+              </a>
+              <a
+                href="mailto:khashabarabie@gmail.com"
+                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2 text-xs font-medium text-white transition-all duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-primary active:scale-95"
+                aria-label="Email Address"
+              >
+                <Mail size={15} />
+                <span>{t.email}</span>
+              </a>
+            </div>
           </div>
-          <div className="flex items-center justify-between gap-4">
-            <p>{t.builtWith}</p>
+
+          <div className="flex flex-col-reverse items-center justify-between gap-5 pt-6 text-xs text-muted sm:flex-row">
+            <div className="flex flex-col items-center gap-1 text-center sm:items-start sm:text-start">
+              <p className="font-medium text-[#C9CDD8]">{t.footerText}</p>
+              <p className="text-[11px] text-muted/80">{t.footerRights}</p>
+            </div>
+
             <button
               type="button"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="portfolio-icon-button portfolio-footer-top"
+              className="group inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-xs font-medium text-[#C9CDD8] transition-all duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-primary active:scale-95"
               aria-label={t.top}
-              title={t.top}
             >
-              <ArrowUp size={18} />
+              <span>{t.top}</span>
+              <ArrowUp size={14} className="transition-transform duration-200 group-hover:-translate-y-0.5" />
             </button>
           </div>
         </div>
