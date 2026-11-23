@@ -749,6 +749,8 @@ export default function App() {
           aria-hidden="true"
         />
         <nav className="container-shell relative mx-auto flex items-center justify-between">
+          <a className="portfolio-mobile-brand" href="#home" aria-label="Rabie Abdelrahman home">R<span>.</span>K</a>
+          <div className="portfolio-mobile-controls">
           <button
             type="button"
             className="portfolio-icon-button"
@@ -756,7 +758,7 @@ export default function App() {
             aria-label={lightTheme ? t.switchToDark : t.switchToLight}
             aria-pressed={lightTheme}
           >
-            {lightTheme ? <Sun size={19} /> : <Moon size={19} />}
+            {lightTheme ? <Moon size={19} /> : <Sun size={19} />}
           </button>
 
           <button
@@ -769,6 +771,10 @@ export default function App() {
           >
             {mobileMenuOpen ? <X size={21} /> : <Menu size={21} />}
           </button>
+          <button className="portfolio-mobile-language" type="button" onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')} aria-label="Switch language">
+            {t.language}<ChevronDown size={14} />
+          </button>
+          </div>
 
           <div
             className={`portfolio-desktop-nav ${isScrollingDown ? 'is-scroll-transparent' : ''}`}
@@ -911,6 +917,19 @@ export default function App() {
                 <CalendarDays size={16} />
                 {language === 'ar' ? 'تواصل معي' : 'Book a Call'}
               </Button>
+              <a
+                className="portfolio-menu-cv"
+                href="/Rabie-Abdelrahman-Software-Engineer-CV.pdf"
+                download="Rabie-Abdelrahman-Software-Engineer-CV.pdf"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span className="portfolio-menu-cv-icon"><Download size={18} /></span>
+                <span className="portfolio-menu-cv-copy">
+                  <strong>{language === 'ar' ? 'تحميل السيرة الذاتية' : 'Download CV'}</strong>
+                  <small>{language === 'ar' ? 'نسخة PDF من سيرتي المهنية' : 'Professional resume · PDF'}</small>
+                </span>
+                <ArrowDown className="portfolio-menu-cv-arrow" size={17} />
+              </a>
               <div className="flex overflow-hidden rounded-full border border-white/10 bg-card p-1">
                 {['en', 'ar'].map((code) => (
                   <button
@@ -953,8 +972,10 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, ease: 'easeOut' }}
             >
-              <h1>
-                {language === 'ar' ? 'مرحباً، أنا' : 'I’m'} <span>{t.name}</span>
+              <p className="portfolio-hero-eyebrow">{language === 'ar' ? 'مرحباً، أنا' : "HELLO, I'M"}</p>
+              <h1 className="portfolio-hero-name">
+                {language === 'ar' ? 'ربيع ' : 'Rabie '}
+                <span>{language === 'ar' ? 'عبدالرحمن' : 'Abdelrhman'}</span>
               </h1>
               <p className="portfolio-hero-role">{t.role}</p>
 
