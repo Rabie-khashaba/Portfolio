@@ -17,6 +17,7 @@ import {
   Mail,
   LoaderCircle,
   Menu,
+  MessageCircle,
   Moon,
   ShieldCheck,
   Sparkles,
@@ -784,7 +785,7 @@ export default function App() {
             ))}
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="portfolio-header-actions flex items-center gap-3">
             <div className="portfolio-language-switch" aria-label={language === 'ar' ? 'اختيار اللغة' : 'Language selection'}>
               <Languages size={16} aria-hidden="true" />
               {['en', 'ar'].map((code) => (
@@ -810,7 +811,8 @@ export default function App() {
                 aria-controls="portfolio-call-menu"
                 onClick={() => setCallMenuOpen((open) => !open)}
               >
-                <CalendarDays size={16} aria-hidden="true" />
+                <CalendarDays className="portfolio-contact-desktop-icon" size={16} aria-hidden="true" />
+                <MessageCircle className="portfolio-contact-mobile-icon" size={20} aria-hidden="true" />
                 <span className="portfolio-call-label">
                   {language === 'ar' ? 'لنتحدث' : 'Let’s Talk'}
                 </span>
@@ -952,7 +954,7 @@ export default function App() {
               transition={{ duration: 0.65, ease: 'easeOut' }}
             >
               <h1>
-                {language === 'ar' ? 'مرحباً، أنا' : 'Hi, I’m'} <span>{t.name}</span>
+                {language === 'ar' ? 'مرحباً، أنا' : 'I’m'} <span>{t.name}</span>
               </h1>
               <p className="portfolio-hero-role">{t.role}</p>
 

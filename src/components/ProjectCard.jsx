@@ -44,7 +44,7 @@ export default function ProjectCard({
             <span>{project.platforms.join(' / ')}</span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="portfolio-project-links flex items-center gap-3">
             {project.githubUrl ? (
               <a
                 href={project.githubUrl}

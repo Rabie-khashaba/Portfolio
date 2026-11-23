@@ -84,6 +84,51 @@ html,body { background: var(--background); color: var(--foreground); }
 #root .portfolio-header .portfolio-desktop-nav.is-scroll-transparent { background: transparent; opacity: 1; }
 #root .portfolio-icon-button { width: 44px; height: 44px; border-radius: 12px; }
 #root .portfolio-desktop-nav { padding: 4px; border-radius: 12px; }
+#root .portfolio-contact-mobile-icon { display: none; }
+@media (max-width:959px) {
+  #root .portfolio-header nav {
+    display: grid;
+    grid-template-columns: 44px minmax(0,1fr) 44px;
+    align-items: center;
+    min-height: 68px;
+    padding-inline: 16px;
+    gap: 12px;
+  }
+  #root .portfolio-header .portfolio-menu-toggle {
+    display: inline-flex;
+    position: static;
+    transform: none;
+    justify-self: center;
+    width: 44px;
+    padding: 0;
+  }
+  #root .portfolio-header-actions { justify-self: end; gap: 8px; }
+  #root .portfolio-header .portfolio-call-trigger {
+    min-height: 44px;
+    width: 44px;
+    padding: 0;
+    gap: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 12px;
+  }
+  #root .portfolio-header .portfolio-call-label { display: none; }
+  #root .portfolio-contact-desktop-icon { display: none; }
+  #root .portfolio-contact-mobile-icon { display: block; }
+  #root .portfolio-header .portfolio-call-chevron { display: none; }
+  #root .portfolio-header .portfolio-icon-button { color: var(--text-secondary); }
+  #root .portfolio-header .portfolio-icon-button:hover { transform: none; background: var(--hover); }
+  #root .portfolio-header .portfolio-call-trigger:hover,
+  #root .portfolio-header .portfolio-call-trigger[aria-expanded='true'] { background: var(--hover); }
+  #root .portfolio-header .portfolio-call-menu {
+    top: calc(100% + 12px);
+    width: min(300px,calc(100vw - 32px));
+    padding: 8px;
+    border-radius: 14px;
+    box-shadow: 0 12px 32px rgb(4 21 31 / 16%);
+  }
+}
 #root :is(.portfolio-desktop-nav a,.portfolio-menu-links a) { color: var(--text-secondary); border-radius: 8px; }
 #root :is(.portfolio-desktop-nav a:hover,.portfolio-menu-links a:hover,.portfolio-icon-button:hover) { color: var(--foreground); background: var(--hover); }
 #root :is(.portfolio-menu-panel,.portfolio-call-menu) { background: var(--popover); color: var(--foreground); border-color: var(--border); box-shadow: var(--card-shadow); }
@@ -207,6 +252,59 @@ html,body { background: var(--background); color: var(--foreground); }
   :root:not([data-theme='dark']) #root :is(.profile-identity-card,.profile-facts-card,.profile-editorial-card,.portfolio-project-card,.portfolio-service-card,.portfolio-explore-link):hover { border-color: #B7C5C2; box-shadow: 0 8px 24px rgb(4 21 31 / 7%); }
 }
 @media(max-width:720px) {
+  #root .portfolio-prompt-heading {
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+    column-gap: 12px;
+    row-gap: 24px;
+    width: 100%;
+    min-width: 0;
+  }
+  #root .portfolio-prompt-icon { grid-column: 1; grid-row: 1; justify-self: start; }
+  #root .portfolio-prompt-status {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: auto;
+    height: auto;
+    min-height: 28px;
+    margin: 0;
+    padding: 5px 9px;
+    border: 1px solid var(--border);
+    font-size: 10px;
+    line-height: 1.4;
+    letter-spacing: .02em;
+    white-space: nowrap;
+  }
+  #root .portfolio-prompt-status i { width: 6px; height: 6px; flex: 0 0 6px; }
+  #root .portfolio-prompt-heading-copy { grid-column: 1 / -1; grid-row: 2; }
+  #root .portfolio-project-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding-top: 16px;
+  }
+  #root .portfolio-project-actions > .portfolio-project-links {
+    width: 100%;
+    margin-inline-start: 0;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 16px;
+  }
+  #root .portfolio-project-links :is(a,button) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 8px 4px;
+    gap: 8px;
+    border-radius: 8px;
+    font-size: 13px;
+  }
+  #root .portfolio-project-links button { margin-inline-start: auto; }
+  #root .portfolio-project-links svg { flex-shrink: 0; }
   #root .portfolio-header nav { min-height: 64px; gap: 8px; }
   #root .portfolio-hero { min-height: calc(100svh - 64px); padding-block: 32px; }
   #root .portfolio-prompt { padding: 20px 16px; }
