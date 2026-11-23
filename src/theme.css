@@ -187,6 +187,65 @@ html,body { background: var(--background); color: var(--foreground); }
 #root :is(.portfolio-desktop-nav a:hover,.portfolio-menu-links a:hover,.portfolio-icon-button:hover) { color: var(--foreground); background: var(--hover); }
 #root :is(.portfolio-menu-panel,.portfolio-call-menu) { background: var(--popover); color: var(--foreground); border-color: var(--border); box-shadow: var(--card-shadow); }
 #root .portfolio-menu-backdrop { background: rgb(4 21 31 / 72%); }
+@media (max-width: 959px) {
+  #root .portfolio-mobile-controls .portfolio-icon-button {
+    width: 44px;
+    height: 44px;
+    color: var(--foreground);
+  }
+  #root .portfolio-mobile-controls .portfolio-menu-toggle[aria-expanded='true'] {
+    background: var(--foreground);
+    color: var(--background);
+  }
+  #root .portfolio-menu-backdrop {
+    background: color-mix(in srgb, var(--background) 72%, transparent);
+  }
+  #root .portfolio-menu-backdrop .portfolio-menu-panel {
+    max-width: 480px;
+    max-height: calc(100dvh - 124px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 14px clamp(16px, 5vw, 24px) 20px;
+    border-radius: 24px;
+    background: var(--popover);
+    box-shadow: 0 20px 56px rgb(4 21 31 / 22%);
+  }
+  #root .portfolio-menu-panel .portfolio-menu-links a {
+    min-height: 48px;
+    padding: 12px 4px;
+    border-radius: 0;
+    font-size: 17px;
+    transform: none;
+  }
+  #root .portfolio-menu-panel .portfolio-menu-footer {
+    gap: 10px;
+    margin-top: 14px;
+  }
+  #root .portfolio-menu-panel .portfolio-menu-footer > a {
+    min-height: 48px;
+    border-radius: 12px;
+  }
+  #root .portfolio-menu-panel .portfolio-menu-footer > .portfolio-menu-cv {
+    min-height: 60px;
+    background: var(--secondary);
+    border-color: var(--border);
+    color: var(--foreground);
+  }
+  #root .portfolio-menu-panel .portfolio-menu-footer > .portfolio-menu-cv:hover {
+    background: var(--hover);
+  }
+  #root .portfolio-menu-panel :is(.portfolio-menu-cv-copy small, .portfolio-menu-cv-arrow) {
+    color: var(--muted-foreground);
+  }
+  #root .portfolio-menu-panel .portfolio-menu-cv-icon {
+    background: var(--hover);
+    color: var(--warm-highlight);
+  }
+  #root .portfolio-menu-panel .portfolio-menu-footer > .flex {
+    background: var(--secondary);
+    border-color: var(--border);
+  }
+}
 #root .portfolio-call-menu a { color: var(--foreground); }
 #root .portfolio-call-menu a:hover { background: var(--hover); }
 #root .portfolio-call-menu small { color: var(--muted-foreground); }
