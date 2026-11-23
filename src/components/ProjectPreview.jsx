@@ -13,7 +13,7 @@ const previews = {
     rows: [
       ['Customer order', 'Vendor fulfillment', 'In progress', '#f5a65b'],
       ['Rider handoff', 'Delivery workflow', 'In progress', '#75c6a5'],
-      ['Support ticket', 'Customer service', 'Open', '#a990f5'],
+      ['Support ticket', 'Customer service', 'Open', '#14b8a6'],
     ],
     kind: 'orders',
     activityHeading: 'Order workflows',
@@ -30,7 +30,7 @@ const previews = {
     ],
     rows: [
       ['Patient booking', 'Care appointment', 'Scheduled', '#7dd3c7'],
-      ['Doctor referral', 'Patient workflow', 'In review', '#a990f5'],
+      ['Doctor referral', 'Patient workflow', 'In review', '#14b8a6'],
       ['Care team access', 'Permissions', 'Managed', '#75c6a5'],
     ],
     kind: 'overview',
@@ -48,7 +48,7 @@ const previews = {
     ],
     rows: [
       ['Product catalog', 'Catalog management', 'Available', '#e8c879'],
-      ['Customer quote', 'Quote workflow', 'In review', '#a990f5'],
+      ['Customer quote', 'Quote workflow', 'In review', '#14b8a6'],
       ['Shop order', 'Order operations', 'Processing', '#75c6a5'],
     ],
     kind: 'overview',
@@ -66,7 +66,7 @@ const previews = {
     ],
     rows: [
       ['Commercial advertisement', 'Listing published', 'Active', '#4ecdc4'],
-      ['Post-ad submission', 'Category selection', 'Verified', '#a990f5'],
+      ['Post-ad submission', 'Category selection', 'Verified', '#14b8a6'],
       ['Ad inquiry message', 'Chat workflow', 'Delivered', '#75c6a5'],
     ],
     kind: 'overview',
@@ -102,7 +102,7 @@ const previews = {
     ],
     rows: [
       ['FR-0842', 'Airport → Downtown', 'In transit', '#7dd3c7'],
-      ['FR-0841', 'West End → Central', 'Assigned', '#a990f5'],
+      ['FR-0841', 'West End → Central', 'Assigned', '#14b8a6'],
       ['FR-0840', 'North Park → Airport', 'Picking up', '#f5c46b'],
     ],
     kind: 'dispatch',
@@ -110,7 +110,7 @@ const previews = {
   'baby-track': {
     title: 'Baby-Track',
     section: 'Monitoring overview',
-    accent: '#a990f5',
+    accent: '#14b8a6',
     metrics: [
       ['ACTIVE PROFILES', '128', 'Monitored'],
       ['CHECK-INS', '96%', 'This week'],
@@ -118,7 +118,7 @@ const previews = {
     ],
     rows: [
       ['Profile 104', 'Daily summary ready', 'Reviewed', '#75c6a5'],
-      ['Profile 103', 'New check-in received', 'Processing', '#a990f5'],
+      ['Profile 103', 'New check-in received', 'Processing', '#14b8a6'],
       ['Profile 102', 'Weekly report generated', 'Complete', '#75c6a5'],
     ],
     kind: 'monitoring',
@@ -134,7 +134,7 @@ const previews = {
     ],
     rows: [
       ['Recruitment', 'Candidate workflow', 'In progress', '#83a9ff'],
-      ['Sales pipeline', 'Lead tracking', 'In progress', '#a990f5'],
+      ['Sales pipeline', 'Lead tracking', 'In progress', '#14b8a6'],
       ['Payroll', 'Payroll workflow', 'Managed', '#75c6a5'],
     ],
     kind: 'people',
@@ -153,7 +153,7 @@ const previews = {
     rows: [
       ['MV-0186', 'Executive sedan', 'Confirmed', '#75c6a5'],
       ['MV-0185', 'Luxury SUV', 'Awaiting quote', '#e8c879'],
-      ['MV-0184', 'Premium coupe', 'In progress', '#a990f5'],
+      ['MV-0184', 'Premium coupe', 'In progress', '#14b8a6'],
     ],
     kind: 'bookings',
   },
@@ -168,7 +168,7 @@ const previews = {
     ],
     rows: [
       ['WhatsApp instance 01', 'Phone account', 'Connected', '#70d4a0'],
-      ['WhatsApp instance 02', 'Phone account', 'Connected', '#a990f5'],
+      ['WhatsApp instance 02', 'Phone account', 'Connected', '#14b8a6'],
       ['QR authentication', 'Access workflow', 'Available', '#e8c879'],
     ],
     kind: 'campaigns',
@@ -187,7 +187,7 @@ const previews = {
     rows: [
       ['Property listing', 'Listing management', 'Managed', '#e8c879'],
       ['Client record', 'Client information', 'Managed', '#7dd3c7'],
-      ['Operational workflow', 'Property operations', 'Supported', '#a990f5'],
+      ['Operational workflow', 'Property operations', 'Supported', '#14b8a6'],
     ],
     kind: 'overview',
     activityHeading: 'Property activity',
@@ -196,14 +196,14 @@ const previews = {
   'course-management': {
     title: 'Course Management',
     section: 'Courses overview',
-    accent: '#a990f5',
+    accent: '#14b8a6',
     metrics: [
       ['COURSES', '—', 'English & Dutch'],
       ['STUDENTS', '—', 'Coordination'],
       ['SCHEDULING', '—', 'Course operations'],
     ],
     rows: [
-      ['English course', 'Student coordination', 'Managed', '#a990f5'],
+      ['English course', 'Student coordination', 'Managed', '#14b8a6'],
       ['Dutch course', 'Course scheduling', 'Managed', '#7dd3c7'],
       ['College teams', 'Internal operations', 'Supported', '#f5c46b'],
     ],
@@ -370,7 +370,7 @@ function PreviewBody({ preview, config }) {
         {[0, 1, 2].map((index) => (
           <g key={index} transform={`translate(${18 + index * 240} 12)`}>
             <rect x={0} y={24} width={220} height={132} rx={10} fill="#1d202a" stroke="#2d303a" />
-            <VehicleIllustration accent={index === 1 ? '#a990f5' : config.accent} />
+            <VehicleIllustration accent={index === 1 ? '#14b8a6' : config.accent} />
             <text x={156} y={63} fill="#e7e8ef" fontSize={8}>{index === 0 ? 'Executive' : index === 1 ? 'Luxury SUV' : 'Premium'}</text>
             <text x={156} y={78} fill="#8f94a2" fontSize={7}>{index === 0 ? 'Sedan' : index === 1 ? '7 seats' : 'Coupe'}</text>
             <text x={156} y={118} fill={config.accent} fontSize={8}>View details ↗</text>
@@ -461,7 +461,7 @@ export default function ProjectPreview({ project, className = '' }) {
       <defs>
         <linearGradient id={`${previewId}-background`} x1="0" y1="0" x2="1" y2="1">
           <stop stopColor="#11131a" />
-          <stop offset="1" stopColor="#1c1a28" />
+          <stop offset="1" stopColor="#111c2e" />
         </linearGradient>
         <linearGradient id={`${previewId}-accent`} x1="0" y1="0" x2="1" y2="0">
           <stop stopColor={config.accent} stopOpacity=".17" />
@@ -506,8 +506,8 @@ export default function ProjectPreview({ project, className = '' }) {
           <text x="13" y="3" fill="#858a98" fontSize="9">{item}</text>
         </g>
       ))}
-      <circle cx="32" cy="708" r="13" fill="#383142" />
-      <text x="32" y="711" fill="#e7ddff" fontSize="7" textAnchor="middle">RK</text>
+      <circle cx="32" cy="708" r="13" fill="#17263a" />
+      <text x="32" y="711" fill="#99f6e4" fontSize="7" textAnchor="middle">RK</text>
       <text x="53" y="706" fill="#e4e5eb" fontSize="8">Rabie K.</text>
       <text x="53" y="719" fill="#777d8a" fontSize="7">Administrator</text>
       <rect x="208" y="52" width="992" height="708" fill="#101219" />

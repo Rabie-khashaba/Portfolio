@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -11,7 +11,17 @@
       name="keywords"
       content="Rabie Abdelrahman, Backend Developer (PHP - Laravel), Laravel Developer, PHP Developer, REST API Developer"
     />
-    <meta name="theme-color" content="#0D0E12" />
+    <meta name="theme-color" content="#FAF8F4" />
+    <script>
+      (() => {
+        let theme = 'light';
+        try {
+          theme = localStorage.getItem('portfolio-theme') === 'dark' ? 'dark' : 'light';
+        } catch {}
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
     <meta property="og:title" content="Rabie Abdelrahman | Backend Developer (PHP - Laravel)" />
     <meta
       property="og:description"

@@ -17,7 +17,7 @@ export default function ServiceItem({ item }) {
 
       <ul className="mt-5 flex flex-wrap gap-2">
         {item.tech.map((tag) => (
-          <li key={tag} className="rounded-full border border-white/10 bg-white/[0.02] px-2.5 py-1.5 text-[10px] uppercase tracking-[0.14em] text-[#E5E7EB]">
+          <li key={tag} className="rounded-full border border-white/10 bg-white/[0.02] px-2.5 py-1.5 text-[10px] uppercase tracking-[0.14em] text-text">
             {tag}
           </li>
         ))}

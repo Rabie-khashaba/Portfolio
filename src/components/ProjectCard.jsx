@@ -27,14 +27,14 @@ export default function ProjectCard({
           {project.technologies.map((tech) => (
             <li
               key={tech}
-              className="rounded-full border border-white/10 bg-white/[0.02] px-2.5 py-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-[#E5E7EB]"
+              className="rounded-full border border-white/10 bg-white/[0.02] px-2.5 py-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-text"
             >
               {tech}
             </li>
           ))}
         </ul>
 
-        <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+        <div className="portfolio-project-actions mt-6 flex items-center justify-between border-t border-white/10 pt-4">
           <div className="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-muted">
             {project.platforms.includes('Google Play') ? <CirclePlay size={14} className="text-primary" /> : null}
             {project.platforms.includes('App Store') ? <Apple size={14} className="text-primary" /> : null}

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion, useScroll } from 'framer-motion';
 import {
   ArrowDown,
   ArrowRight,
@@ -325,9 +325,11 @@ const getProjectSlugFromPath = () => window.location.pathname.match(/^\/projects
 
 export default function App() {
   const shouldReduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [callMenuOpen, setCallMenuOpen] = useState(false);
   const [isScrollingDown, setIsScrollingDown] = useState(false);
+  const [headerScrolled, setHeaderScrolled] = useState(() => window.scrollY > 16);
   const callMenuRef = useRef(null);
   const pointerRafRef = useRef(null);
   const [lightTheme, setLightTheme] = useState(() => {
@@ -357,6 +359,7 @@ export default function App() {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const currentScrollY = window.scrollY;
+          setHeaderScrolled(currentScrollY > 16);
           const diff = currentScrollY - previousScrollY;
           if (Math.abs(diff) > 10 || currentScrollY <= 20) {
             const shouldBeDown = currentScrollY > previousScrollY && currentScrollY > 60;
@@ -384,9 +387,10 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem('portfolio-theme', lightTheme ? 'light' : 'dark');
     document.documentElement.style.colorScheme = lightTheme ? 'light' : 'dark';
+    document.documentElement.dataset.theme = lightTheme ? 'light' : 'dark';
     document.querySelector('meta[name="theme-color"]')?.setAttribute(
       'content',
-      lightTheme ? '#F5F7FB' : '#0B1020',
+      lightTheme ? '#FAF8F4' : '#04151F',
     );
   }, [lightTheme]);
 
@@ -737,7 +741,12 @@ export default function App() {
       onPointerMove={handlePointerMove}
       onPointerLeave={(event) => event.currentTarget.style.setProperty('--pointer-glow-opacity', '0')}
     >
-      <header className="portfolio-header sticky top-0 z-50">
+      <header className={`portfolio-header sticky top-0 z-50${headerScrolled ? ' is-scrolled' : ''}`}>
+        <motion.div
+          className="portfolio-scroll-progress"
+          style={{ scaleX: scrollYProgress }}
+          aria-hidden="true"
+        />
         <nav className="container-shell relative mx-auto flex items-center justify-between">
           <button
             type="button"
@@ -1070,7 +1079,7 @@ export default function App() {
                       <p>{fact.label}</p>
                       {fact.isLocation ? (
                         <div className="mt-[5px] flex flex-row items-center justify-between gap-2">
-                          <span className="text-[11px] font-semibold text-[#dedee5]">{fact.country}</span>
+                          <span className="text-[11px] font-semibold text-text">{fact.country}</span>
                           <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-400">
                             <span className="relative flex h-1.5 w-1.5">
                               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -1212,7 +1221,7 @@ export default function App() {
                         <p className="text-sm leading-7 text-muted md:text-[15px]">{item.description}</p>
                         <ul className="mt-4 space-y-2">
                           {item.responsibilities.map((task) => (
-                            <li key={task} className="portfolio-timeline-task flex items-start gap-2 text-sm text-[#E5E7EB]">
+                            <li key={task} className="portfolio-timeline-task flex items-start gap-2 text-sm text-text">
                               <span className="mt-1 text-primary">•</span>
                               <span>{task}</span>
                             </li>
@@ -1242,7 +1251,7 @@ export default function App() {
                       <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-success/12 text-success">
                         <Check size={14} />
                       </span>
-                      <p className="text-sm text-[#E5E7EB]">{item}</p>
+                      <p className="text-sm text-text">{item}</p>
                     </div>
                   ))}
                 </div>
@@ -1410,14 +1419,14 @@ export default function App() {
 
           <div className="flex flex-col-reverse items-center justify-between gap-5 pt-6 text-xs text-muted sm:flex-row">
             <div className="flex flex-col items-center gap-1 text-center sm:items-start sm:text-start">
-              <p className="font-medium text-[#C9CDD8]">{t.footerText}</p>
+              <p className="font-medium text-text">{t.footerText}</p>
               <p className="text-[11px] text-muted/80">{t.footerRights}</p>
             </div>
 
             <button
               type="button"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="group inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-xs font-medium text-[#C9CDD8] transition-all duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-primary active:scale-95"
+              className="group inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-xs font-medium text-text transition-all duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-primary active:scale-95"
               aria-label={t.top}
             >
               <span>{t.top}</span>
