@@ -30,6 +30,7 @@ import SectionHeading from './components/SectionHeading';
 import ServiceItem from './components/ServiceItem';
 import TechChip from './components/TechChip';
 import PortfolioFooter from './components/PortfolioFooter';
+import AboutSection from './components/AboutSection';
 import { navigation } from './data/navigation';
 import { projectCaseStudies } from './data/projectCaseStudies';
 import { getLocalizedProjects, getLocalizedSections } from './data/localizedContent';
@@ -606,76 +607,13 @@ export default function App() {
           </div>
         </section>
 
-        <motion.section id="about" className="section-shell" initial="hidden" whileInView="show" viewport={sectionViewport} variants={sectionReveal}>
-          <div className="container-shell">
-            <div className="portfolio-about-layout">
-              <div className="portfolio-intro-grid">
-                <article className="profile-identity-card">
-                  <div>
-                    <p className="profile-card-eyebrow">{t.aboutEyebrow}</p>
-                    <p className="profile-identity-overline">{language === 'ar' ? 'مهندس برمجيات' : 'Backend engineer'}</p>
-                  </div>
-                  <h2 className="identity-wordmark">{t.name}</h2>
-                  <p className="profile-identity-role">{t.role}</p>
-                  <div className="profile-tech-line" aria-label="PHP, Laravel, and APIs">
-                    <span>PHP</span><i /><span>Laravel</span><i /><span>APIs</span>
-                  </div>
-                </article>
-
-                <article className="profile-facts-card">
-                  <div className="profile-facts-heading">
-                    <div>
-                      <p className="profile-card-eyebrow">{language === 'ar' ? 'الملف الشخصي' : 'PROFILE'}</p>
-                      <h3>{t.profileFactsTitle}</h3>
-                    </div>
-                  </div>
-                  <div className="profile-facts-grid">
-                    {[
-                      { label: t.profileFocus, value: 'Laravel · PHP · APIs' },
-                      {
-                        label: t.profileLocation,
-                        value: t.profileLocationValue,
-                      },
-                      { label: t.profileExperience, value: t.experienceDuration },
-                      { label: t.shipped, value: t.mobileApps },
-                    ].map((fact, index) => (
-                      <div className="profile-fact" key={fact.label}>
-                        <span>0{index + 1}</span>
-                        <p>{fact.label}</p>
-                        <strong>{fact.value}</strong>
-                      </div>
-                    ))}
-                  </div>
-                </article>
-              </div>
-
-              <div className="portfolio-about-editorial">
-                <article className="profile-editorial-card">
-                  <p className="profile-card-eyebrow">{t.mindsetTitle}</p>
-                  <h3>{t.aboutTitle}</h3>
-                  <p>{t.aboutText}</p>
-                </article>
-
-                <div className="about-portrait overflow-hidden rounded-[1.75rem] border border-white/10">
-                  <img src="/IMG_20260921_214019_936(1).jpg" alt={t.name} loading="lazy" />
-                  <div className="portrait-caption">
-                    <span>{t.role}</span>
-                    <span className="portrait-stack">PHP <i /> Laravel <i /> APIs</span>
-                  </div>
-                </div>
-
-                <article className="profile-editorial-card profile-craft-card">
-                  <p className="profile-card-eyebrow">{t.craftTitle}</p>
-                  <h3>{t.valueTitle}</h3>
-                  <p>{t.valueText}</p>
-                  <div className="profile-craft-tags">
-                    {t.aboutTags.slice(0, 4).map((tag) => <span key={tag}>{tag}</span>)}
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
-        </motion.section>
+        <AboutSection
+          language={language}
+          t={t}
+          shouldReduceMotion={shouldReduceMotion}
+          sectionReveal={sectionReveal}
+          sectionViewport={sectionViewport}
+        />
 
         <motion.section id="projects" className="section-shell" initial="hidden" whileInView="show" viewport={sectionViewport} variants={sectionReveal}>
           <div className="container-shell">
