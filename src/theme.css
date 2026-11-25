@@ -108,6 +108,7 @@ html,body { background: var(--background); color: var(--foreground); }
     -webkit-backdrop-filter: none;
   }
   #root .portfolio-mobile-brand { display: inline-flex; align-items: center; color: var(--foreground); font-size: 26px; font-weight: 800; letter-spacing: -.07em; text-decoration: none; padding-inline-end: 18px; margin: 0; border-inline-end: 1px solid var(--border); }
+  #root .portfolio-root[dir='rtl'] .portfolio-mobile-brand { direction: ltr; padding-inline: 0 18px; border-inline: 0; border-right: 1px solid var(--border); }
   #root .portfolio-mobile-brand span { color: var(--primary); }
   #root .portfolio-mobile-controls { display: flex; align-items: center; gap: 12px; padding: 0; border: 0; border-radius: 0; background: transparent; }
   #root .portfolio-mobile-controls .portfolio-icon-button { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; border: 0; transition: background-color 180ms ease,transform 180ms ease; }
@@ -188,6 +189,11 @@ html,body { background: var(--background); color: var(--foreground); }
 #root :is(.portfolio-menu-panel,.portfolio-call-menu) { background: var(--popover); color: var(--foreground); border-color: var(--border); box-shadow: var(--card-shadow); }
 #root .portfolio-menu-backdrop { background: rgb(4 21 31 / 72%); }
 @media (max-width: 959px) {
+  #root .portfolio-menu-panel .portfolio-menu-links { flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; }
+  #root .portfolio-menu-panel .portfolio-menu-links a { min-height: 40px; padding: 8px 14px; border: 1px solid var(--border); border-radius: 999px; font-size: 14px; line-height: 1.2; text-align: center; white-space: nowrap; }
+  #root .portfolio-menu-panel .portfolio-menu-links a:hover { padding-inline-start: 14px; }
+  #root .portfolio-prompt-links { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; width: 100%; }
+  #root .portfolio-prompt-links a { display: flex; min-width: 0; min-height: 40px; align-items: center; justify-content: center; padding: 7px 4px; border-radius: 999px; font-size: clamp(10px, 3vw, 12px); line-height: 1.2; text-align: center; white-space: nowrap; }
   #root .portfolio-mobile-controls .portfolio-icon-button {
     width: 44px;
     height: 44px;
@@ -322,6 +328,17 @@ html,body { background: var(--background); color: var(--foreground); }
 #root .portfolio-root[dir='rtl'] .case-study-intro h1 { letter-spacing: 0; line-height: 1.4; }
 #root .case-study-facts strong { color: var(--foreground); }
 #root :is(.case-study-facts span,.case-study-category,.case-study-stack > div > p:last-child,.portfolio-timeline-meta,.portfolio-scroll-cue) { color: var(--muted-foreground); }
+@media (max-width: 639px) {
+  #root .portfolio-footer .portfolio-footer-main { gap: 22px; padding-bottom: 24px; }
+  #root .portfolio-footer .portfolio-footer-profile { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+  #root .portfolio-footer .portfolio-footer-profile > .flex { flex-direction: row; align-items: center; gap: 12px; }
+  #root .portfolio-footer .portfolio-footer-profile h3 { font-size: 15px; line-height: 1.5; }
+  #root .portfolio-footer .portfolio-footer-profile p { max-width: 260px; font-size: 12px; line-height: 1.6; }
+  #root .portfolio-footer .portfolio-footer-profile > .inline-flex { min-height: 34px; padding-inline: 12px; border-radius: 999px; }
+  #root .portfolio-footer .portfolio-footer-social { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; width: 100%; }
+  #root .portfolio-footer .portfolio-footer-social > a { display: inline-flex; min-height: 42px; justify-content: center; align-items: center; gap: 8px; border-radius: 999px; padding: 8px 12px; font-size: 12px; }
+  #root .portfolio-footer .portfolio-footer-social > a:last-child { grid-column: 1 / -1; }
+}
 #root .portfolio-footer { background: var(--background); border-color: var(--border); }
 #root .portfolio-footer :is(a,button) { color: var(--text-secondary); border-color: var(--border); background: transparent; }
 #root .portfolio-footer :is(a:hover,button:hover) { color: var(--foreground); background: var(--hover); }

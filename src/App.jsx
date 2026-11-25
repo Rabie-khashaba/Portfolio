@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+﻿import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion, useScroll } from 'framer-motion';
 import {
   ArrowDown,
@@ -89,9 +89,8 @@ const translations = {
     profileFactsTitle: 'A little more about me',
     profileFocus: 'Core focus',
     profileLocation: 'Based in',
-    profileLocationValue: 'Egypt · Open to work',
+    profileLocationValue: 'Egypt, Cairo',
     profileCountry: 'Egypt',
-    profileStatusBadge: 'Open to work',
     profileExperience: 'Experience',
     experienceDuration: '2+ years',
     mindsetTitle: 'Mindset',
@@ -181,7 +180,7 @@ const translations = {
       other: 'أخرى',
       contact: 'تواصل',
     },
-    logo: 'ر.ك',
+    logo: 'R.K',
     language: 'AR',
     switchToLight: 'التبديل إلى الوضع الفاتح',
     switchToDark: 'التبديل إلى الوضع الداكن',
@@ -222,9 +221,8 @@ const translations = {
     profileFactsTitle: 'نبذة سريعة عني',
     profileFocus: 'مجال التركيز',
     profileLocation: 'الموقع',
-    profileLocationValue: 'مصر · متاح للعمل',
+    profileLocationValue: 'مصر، القاهرة',
     profileCountry: 'مصر',
-    profileStatusBadge: 'متاح للعمل',
     profileExperience: 'سنوات الخبرة',
     experienceDuration: 'سنتان من الخبرة',
     mindsetTitle: 'منهجيتي',
@@ -1082,7 +1080,6 @@ export default function App() {
                     <p className="profile-card-eyebrow">{language === 'ar' ? 'الملف الشخصي' : 'PROFILE'}</p>
                     <h3>{t.profileFactsTitle}</h3>
                   </div>
-                  <span className="profile-status"><i />{t.available}</span>
                 </div>
                 <div className="profile-facts-grid">
                   {[
@@ -1092,7 +1089,6 @@ export default function App() {
                       value: t.profileLocationValue,
                       isLocation: true,
                       country: t.profileCountry,
-                      badge: t.profileStatusBadge,
                     },
                     { label: t.profileExperience, value: t.experienceDuration },
                     { label: t.shipped, value: t.mobileApps },
@@ -1101,16 +1097,7 @@ export default function App() {
                       <span>0{index + 1}</span>
                       <p>{fact.label}</p>
                       {fact.isLocation ? (
-                        <div className="mt-[5px] flex flex-row items-center justify-between gap-2">
-                          <span className="text-[11px] font-semibold text-text">{fact.country}</span>
-                          <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-400">
-                            <span className="relative flex h-1.5 w-1.5">
-                              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                            </span>
-                            {fact.badge}
-                          </span>
-                        </div>
+                        <strong>{fact.value}</strong>
                       ) : (
                         <strong>{fact.value}</strong>
                       )}
@@ -1388,8 +1375,8 @@ export default function App() {
 
       <footer className="portfolio-footer border-t border-white/10 bg-card/30 backdrop-blur-md">
         <div className="container-shell py-10 md:py-14">
-          <div className="flex flex-col gap-6 pb-8 border-b border-white/10 md:flex-row md:items-center md:justify-between">
-            <div className="space-y-3">
+          <div className="portfolio-footer-main flex flex-col gap-6 pb-8 border-b border-white/10 md:flex-row md:items-center md:justify-between">
+            <div className="portfolio-footer-profile space-y-3">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-primary/40 bg-primary/10 text-xs font-bold text-primary">
                   RK
@@ -1408,7 +1395,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+            <div className="portfolio-footer-social flex flex-wrap items-center gap-2 sm:gap-3">
               <a
                 href="https://github.com/Rabie-khashaba"
                 target="_blank"
@@ -1461,3 +1448,5 @@ export default function App() {
     </div>
   );
 }
+
+
