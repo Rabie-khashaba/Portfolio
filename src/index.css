@@ -1114,6 +1114,38 @@ a {
   gap: 16px;
 }
 
+@media (min-width: 900px) {
+  .portfolio-about-layout {
+    display: grid;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .portfolio-about-layout > .portfolio-intro-grid,
+  .portfolio-about-layout > .portfolio-about-editorial {
+    display: contents;
+  }
+
+  .portfolio-about-layout > .portfolio-intro-grid > .profile-identity-card,
+  .portfolio-about-layout > .portfolio-about-editorial > .profile-editorial-card:first-child {
+    grid-column: span 4;
+  }
+
+  .portfolio-about-layout > .portfolio-intro-grid > .profile-facts-card {
+    grid-column: span 6;
+  }
+
+  .portfolio-about-layout > .portfolio-about-editorial > .about-portrait,
+  .portfolio-about-layout > .portfolio-about-editorial > .profile-editorial-card:last-child {
+    grid-column: span 3;
+  }
+
+  .portfolio-about-layout > .portfolio-about-editorial {
+    margin-top: 0;
+  }
+}
+
 .profile-identity-card,
 .profile-facts-card,
 .profile-editorial-card {
@@ -1261,17 +1293,20 @@ a {
 }
 
 .profile-editorial-card h3 {
+  max-width: 22ch;
   margin-top: 22px;
   font-size: clamp(1.36rem, 2.44vw, 1.88rem);
   font-weight: 700;
   letter-spacing: -0.06em;
   line-height: 1.12;
+  text-wrap: balance;
 }
 
 .profile-editorial-card > p:last-of-type {
+  max-width: 48ch;
   margin-top: 16px;
-  font-size: 12.22px;
-  line-height: 1.85;
+  font-size: 13px;
+  line-height: 1.8;
 }
 
 .portfolio-about-editorial .about-portrait {

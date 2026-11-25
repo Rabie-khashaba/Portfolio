@@ -1,9 +1,8 @@
-﻿import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion, useScroll } from 'framer-motion';
 import {
   ArrowDown,
   ArrowRight,
-  ArrowUp,
   ArrowUpRight,
   BriefcaseBusiness,
   Check,
@@ -30,297 +29,18 @@ import ProjectDetailsPage from './components/ProjectDetailsPage';
 import SectionHeading from './components/SectionHeading';
 import ServiceItem from './components/ServiceItem';
 import TechChip from './components/TechChip';
+import PortfolioFooter from './components/PortfolioFooter';
 import { navigation } from './data/navigation';
-import { projects } from './data/projects';
 import { projectCaseStudies } from './data/projectCaseStudies';
-import { services } from './data/services';
-import { techGroups } from './data/technologies';
-import { experience } from './data/experience';
-
-const translations = {
-  en: {
-    nav: {
-      home: 'Home',
-      about: 'About',
-      projects: 'Projects',
-      skills: 'Skills',
-      services: 'Other',
-      other: 'Other',
-      contact: 'Contact',
-    },
-    logo: 'R.K',
-    language: 'EN',
-    switchToLight: 'Switch to light mode',
-    switchToDark: 'Switch to dark mode',
-    hello: 'Hello, I’m',
-    name: 'Rabie Abdelrahman',
-    role: 'Backend Developer (PHP - Laravel)',
-    summary:
-      'With 2+ years of experience, I build secure backend systems with Laravel and PHP, and create modern frontend experiences with React.js.',
-    ctaPrimary: 'View My Work',
-    ctaSecondary: 'Get In Touch',
-    answerLabel: 'AI assistant',
-    chatLoading: 'Thinking...',
-    chatErrorLabel: 'Assistant notice',
-    chatErrors: {
-      chat_api_unavailable: 'The chat service is not connected. Start the local Worker or deploy the API.',
-      gemini_not_configured: 'The Gemini API key is missing. Add GEMINI_API_KEY to the Cloudflare Worker secrets.',
-      gemini_auth_failed: 'Gemini rejected the API key. Check the GEMINI_API_KEY secret.',
-      gemini_quota_exceeded: 'The Gemini API usage limit was reached. Please try again later.',
-      gemini_timeout: 'Gemini took too long to respond. Please try again.',
-      gemini_request_failed: 'Gemini could not complete the request. Please try again shortly.',
-      empty_ai_response: 'The assistant did not return a reply this time. Please try again shortly.',
-      default: 'The assistant could not complete your request. Please try again in a moment.',
-    },
-    profile: 'Profile',
-    available: 'Available',
-    experience: 'Experience',
-    focus: 'Focus',
-    backend: 'Backend',
-    shipped: 'Shipped & Live',
-    mobileApps: '10+ Apps',
-    apis: '10+ APIs',
-    systems: 'Systems',
-    live: 'Live',
-    aboutEyebrow: '01 / About',
-    aboutTitle: 'Backend systems that keep products running reliably.',
-    aboutText:
-      'With 2+ years of experience, I build secure, maintainable, production-ready backend systems. From API architecture and database design to authentication, integrations, and deployment, I build the core engine behind modern digital products.',
-    profileFactsTitle: 'A little more about me',
-    profileFocus: 'Core focus',
-    profileLocation: 'Based in',
-    profileLocationValue: 'Egypt, Cairo',
-    profileCountry: 'Egypt',
-    profileExperience: 'Experience',
-    experienceDuration: '2+ years',
-    mindsetTitle: 'Mindset',
-    craftTitle: 'Craft',
-    journeyCardText: 'Explore the teams, roles, and production systems behind my work.',
-    servicesCardText: 'APIs, product backends, integrations, and dependable business workflows.',
-    codeCardText: 'Browse my repositories and the code behind selected projects.',
-    aboutTags: [
-      'Laravel Backend',
-      'API Architecture',
-      'Database Design',
-      'Authentication',
-      'Payments',
-      'Notifications',
-      'Cloud Storage',
-      'Business Logic',
-    ],
-    projectsEyebrow: '02 / Selected Work',
-    projectsTitle: "Projects I've built",
-    projectsDescription:
-      'A selection of backend systems and API-driven products designed for scale, reliability, and real business operations.',
-    viewProjectDetails: 'View Details',
-    viewRepository: 'GitHub',
-    projectDetails: {
-      backToProjects: 'Back to projects',
-      caseStudy: 'Project case study',
-      projectOverview: 'Project overview',
-      role: 'Role',
-      scope: 'Focus',
-      platform: 'Platform',
-      challenge: 'The challenge',
-      approach: 'The approach',
-      highlights: 'What I worked on',
-      stack: 'Technology stack',
-      stackDescription: 'Tools and technologies used across the project.',
-      nextStep: 'Have a similar challenge?',
-      contactTitle: 'Let’s talk about your project.',
-      contactButton: 'Start a conversation',
-    },
-    moreEyebrow: '05 / More to explore',
-    moreTitle: 'Find me around the web',
-    moreDescription: 'Explore my work, connect with me, or get in touch about a project.',
-    openLink: 'Open link',
-    serviceEyebrow: '03 / Services',
-    servicesTitle: 'What I build',
-    servicesDescription:
-      'Laravel and PHP backend solutions designed to support growth, business logic, integrations, and production stability.',
-    techEyebrow: 'Tech stack',
-    techTitle: 'My Skills',
-    experienceEyebrow: 'Experience',
-    experienceTitle: 'Professional timeline',
-    checklistTitle: 'What you can expect',
-    checklist: [
-      'Clean and maintainable code',
-      'Secure API architecture',
-      'Scalable database design',
-      'Production-ready systems',
-      'Proper authentication & authorization',
-      'Third-party integrations',
-      'Mobile-ready APIs',
-      'Performance-focused development',
-    ],
-    valueTitle: 'Engineering value',
-    valueText:
-      'I design backend systems that are secure, maintainable, and built for real-world growth — with clean architecture, stable APIs, and business-focused performance.',
-    contactEyebrow: '04 / Contact',
-    contactTitle: 'Let’s build something reliable.',
-    contactDescription: 'Have a project, product, or backend challenge? Let’s talk.',
-    startConversation: 'Start a conversation',
-    conversationText: 'I build backend systems designed to scale with your product.',
-    footerText: '© 2026 Rabie Abdelrahman. All rights reserved.',
-    footerRole: 'Backend Developer (PHP - Laravel)',
-    footerStatus: 'Available for work',
-    footerRights: 'Crafted for performance, scalability & clean architecture',
-    top: 'Back to top',
-    email: 'Email',
-    github: 'GitHub',
-    linkedin: 'LinkedIn',
-  },
-  ar: {
-    nav: {
-      home: 'الرئيسية',
-      about: 'من أنا',
-      projects: 'المشاريع',
-      skills: 'المهارات',
-      services: 'أخرى',
-      other: 'أخرى',
-      contact: 'تواصل',
-    },
-    logo: 'R.K',
-    language: 'AR',
-    switchToLight: 'التبديل إلى الوضع الفاتح',
-    switchToDark: 'التبديل إلى الوضع الداكن',
-    hello: 'مرحباً، أنا',
-    name: 'ربيع عبد الرحمن',
-    role: 'مطور باك إند (PHP - Laravel)',
-    summary:
-      'لدي خبرة تزيد عن سنتين في بناء أنظمة باك إند آمنة باستخدام Laravel وPHP، وتطوير واجهات أمامية حديثة باستخدام React.js.',
-    ctaPrimary: 'عرض الأعمال',
-    ctaSecondary: 'تواصل معي',
-    answerLabel: 'مساعد ذكي',
-    chatLoading: 'جاري تجهيز الإجابة...',
-    chatErrorLabel: 'تنبيه المساعد',
-    chatErrors: {
-      chat_api_unavailable: 'خدمة المحادثة غير متصلة. شغّل Worker محليًا أو انشر واجهة API.',
-      gemini_not_configured: 'مفتاح Gemini API غير موجود. أضف GEMINI_API_KEY إلى أسرار Cloudflare Worker.',
-      gemini_auth_failed: 'رفض Gemini المفتاح. تحقق من قيمة GEMINI_API_KEY.',
-      gemini_quota_exceeded: 'وصل استخدام Gemini إلى الحد المسموح. حاول مرة أخرى لاحقًا.',
-      gemini_timeout: 'استغرق Gemini وقتًا أطول من المتوقع. حاول مرة أخرى.',
-      gemini_request_failed: 'تعذر على Gemini إكمال الطلب. حاول مرة أخرى بعد قليل.',
-      empty_ai_response: 'لم يرسل المساعد إجابة هذه المرة. حاول مجددًا بعد قليل.',
-      default: 'تعذر إكمال الطلب. حاول مرة أخرى بعد قليل.',
-    },
-    profile: 'الملف الشخصي',
-    available: 'متاح',
-    experience: 'الخبرة',
-    focus: 'التركيز',
-    backend: 'الباك إند',
-    shipped: 'تم الإطلاق',
-    mobileApps: 'أكثر من 10 تطبيقات',
-    apis: '10+ واجهات',
-    systems: 'الأنظمة',
-    live: 'مباشر',
-    aboutEyebrow: '01 / من أنا',
-    aboutTitle: 'أنظمة باك إند تدعم المنتجات وتضمن الاستقرار.',
-    aboutText:
-      'لدي خبرة تزيد عن سنتين في بناء أنظمة باك إند آمنة وقابلة للصيانة وجاهزة للإنتاج. من تصميم واجهات API وقواعد البيانات إلى المصادقة والتكاملات والنشر، أبني المحرك الأساسي للمنتجات الرقمية الحديثة.',
-    profileFactsTitle: 'نبذة سريعة عني',
-    profileFocus: 'مجال التركيز',
-    profileLocation: 'الموقع',
-    profileLocationValue: 'مصر، القاهرة',
-    profileCountry: 'مصر',
-    profileExperience: 'سنوات الخبرة',
-    experienceDuration: 'سنتان من الخبرة',
-    mindsetTitle: 'منهجيتي',
-    craftTitle: 'ما أبنيه',
-    journeyCardText: 'اكتشف الفرق والأدوار والأنظمة الفعلية التي عملت عليها.',
-    servicesCardText: 'واجهات API وأنظمة خلفية وتكاملات وسير أعمال موثوقة.',
-    codeCardText: 'تصفح مستودعاتي البرمجية والكود وراء مشاريعي المختارة.',
-    aboutTags: [
-      'لارافيل باك إند',
-      'هندسة API',
-      'تصميم قاعدة البيانات',
-      'المصادقة',
-      'المدفوعات',
-      'الإشعارات',
-      'التخزين السحابي',
-      'منطق الأعمال',
-    ],
-    projectsEyebrow: '02 / الأعمال المختارة',
-    projectsTitle: 'المشاريع التي قمت ببنائها',
-    projectsDescription:
-      'مجموعة مختارة من أنظمة باك إند ومنتجات قائمة على API مصممة للتوسع، الموثوقية، وتشغيل الأعمال الحقيقية.',
-    viewProjectDetails: 'عرض التفاصيل',
-    viewRepository: 'المصدر',
-    projectDetails: {
-      backToProjects: 'العودة إلى المشاريع',
-      caseStudy: 'دراسة حالة المشروع',
-      projectOverview: 'نظرة عامة على المشروع',
-      role: 'الدور',
-      scope: 'التركيز',
-      platform: 'المنصة',
-      challenge: 'التحدي',
-      approach: 'طريقة التنفيذ',
-      highlights: 'ما عملت عليه',
-      stack: 'التقنيات المستخدمة',
-      stackDescription: 'الأدوات والتقنيات المستخدمة في المشروع.',
-      nextStep: 'لديك تحدٍ مشابه؟',
-      contactTitle: 'لنتحدث عن مشروعك.',
-      contactButton: 'ابدأ محادثة',
-    },
-    moreEyebrow: '05 / المزيد',
-    moreTitle: 'تواصل معي عبر الإنترنت',
-    moreDescription: 'استكشف أعمالي أو تواصل معي لمناقشة مشروعك.',
-    openLink: 'فتح الرابط',
-    serviceEyebrow: '03 / الخدمات',
-    servicesTitle: 'ما الذي أعمل عليه',
-    servicesDescription:
-      'حلول Laravel وPHP backend مصممة لدعم النمو ومنطق الأعمال والتكاملات والاستقرار في الإنتاج.',
-    techEyebrow: 'المكدس التقني',
-    techTitle: 'مهاراتي',
-    experienceEyebrow: 'الخبرة',
-    experienceTitle: 'المسار المهني',
-    checklistTitle: 'ما يمكنك توقعه',
-    checklist: [
-      'كود نظيف وقابل للصيانة',
-      'هندسة API آمنة',
-      'تصميم قواعد بيانات قابلة للتوسع',
-      'أنظمة جاهزة للإنتاج',
-      'مصادقة وتفويض صحيح',
-      'تكاملات خارجية',
-      'واجهات جاهزة للجوال',
-      'تطوير موجه للأداء',
-    ],
-    valueTitle: 'القيمة التقنية',
-    valueText:
-      'أصمم أنظمة باك إند آمنة وقابلة للصيانة ومعدة للنمو العملي، مع هندسة نظيفة، واجهات مستقرة، وأداء موجه نحو تحقيق أهداف العمل.',
-    contactEyebrow: '04 / تواصل',
-    contactTitle: 'لنقم بشيء موثوق.',
-    contactDescription: 'هل لديك مشروع أو تحدي باك إند؟ دعنا نتحدث.',
-    startConversation: 'ابدأ محادثة',
-    conversationText: 'أبني أنظمة باك إند مصممة لتتكامل مع منتجك وتوسع معه.',
-    footerText: '© 2026 ربيع عبد الرحمن. جميع الحقوق محفوظة.',
-    footerRole: 'مطور باك إند (PHP - Laravel)',
-    footerStatus: 'متاح للعمل',
-    footerRights: 'مصمم ومبني لمعايير الأداء العالي والبنية المعمارية النظيفة',
-    top: 'العودة للأعلى',
-    email: 'البريد الإلكتروني',
-    github: 'GitHub',
-    linkedin: 'LinkedIn',
-  },
-};
+import { getLocalizedProjects, getLocalizedSections } from './data/localizedContent';
+import { translations } from './data/translations';
+import { getProjectSlug, getProjectSlugFromPath, sectionReveal, sectionViewport } from './utils/portfolio';
 
 const socialLinks = [
   { href: 'mailto:khashabarabie@gmail.com', labelKey: 'email', icon: <Mail size={16} /> },
   { href: 'https://github.com/Rabie-khashaba', labelKey: 'github', icon: <Github size={16} /> },
   { href: 'https://www.linkedin.com/in/rabie-khashaba/', labelKey: 'linkedin', icon: <Linkedin size={16} /> },
 ];
-
-const sectionReveal = {
-  hidden: { opacity: 0.35, y: 14 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.28, ease: 'easeOut' } },
-};
-
-const sectionViewport = { once: true, margin: '140px 0px -40px 0px', amount: 0.02 };
-
-const getProjectSlug = (title) =>
-  title.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-
-const getProjectSlugFromPath = () => window.location.pathname.match(/^\/projects\/([^/]+)\/?$/)?.[1] || null;
 
 export default function App() {
   const shouldReduceMotion = useReducedMotion();
@@ -522,110 +242,7 @@ export default function App() {
     label: t.nav[item.href.replace('#', '')],
   }));
 
-  const localizedProjects =
-    language === 'ar'
-      ? [
-          {
-            title: 'Home Plate',
-            category: 'منصة توصيل طعام',
-            description:
-              'منصة توصيل متعددة الأطراف مبنية باستخدام Laravel، تربط العملاء والمتاجر والسائقين والإدارة عبر تطبيقات الجوال ولوحة للعمليات.',
-            technologies: ['Laravel', 'REST APIs', 'المدفوعات', 'Cloudflare R2', 'Android', 'iOS'],
-            platforms: ['Android', 'iOS', 'لوحة إدارة'],
-            preview: 'home-plate',
-            githubUrl: 'https://github.com/Rabie-khashaba/Home-Plate',
-          },
-          {
-            title: 'MovePoint',
-            category: 'منصة ERP وCRM',
-            description:
-              'نظام مؤسسي لإدارة التوظيف ومسارات المبيعات والعملاء المحتملين والرواتب، مع تكامل WhatsApp ولوحات لمتابعة العمليات.',
-            technologies: ['PHP', 'Laravel', 'MySQL', 'JavaScript', 'WhatsApp API'],
-            platforms: ['منصة ويب'],
-            preview: 'movepoint',
-            githubUrl: 'https://github.com/Rabie-khashaba/Move-Point',
-          },
-          {
-            title: 'WhatsApp Messaging',
-            category: 'المراسلة والأتمتة',
-            description:
-              'منصة لأتمتة WhatsApp تتيح المصادقة عبر رمز QR وإصدار رموز الوصول وإدارة عدة نسخ لكل رقم هاتف.',
-            technologies: ['Laravel', 'PHP', 'المصادقة عبر QR', 'WhatsApp API'],
-            platforms: ['منصة ويب'],
-            preview: 'whatsapp',
-            githubUrl: 'https://github.com/Rabie-khashaba/Whatsapp',
-          },
-          {
-            title: 'Farra',
-            category: 'منصة نقل وخدمات لوجستية',
-            description:
-              'باك إند قابل للتوسع لعمليات النقل والخدمات، يدير طلبات المشاوير، والصلاحيات، وتدفقات العمليات، وإشعارات Firebase، والعمليات اللحظية.',
-            technologies: ['Laravel', 'PHP', 'MySQL', 'REST APIs', 'Firebase', 'إدارة الصلاحيات'],
-            platforms: ['تطبيق جوال', 'REST API', 'لوحة تحكم'],
-            preview: 'farra',
-          },
-          {
-            title: 'Real Estate Management',
-            category: 'إدارة العقارات',
-            description:
-              'نظام لإدارة العقارات طورت فيه الباك إند والفرونت إند، ويجمع بين القوائم العقارية وبيانات العملاء ومسارات العمل اليومية.',
-            technologies: ['Laravel', 'PHP', 'MySQL'],
-            platforms: ['منصة ويب'],
-            preview: 'real-estate',
-            githubUrl: 'https://github.com/Rabie-khashaba/All-star-Real-Estate-Dashboard',
-          },
-          {
-            title: 'Course Management System',
-            category: 'إدارة الدورات والعمليات',
-            description:
-              'نظام لإدارة دورات الإنجليزية والهولندية، وتنظيم الطلاب والجداول وعمليات فرق الكلية.',
-            technologies: ['Laravel', 'PHP', 'إدارة الدورات', 'الجدولة'],
-            platforms: ['منصة ويب'],
-            preview: 'course-management',
-            githubUrl: 'https://github.com/Rabie-khashaba/LMS-project-API-',
-          },
-          {
-            title: 'ExpressCare',
-            category: 'منصة إدارة الرعاية الصحية',
-            description:
-              'منصة صحية مبنية بـLaravel، تضم لوحات عربية وإنجليزية، وصلاحيات حسب الدور، ومصادقة WhatsApp OTP، ومسارات API للمرضى والإحالات والحجوزات.',
-            technologies: ['Laravel 12', 'PHP', 'REST APIs', 'WhatsApp OTP', 'Firebase', 'Paymob'],
-            platforms: ['منصة ويب', 'REST API'],
-            preview: 'expresscare',
-            githubUrl: 'https://github.com/Rabie-khashaba/expresscare-backend',
-          },
-          {
-            title: 'Salem Shop',
-            category: 'باك إند للتجارة الإلكترونية',
-            description:
-              'باك إند للتجارة مبني بـLaravel لإدارة المنتجات وعروض الأسعار والطلبات، مع توثيق للـAPI ولوحة تحكم إدارية.',
-            technologies: ['Laravel', 'PHP', 'REST APIs', 'المنتجات والطلبات', 'لوحة الإدارة'],
-            platforms: ['منصة ويب', 'REST API'],
-            preview: 'salem-shop',
-            githubUrl: 'https://github.com/Rabie-khashaba/salem-shop-backend',
-          },
-          {
-            title: 'Arzaq',
-            category: 'منصة إعلانات تجارية ومبوبة',
-            description:
-              'منصة للإعلانات التجارية والمبوبة تربط البائعين والمشترين مع تصفح مصنف للأقسام، ومسارات نشر الإعلانات، وتكامل منظم مع واجهات REST API.',
-            technologies: ['React', 'Vite', 'Tailwind CSS', 'REST APIs', 'Lucide Icons'],
-            platforms: ['منصة ويب', 'REST API'],
-            preview: 'arzaq',
-            githubUrl: 'https://github.com/Rabie-khashaba/Arzaq-website',
-          },
-          {
-            title: 'Meshwary',
-            category: 'نظام حجز مشاوير وأسطول ليموزين',
-            description:
-              'نظام تشغيلي ولوحة تحكم لإدارة حجوزات الليموزين، ومتابعة السائقين، وأسطول السيارات، والمناطق الجغرافية ومسارات الرحلات.',
-            technologies: ['Laravel', 'PHP', 'MySQL', 'REST APIs', 'إدارة الأساطيل'],
-            platforms: ['منصة ويب', 'REST API', 'لوحة تحكم إدارية'],
-            preview: 'meshwary',
-            githubUrl: 'https://github.com/Rabie-khashaba/meshwary',
-          },
-        ]
-      : projects;
+  const localizedProjects = getLocalizedProjects(language);
 
   const selectedProject = localizedProjects.find((project) => getProjectSlug(project.title) === selectedProjectSlug);
   const projectIndex = localizedProjects.findIndex((project) => getProjectSlug(project.title) === selectedProjectSlug) + 1;
@@ -661,77 +278,7 @@ export default function App() {
     }, 0);
   };
 
-  const localizedServices =
-    language === 'ar'
-      ? [
-          {
-            number: '01',
-            title: 'تطوير API',
-            description: 'تصميم واجهات REST آمنة وقابلة للتطوير للمنتجات الإلكترونية والتطبيقات والأنظمة الداخلية.',
-            tech: ['Laravel', 'PHP', 'MySQL', 'REST'],
-            icon: services[0].icon,
-          },
-          {
-            number: '02',
-            title: 'بنية الباك إند',
-            description: 'بناء أنظمة باك إند قابلة للصيانة ومجهزة للنمو والتطوير والاستخدام في بيئة الإنتاج.',
-            tech: ['Laravel', 'Clean Architecture', 'MySQL'],
-            icon: services[1].icon,
-          },
-          {
-            number: '03',
-            title: 'أنظمة باك إند للجوال',
-            description: 'إنشاء بنية خلفية للمنتجات Flutter والمنصات الرقمية الموجهة للمستخدمين عبر الهاتف.',
-            tech: ['Laravel', 'Firebase', 'REST APIs'],
-            icon: services[2].icon,
-          },
-          {
-            number: '04',
-            title: 'التكاملات الخارجية',
-            description: 'ربط المدفوعات، الإشعارات، التخزين السحابي، المصادقة والخدمات الخارجية في أنظمة مستقرة.',
-            tech: ['Paymob', 'Firebase', 'Cloudflare R2'],
-            icon: services[3].icon,
-          },
-        ]
-      : services;
-
-  const localizedTechGroups =
-    language === 'ar'
-      ? [
-          { title: 'الباك إند', items: ['PHP', 'Laravel', 'REST APIs', 'MySQL', 'Redis'] },
-          { title: 'الفرونت إند', items: ['HTML', 'CSS', 'JavaScript', 'Bootstrap 5', 'React.js'] },
-          { title: 'الموبايل', items: ['Flutter', 'Dart', 'BLoC', 'Cubit'] },
-          { title: 'البنية التقنية', items: ['Docker', 'Git', 'Cloudflare', 'AWS', 'Linux'] },
-          { title: 'التكاملات', items: ['Firebase', 'Google APIs', 'Payment APIs'] },
-        ]
-      : techGroups;
-
-  const localizedExperience =
-    language === 'ar'
-      ? [
-          {
-            period: 'سبتمبر 2025 — حتى الآن',
-            role: 'مطور باك إند وفرونت إند',
-            company: 'Triple Agency',
-            description:
-              'تطوير وظائف الباك إند وواجهات الفرونت إند لمشاريع الويب في Triple Agency.',
-            responsibilities: [
-              'تطوير الباك إند',
-              'تطوير الفرونت إند',
-            ],
-          },
-          {
-            period: '1 يوليو — 1 سبتمبر 2025',
-            role: 'متدرب تطوير برمجيات',
-            company: 'Harvest',
-            description:
-              'إتمام فترة تدريب في تطوير البرمجيات لمدة ثلاثة أشهر في Harvest.',
-            responsibilities: [
-              'تدريب في تطوير البرمجيات',
-            ],
-          },
-        ]
-      : experience;
+  const { localizedServices, localizedTechGroups, localizedExperience } = getLocalizedSections(language);
 
   return (
     <div
@@ -1061,75 +608,71 @@ export default function App() {
 
         <motion.section id="about" className="section-shell" initial="hidden" whileInView="show" viewport={sectionViewport} variants={sectionReveal}>
           <div className="container-shell">
-            <div className="portfolio-intro-grid">
-              <article className="profile-identity-card">
-                <div>
-                  <p className="profile-card-eyebrow">{t.aboutEyebrow}</p>
-                  <p className="profile-identity-overline">{language === 'ar' ? 'مهندس برمجيات' : 'Backend engineer'}</p>
-                </div>
-                <h2 className="identity-wordmark">{t.name}</h2>
-                <p className="profile-identity-role">{t.role}</p>
-                <div className="profile-tech-line" aria-label="PHP, Laravel, and APIs">
-                  <span>PHP</span><i /><span>Laravel</span><i /><span>APIs</span>
-                </div>
-              </article>
-
-              <article className="profile-facts-card">
-                <div className="profile-facts-heading">
+            <div className="portfolio-about-layout">
+              <div className="portfolio-intro-grid">
+                <article className="profile-identity-card">
                   <div>
-                    <p className="profile-card-eyebrow">{language === 'ar' ? 'الملف الشخصي' : 'PROFILE'}</p>
-                    <h3>{t.profileFactsTitle}</h3>
+                    <p className="profile-card-eyebrow">{t.aboutEyebrow}</p>
+                    <p className="profile-identity-overline">{language === 'ar' ? 'مهندس برمجيات' : 'Backend engineer'}</p>
                   </div>
-                </div>
-                <div className="profile-facts-grid">
-                  {[
-                    { label: t.profileFocus, value: 'Laravel · PHP · APIs' },
-                    {
-                      label: t.profileLocation,
-                      value: t.profileLocationValue,
-                      isLocation: true,
-                      country: t.profileCountry,
-                    },
-                    { label: t.profileExperience, value: t.experienceDuration },
-                    { label: t.shipped, value: t.mobileApps },
-                  ].map((fact, index) => (
-                    <div className="profile-fact" key={fact.label}>
-                      <span>0{index + 1}</span>
-                      <p>{fact.label}</p>
-                      {fact.isLocation ? (
-                        <strong>{fact.value}</strong>
-                      ) : (
-                        <strong>{fact.value}</strong>
-                      )}
+                  <h2 className="identity-wordmark">{t.name}</h2>
+                  <p className="profile-identity-role">{t.role}</p>
+                  <div className="profile-tech-line" aria-label="PHP, Laravel, and APIs">
+                    <span>PHP</span><i /><span>Laravel</span><i /><span>APIs</span>
+                  </div>
+                </article>
+
+                <article className="profile-facts-card">
+                  <div className="profile-facts-heading">
+                    <div>
+                      <p className="profile-card-eyebrow">{language === 'ar' ? 'الملف الشخصي' : 'PROFILE'}</p>
+                      <h3>{t.profileFactsTitle}</h3>
                     </div>
-                  ))}
-                </div>
-              </article>
-            </div>
-
-            <div className="portfolio-about-editorial">
-              <article className="profile-editorial-card">
-                <p className="profile-card-eyebrow">{t.mindsetTitle}</p>
-                <h3>{t.aboutTitle}</h3>
-                <p>{t.aboutText}</p>
-              </article>
-
-              <div className="about-portrait overflow-hidden rounded-[1.75rem] border border-white/10">
-                <img src="/IMG_20260921_214019_936(1).jpg" alt={t.name} loading="lazy" />
-                <div className="portrait-caption">
-                  <span>{t.role}</span>
-                  <span className="portrait-stack">PHP <i /> Laravel <i /> APIs</span>
-                </div>
+                  </div>
+                  <div className="profile-facts-grid">
+                    {[
+                      { label: t.profileFocus, value: 'Laravel · PHP · APIs' },
+                      {
+                        label: t.profileLocation,
+                        value: t.profileLocationValue,
+                      },
+                      { label: t.profileExperience, value: t.experienceDuration },
+                      { label: t.shipped, value: t.mobileApps },
+                    ].map((fact, index) => (
+                      <div className="profile-fact" key={fact.label}>
+                        <span>0{index + 1}</span>
+                        <p>{fact.label}</p>
+                        <strong>{fact.value}</strong>
+                      </div>
+                    ))}
+                  </div>
+                </article>
               </div>
 
-              <article className="profile-editorial-card profile-craft-card">
-                <p className="profile-card-eyebrow">{t.craftTitle}</p>
-                <h3>{t.valueTitle}</h3>
-                <p>{t.valueText}</p>
-                <div className="profile-craft-tags">
-                  {t.aboutTags.slice(0, 4).map((tag) => <span key={tag}>{tag}</span>)}
+              <div className="portfolio-about-editorial">
+                <article className="profile-editorial-card">
+                  <p className="profile-card-eyebrow">{t.mindsetTitle}</p>
+                  <h3>{t.aboutTitle}</h3>
+                  <p>{t.aboutText}</p>
+                </article>
+
+                <div className="about-portrait overflow-hidden rounded-[1.75rem] border border-white/10">
+                  <img src="/IMG_20260921_214019_936(1).jpg" alt={t.name} loading="lazy" />
+                  <div className="portrait-caption">
+                    <span>{t.role}</span>
+                    <span className="portrait-stack">PHP <i /> Laravel <i /> APIs</span>
+                  </div>
                 </div>
-              </article>
+
+                <article className="profile-editorial-card profile-craft-card">
+                  <p className="profile-card-eyebrow">{t.craftTitle}</p>
+                  <h3>{t.valueTitle}</h3>
+                  <p>{t.valueText}</p>
+                  <div className="profile-craft-tags">
+                    {t.aboutTags.slice(0, 4).map((tag) => <span key={tag}>{tag}</span>)}
+                  </div>
+                </article>
+              </div>
             </div>
           </div>
         </motion.section>
@@ -1373,78 +916,7 @@ export default function App() {
       </main>
       )}
 
-      <footer className="portfolio-footer border-t border-white/10 bg-card/30 backdrop-blur-md">
-        <div className="container-shell py-10 md:py-14">
-          <div className="portfolio-footer-main flex flex-col gap-6 pb-8 border-b border-white/10 md:flex-row md:items-center md:justify-between">
-            <div className="portfolio-footer-profile space-y-3">
-              <div className="flex items-center gap-3">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-primary/40 bg-primary/10 text-xs font-bold text-primary">
-                  RK
-                </span>
-                <div>
-                  <h3 className="text-sm font-semibold text-white">{t.name}</h3>
-                  <p className="text-xs text-muted">{t.footerRole}</p>
-                </div>
-              </div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] font-medium text-success">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
-                </span>
-                <span>{t.footerStatus}</span>
-              </div>
-            </div>
-
-            <div className="portfolio-footer-social flex flex-wrap items-center gap-2 sm:gap-3">
-              <a
-                href="https://github.com/Rabie-khashaba"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2 text-xs font-medium text-white transition-all duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-primary active:scale-95"
-                aria-label="GitHub Profile"
-              >
-                <Github size={15} />
-                <span>GitHub</span>
-              </a>
-              <a
-                href="https://www.linkedin.com/in/rabie-khashaba/"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2 text-xs font-medium text-white transition-all duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-primary active:scale-95"
-                aria-label="LinkedIn Profile"
-              >
-                <Linkedin size={15} />
-                <span>LinkedIn</span>
-              </a>
-              <a
-                href="mailto:khashabarabie@gmail.com"
-                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2 text-xs font-medium text-white transition-all duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-primary active:scale-95"
-                aria-label="Email Address"
-              >
-                <Mail size={15} />
-                <span>{t.email}</span>
-              </a>
-            </div>
-          </div>
-
-          <div className="flex flex-col-reverse items-center justify-between gap-5 pt-6 text-xs text-muted sm:flex-row">
-            <div className="flex flex-col items-center gap-1 text-center sm:items-start sm:text-start">
-              <p className="font-medium text-text">{t.footerText}</p>
-              <p className="text-[11px] text-muted/80">{t.footerRights}</p>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="group inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-xs font-medium text-text transition-all duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-primary active:scale-95"
-              aria-label={t.top}
-            >
-              <span>{t.top}</span>
-              <ArrowUp size={14} className="transition-transform duration-200 group-hover:-translate-y-0.5" />
-            </button>
-          </div>
-        </div>
-      </footer>
+      <PortfolioFooter t={t} />
     </div>
   );
 }
