@@ -189,9 +189,7 @@ html,body { background: var(--background); color: var(--foreground); }
 #root :is(.portfolio-menu-panel,.portfolio-call-menu) { background: var(--popover); color: var(--foreground); border-color: var(--border); box-shadow: var(--card-shadow); }
 #root .portfolio-menu-backdrop { background: rgb(4 21 31 / 72%); }
 @media (max-width: 959px) {
-  #root .portfolio-menu-panel .portfolio-menu-links { flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; }
-  #root .portfolio-menu-panel .portfolio-menu-links a { min-height: 40px; padding: 8px 14px; border: 1px solid var(--border); border-radius: 999px; font-size: 14px; line-height: 1.2; text-align: center; white-space: nowrap; }
-  #root .portfolio-menu-panel .portfolio-menu-links a:hover { padding-inline-start: 14px; }
+  #root .portfolio-menu-panel .portfolio-menu-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; gap: 8px; }
   #root .portfolio-prompt-links { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; width: 100%; }
   #root .portfolio-prompt-links a { display: flex; min-width: 0; min-height: 40px; align-items: center; justify-content: center; padding: 7px 4px; border-radius: 999px; font-size: clamp(10px, 3vw, 12px); line-height: 1.2; text-align: center; white-space: nowrap; }
   #root .portfolio-mobile-controls .portfolio-icon-button {
@@ -217,11 +215,49 @@ html,body { background: var(--background); color: var(--foreground); }
     box-shadow: 0 20px 56px rgb(4 21 31 / 22%);
   }
   #root .portfolio-menu-panel .portfolio-menu-links a {
-    min-height: 48px;
-    padding: 12px 4px;
-    border-radius: 0;
-    font-size: 17px;
+    display: flex;
+    min-width: 0;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 10px;
+    background: linear-gradient(155deg, color-mix(in srgb, var(--foreground) 3%, var(--secondary)), var(--secondary));
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    box-shadow: inset 0 1px rgb(255 255 255 / 4%), 0 2px 5px rgb(0 0 0 / 8%);
     transform: none;
+    transition: color 180ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  }
+  #root .portfolio-menu-panel .portfolio-menu-links a:first-child {
+    position: relative;
+    border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
+    background: color-mix(in srgb, var(--primary) 12%, var(--secondary));
+    color: var(--primary);
+    box-shadow: inset 0 1px rgb(255 255 255 / 6%), 0 3px 10px color-mix(in srgb, var(--primary) 12%, transparent);
+  }
+  #root .portfolio-menu-panel .portfolio-menu-links a:first-child::before {
+    position: absolute;
+    inset-inline-start: 12px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    content: '';
+  }
+  #root .portfolio-menu-panel .portfolio-menu-links a:hover,
+  #root .portfolio-menu-panel .portfolio-menu-links a:focus-visible {
+    border-color: var(--primary);
+    background: var(--hover);
+    color: var(--foreground);
+    box-shadow: inset 0 1px rgb(255 255 255 / 6%), 0 5px 12px rgb(0 0 0 / 12%);
+    transform: translateY(-2px);
+    outline: none;
   }
   #root .portfolio-menu-panel .portfolio-menu-footer {
     gap: 10px;
