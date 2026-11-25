@@ -4,7 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/generate-project-knowledge.js",
     "dev": "concurrently -n worker,vite \"wrangler dev --port 8787\" \"vite --host 0.0.0.0\"",
+    "prebuild": "node scripts/generate-project-knowledge.js",
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0",
     "deploy": "npm run build && wrangler deploy"

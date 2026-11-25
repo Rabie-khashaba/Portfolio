@@ -1,0 +1,159 @@
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+PROFILE 
+Rabie Abdulrahman Hussein 
+Larave l Backend Developer | PHP 
+ khashabarabie@gmail.com   01008781912  Cario, Egypt      
+ linkedin.com/in/rabie-khashaba/     github.com/Rabie-khashaba 
+ 
+ 
+ 
+Passionate about building high-performance, scalable, and visually appealing web applications.            
+Proficient in Laravel, PHP, MySQL, RESTful APIs, and Git, advanced debugging skills. 
+ 
+EDUCATION 
+Bachelor of Science in Computer Science 
+Faculty of Computers and Information ,Kafr El_Sheikh University                                2019 - 2023 
+Grade: Very Good with Honors  | GPA : 3.3                                                                  
+ 
+PROFESSIONAL EXPERIENCE 
+ -  Backend Developer (PHP / Laravel) 
+     At Harvest British College                                                                     July 2025 – Sep 2025 
+  Developed and maintained web applications using Laravel framework, 
+including: 
+  English and Dutch Course Management System – implemented core modules for 
+HR, Finance, Operations, Technical, and Sales, in addition to managing courses, 
+students, and scheduling efficiently. 
+  Law Firm Management System . 
+  Real Estate Management System . 
+ 
+ -  Backend Developer (PHP / Laravel)                                                       Sep 2025 - Present 
+     At Triple Agency 
+   Developed and maintained web applications using Laravel framework,                                                                                                                                                                                          
+including: 
+  Move Point – Enterprise ERP & CRM Management System – implemented a                                                                   
+scalable ERP & CRM solution to manage recruitment lifecycles, sales pipelines, 
+lead tracking, and complex payroll processes. Integrated WhatsApp API for real-
+time communication and built dynamic dashboards to enhance operational 
+efficiency using PHP, Laravel, MySQL, and JavaScript. 
+ 
+  Real Estate Management System – developed a property management system to 
+handle real estate listings, clients, and operational workflows efficiently. 
+ 
+  WhatsApp Platform & Automation System – built a WhatsApp-based platform 
+allowing users to register, create accounts, and authenticate securely using QR Code 
+scanning to generate access tokens. The system supports adding and managing 
+multiple WhatsApp instances per phone number, enabling advanced automation and 
+messaging workflows. 
+ 
+  Wander  Developed the backend of a social location-based mobile app using 
+Laravel, MySQL, and REST APIs. Implemented core features including 
+authentication, user profiles, posts, comments, likes, shares, saved posts, check-ins, 
+location-based user discovery, tagging, follow requests, privacy controls, 
+notifications, chat, profile views, and reporting dashboards. 
+    Bullet Points : 
+- Built scalable Laravel REST APIs for a social networking mobile application. 
+Implemented location-based check-ins, nearby active users, and tagged user           
+availability. 
+-  Developed profile, post, follow, privacy, notification, chat, and reporting 
+modules. 
+- Added complex privacy and visibility rules for posts, tags, followers, and 
+profile content. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+\n 
+ 
+- Integrated media handling for profile images, post images, videos, and cloud 
+storage  URLs. 
+- Designed database relationships for users, posts, tags, check-ins, follows, 
+chats, and reports. 
+- Improved API response structures for mobile app workflows and real-time 
+social features. 
+ 
+   Home Plate, a multi-role food delivery platform built with Laravel, supporting                 
+customers,   vendors, riders, and admins. The system includes RESTful APIs for mobile         
+applications, an admin dashboard for operations management, order lifecycle tracking, 
+vendor and rider onboarding, wallet and withdrawal handling, support tickets, ratings, 
+push notifications, localization, payment integration, and Cloudflare R2 integration for 
+scalable storage and delivery of images and videos, along with mobile app version 
+control for Android and iOS. 
+ 
+ -  Frontend  Developer | Trainee 
+ITI  
+ Information Technology Institute , El Mansoura, Ad Daqahliyah, Egypt. 
+  Completed a Front-End development course covering HTML, CSS, JavaScript,  React 
+framework. 
+ 
+  Courses & Certifications 
+ 
+  Laravel Advanced  - Udemy 
+  JavaScript Basics  - Coursera 
+  React Basics  - Coursera. 
+  Database Fundamentals  - Mahara Tech 
+  Python Fundamentals  - Mahara Tech 
+ 
+Technical Skills  
+• Languages & Frameworks: PHP, Laravel, JavaScript, HTML5, CSS,    
+React. 
+• Databases: MySQL. 
+• Tools & Technologies: Git, GitHub, RESTful APIs, JWT, Livewire, Sanctum, 
+Spatie  Permission, Pusher,  Stripe . 
+• Concepts: OOP, Design Patterns, MVC Architecture. 
+Languages  
+ • Arabic: Native. 
+ • English: Good Working Proficiency. 
+ 
