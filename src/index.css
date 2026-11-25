@@ -1180,9 +1180,9 @@ a {
 
 .profile-identity-card .identity-wordmark {
   margin-top: 16px;
-  font-size: clamp(1.88rem, 3.76vw, 2.82rem);
-  letter-spacing: -0.085em;
-  line-height: 0.98;
+  font-size: clamp(1.78rem, 3.5vw, 2.6rem);
+  letter-spacing: -0.06em;
+  line-height: 1.02;
   overflow-wrap: normal;
   word-break: keep-all;
 }

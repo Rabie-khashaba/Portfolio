@@ -273,7 +273,7 @@ html,body { background: var(--background); color: var(--foreground); }
 #root .portfolio-hero-inner > div { width: 100%; margin-inline: auto; }
 #root .portfolio-hero-eyebrow { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0 0 28px; color: var(--muted-foreground); font-size: 11px; font-weight: 700; letter-spacing: .15em; line-height: 1.4; text-transform: uppercase; }
 #root .portfolio-hero-eyebrow::before { width: 7px; height: 7px; flex: 0 0 7px; background: currentColor; content: ''; }
-#root .portfolio-hero h1 { margin: 0; color: var(--foreground); font-family: 'Manrope', sans-serif; font-size: clamp(28px,4vw,44px); font-weight: 600; line-height: 1.08; letter-spacing: -.065em; }
+#root .portfolio-hero h1 { margin: 0; color: var(--foreground); font-family: 'Manrope', sans-serif; font-size: clamp(26px,3.7vw,40px); font-weight: 600; line-height: 1.12; letter-spacing: -.045em; text-wrap: balance; }
 #root .portfolio-hero h1 span { background: none; color: var(--primary); -webkit-text-fill-color: currentColor; }
 #root .portfolio-hero-role { margin-top: 16px; font-size: 14px; }
 #root :is(.portfolio-prompt-icon,.portfolio-service-icon,.portfolio-explore-icon,.case-study-icon,.portfolio-call-menu-icon) { background: var(--icon-container); color: var(--icon-foreground); border: 0; border-radius: 12px; box-shadow: none; }
@@ -418,7 +418,7 @@ html,body { background: var(--background); color: var(--foreground); }
   #root .portfolio-hero { justify-content: flex-start; min-height: auto; padding: 54px 0 32px; }
   #root .portfolio-hero-inner { padding: 0 20px; text-align: start; }
   #root .portfolio-hero-eyebrow { justify-content: flex-start; margin-bottom: 24px; font-size: 10px; letter-spacing: .16em; }
-  #root .portfolio-hero h1 { font-size: clamp(34px,9.4vw,46px); line-height: 1.08; letter-spacing: -.07em; text-wrap: balance; }
+  #root .portfolio-hero h1 { font-size: clamp(31px,8.6vw,42px); line-height: 1.12; letter-spacing: -.05em; text-wrap: balance; }
   #root .portfolio-hero-role { margin-top: 20px; font-size: 15px; }
   #root .portfolio-prompt-heading {
     grid-template-columns: minmax(0,1fr) minmax(0,1fr);
