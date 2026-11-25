@@ -527,19 +527,29 @@ html,body { background: var(--background); color: var(--foreground); }
 @media (max-width: 767px) {
   #root .portfolio-root > .portfolio-header,
   #root .portfolio-root > .portfolio-header.is-scrolled {
-    top: 10px;
+    top: 0;
     width: 100%;
     margin-inline: auto;
+    border: 0;
+    border-radius: 0;
+    background: var(--background);
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transition: width 240ms ease, top 240ms ease, border-radius 240ms ease, background-color 200ms ease;
+  }
+
+  #root .portfolio-root > .portfolio-header.is-scrolled {
+    top: 10px;
+    width: 70%;
     border: 1px solid color-mix(in srgb, var(--foreground) 13%, transparent);
-    border-radius: 999px;
+    border-radius: 18px;
     background: color-mix(in srgb, var(--background) 88%, transparent);
     box-shadow: 0 8px 28px rgb(0 0 0 / 18%);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
-    transition: width 240ms ease, background-color 200ms ease;
   }
 
-  #root .portfolio-root > .portfolio-header.is-scrolled { width: 70%; }
   #root .portfolio-root > .portfolio-header:not(.is-scrolled) {
     border-color: transparent;
     background: var(--background);
@@ -555,26 +565,27 @@ html,body { background: var(--background); color: var(--foreground); }
   }
 
   #root .portfolio-header .portfolio-scroll-progress {
-    inset: -4px 14px auto;
+    inset: 0 14px auto;
     height: 2px;
     border-radius: 999px;
     z-index: 3;
   }
 
+  #root .portfolio-header.is-scrolled .portfolio-scroll-progress { inset-block-start: -4px; }
+
   #root .portfolio-mobile-brand {
-    padding-inline-end: 10px;
+    border: 0;
+    padding: 0;
     font-size: 20px;
   }
 
   #root .portfolio-root[dir='rtl'] .portfolio-mobile-brand {
-    padding-inline: 0;
-    padding-left: 10px;
-    border-right: 0;
-    border-left: 1px solid var(--border);
+    padding: 0;
+    border: 0;
   }
 
   #root .portfolio-mobile-controls {
-    gap: 2px;
+    gap: 4px;
   }
 
   #root .portfolio-mobile-language {
@@ -585,6 +596,7 @@ html,body { background: var(--background); color: var(--foreground); }
     order: 2;
     width: 36px;
     height: 36px;
+    border-radius: 11px;
     background: transparent;
   }
 
@@ -592,6 +604,8 @@ html,body { background: var(--background); color: var(--foreground); }
     order: 3;
     width: 36px;
     height: 36px;
+    border: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
+    border-radius: 11px;
     background: color-mix(in srgb, var(--foreground) 7%, transparent);
   }
 }

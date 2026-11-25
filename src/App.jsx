@@ -29,6 +29,7 @@ import ProjectDetailsPage from './components/ProjectDetailsPage';
 import SectionHeading from './components/SectionHeading';
 import ServiceItem from './components/ServiceItem';
 import TechChip from './components/TechChip';
+import TechnologyGroupTitle from './components/TechnologyGroupTitle';
 import PortfolioFooter from './components/PortfolioFooter';
 import AboutSection from './components/AboutSection';
 import { navigation } from './data/navigation';
@@ -280,6 +281,7 @@ export default function App() {
   };
 
   const { localizedServices, localizedTechGroups, localizedExperience } = getLocalizedSections(language);
+  const visibleTechGroups = localizedTechGroups.filter((group) => !group.items.includes('Flutter'));
 
   return (
     <div
@@ -665,14 +667,14 @@ export default function App() {
             <SectionHeading eyebrow={t.techEyebrow} title={t.techTitle} align="center" />
 
             <div className="portfolio-skills-cloud">
-              {localizedTechGroups.map((group, groupIndex) => (
+              {visibleTechGroups.map((group, groupIndex) => (
                 <div
                   className={`portfolio-skill-row${['Mobile', 'الموبايل'].includes(group.title) ? ' portfolio-skill-row-mobile' : ''}`}
                   key={group.title}
                 >
                   <div className="portfolio-skill-group">
                     <span>0{groupIndex + 1}</span>
-                    <h3>{group.title}</h3>
+                    <TechnologyGroupTitle groupIndex={localizedTechGroups.indexOf(group)}>{group.title}</TechnologyGroupTitle>
                   </div>
                   <ul>
                     {group.items.map((item) => (
