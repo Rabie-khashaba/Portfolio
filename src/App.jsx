@@ -332,6 +332,8 @@ export default function App() {
               <a
                 key={item.href}
                 href={selectedProject ? `/${item.href}` : item.href}
+                aria-label={item.label}
+                className="portfolio-mobile-nav-mark"
                 onClick={(e) => handleNavClick(e, item.href)}
               >
                 {item.label}

@@ -530,10 +530,12 @@ html,body { background: var(--background); color: var(--foreground); }
     top: 0;
     width: 100%;
     margin-inline: auto;
-    border: 0;
-    border-radius: 0;
-    background: var(--background);
-    box-shadow: none;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: linear-gradient(var(--background), var(--background)) padding-box,
+      linear-gradient(110deg, #317670, #EFD6AC 72%, #C44900) border-box;
+    box-shadow: inset 0 0 0 2px color-mix(in srgb, #317670 7%, transparent),
+      0 8px 24px rgb(4 21 31 / 8%);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     transition: width 240ms ease, top 240ms ease, border-radius 240ms ease, background-color 200ms ease;
@@ -541,13 +543,14 @@ html,body { background: var(--background); color: var(--foreground); }
 
   #root .portfolio-root > .portfolio-header.is-scrolled {
     top: 10px;
-    width: 70%;
-    border: 1px solid color-mix(in srgb, var(--foreground) 13%, transparent);
-    border-radius: 18px;
-    background: color-mix(in srgb, var(--background) 88%, transparent);
-    box-shadow: 0 8px 28px rgb(0 0 0 / 18%);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    width: 52%;
+    border-radius: 999px;
+    background: linear-gradient(color-mix(in srgb, var(--background) 82%, transparent), color-mix(in srgb, var(--background) 82%, transparent)) padding-box,
+      linear-gradient(110deg, color-mix(in srgb, #317670 78%, var(--background)), color-mix(in srgb, #EFD6AC 45%, var(--background)) 72%, color-mix(in srgb, #317670 78%, var(--background))) border-box;
+    box-shadow: inset 0 0 0 2px color-mix(in srgb, #317670 6%, transparent),
+      0 8px 22px rgb(4 21 31 / 18%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
 
   #root .portfolio-root > .portfolio-header:not(.is-scrolled) {
@@ -559,10 +562,58 @@ html,body { background: var(--background); color: var(--foreground); }
   }
 
   #root .portfolio-header nav {
+    position: relative;
     min-height: 56px;
-    gap: 8px;
-    padding: 5px 9px;
+    gap: 0;
+    padding: 5px 8px;
   }
+
+  #root .portfolio-header.is-scrolled nav { background: transparent; }
+  #root .portfolio-header.is-scrolled nav { justify-content: center; }
+
+  #root .portfolio-header .portfolio-desktop-nav {
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    background: transparent;
+    transform: translateX(-50%);
+  }
+
+  #root .portfolio-header .portfolio-desktop-nav a.portfolio-mobile-nav-mark {
+    display: block;
+    width: 22px;
+    height: 6px;
+    overflow: hidden;
+    border: 0;
+    border-radius: 999px;
+    padding: 0;
+    background: color-mix(in srgb, var(--muted-foreground) 35%, transparent);
+    color: transparent;
+    font-size: 0;
+    line-height: 0;
+    transition: width 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  #root .portfolio-header .portfolio-desktop-nav a.portfolio-mobile-nav-mark:first-child {
+    background: #DD6E42;
+    box-shadow: 0 0 9px color-mix(in srgb, #DD6E42 45%, transparent);
+  }
+
+  #root .portfolio-header .portfolio-desktop-nav a.portfolio-mobile-nav-mark:nth-child(n + 5) { display: none; }
+
+  #root .portfolio-header .portfolio-desktop-nav a.portfolio-mobile-nav-mark:focus-visible {
+    outline: 2px solid #EFD6AC;
+    outline-offset: 4px;
+  }
+
+  #root .portfolio-header.is-scrolled .portfolio-desktop-nav,
+  #root .portfolio-header.is-scrolled .portfolio-mobile-brand { display: none; }
 
   #root .portfolio-header .portfolio-scroll-progress {
     inset: 0 14px auto;
@@ -574,18 +625,50 @@ html,body { background: var(--background); color: var(--foreground); }
   #root .portfolio-header.is-scrolled .portfolio-scroll-progress { inset-block-start: -4px; }
 
   #root .portfolio-mobile-brand {
+    position: relative;
+    z-index: 2;
+    min-width: 0;
+    min-height: 40px;
+    justify-content: center;
     border: 0;
-    padding: 0;
-    font-size: 20px;
+    border-radius: 0;
+    padding: 6px 8px;
+    background: transparent;
+    font-size: 22px;
   }
 
   #root .portfolio-root[dir='rtl'] .portfolio-mobile-brand {
-    padding: 0;
+    padding: 6px 8px;
     border: 0;
   }
 
+  #root .portfolio-header.is-scrolled .portfolio-mobile-brand {
+    min-width: 0;
+    min-height: 40px;
+    background: transparent;
+    font-size: 20px;
+  }
+
   #root .portfolio-mobile-controls {
-    gap: 4px;
+    position: relative;
+    z-index: 2;
+    width: 104px;
+    justify-content: space-between;
+    gap: 0;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  #root .portfolio-header.is-scrolled .portfolio-mobile-controls {
+    border: 0;
+    border-radius: 0;
+    gap: 0;
+    padding: 0;
+    background: transparent;
+    margin-inline: auto;
   }
 
   #root .portfolio-mobile-language {
@@ -594,18 +677,20 @@ html,body { background: var(--background); color: var(--foreground); }
 
   #root .portfolio-mobile-controls > .portfolio-icon-button:not(.portfolio-menu-toggle) {
     order: 2;
-    width: 36px;
-    height: 36px;
-    border-radius: 11px;
-    background: transparent;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 50%;
+    margin: 0;
+    background: color-mix(in srgb, var(--foreground) 5%, transparent);
   }
 
   #root .portfolio-mobile-controls .portfolio-menu-toggle {
     order: 3;
-    width: 36px;
-    height: 36px;
-    border: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
-    border-radius: 11px;
-    background: color-mix(in srgb, var(--foreground) 7%, transparent);
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--foreground) 5%, transparent);
   }
 }
