@@ -30,6 +30,7 @@ import SectionHeading from './components/SectionHeading';
 import ServiceItem from './components/ServiceItem';
 import BrandIcon from './components/BrandIcon';
 import PortfolioFooter from './components/PortfolioFooter';
+import ScrollToTop from './components/ScrollToTop';
 import AboutSection from './components/AboutSection';
 import { navigation } from './data/navigation';
 import { projectCaseStudies } from './data/projectCaseStudies';
@@ -881,6 +882,7 @@ export default function App() {
       )}
 
       <PortfolioFooter t={t} />
+      <ScrollToTop shouldReduceMotion={shouldReduceMotion} />
     </div>
   );
 }
