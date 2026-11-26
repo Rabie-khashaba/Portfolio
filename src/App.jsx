@@ -28,8 +28,7 @@ import ProjectCard from './components/ProjectCard';
 import ProjectDetailsPage from './components/ProjectDetailsPage';
 import SectionHeading from './components/SectionHeading';
 import ServiceItem from './components/ServiceItem';
-import TechChip from './components/TechChip';
-import TechnologyGroupTitle from './components/TechnologyGroupTitle';
+import BrandIcon from './components/BrandIcon';
 import PortfolioFooter from './components/PortfolioFooter';
 import AboutSection from './components/AboutSection';
 import { navigation } from './data/navigation';
@@ -666,25 +665,48 @@ export default function App() {
 
         <motion.section id="skills" className="section-shell" initial="hidden" whileInView="show" viewport={sectionViewport} variants={sectionReveal}>
           <div className="container-shell">
-            <SectionHeading eyebrow={t.techEyebrow} title={t.techTitle} align="center" />
+            <div className="portfolio-skills-intro">
+              <p className="portfolio-skills-eyebrow">{t.techEyebrow}</p>
+              <h2>{t.techTitle}</h2>
+              <p className="portfolio-skills-description">{t.techDescription}</p>
+            </div>
 
-            <div className="portfolio-skills-cloud">
-              {visibleTechGroups.map((group, groupIndex) => (
-                <div
-                  className={`portfolio-skill-row${['Mobile', 'الموبايل'].includes(group.title) ? ' portfolio-skill-row-mobile' : ''}`}
-                  key={group.title}
-                >
-                  <div className="portfolio-skill-group">
-                    <span>0{groupIndex + 1}</span>
-                    <TechnologyGroupTitle groupIndex={localizedTechGroups.indexOf(group)}>{group.title}</TechnologyGroupTitle>
-                  </div>
-                  <ul>
-                    {group.items.map((item) => (
-                      <TechChip key={item}>{item}</TechChip>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+            <div className="portfolio-skills-grid">
+              {visibleTechGroups.map((group) => {
+                const headingMap = {
+                  Backend: t.backendHeading,
+                  'الباك إند': t.backendHeading,
+                  Frontend: t.frontendHeading,
+                  'الفرونت إند': t.frontendHeading,
+                  Infrastructure: t.infraHeading,
+                  'البنية التقنية': t.infraHeading,
+                  Mobile: t.mobileHeading,
+                  'الموبايل': t.mobileHeading,
+                  Integrations: t.integrationsHeading,
+                  'التكاملات': t.integrationsHeading,
+                };
+                const isBackend = ['Backend', 'الباك إند'].includes(group.title);
+                const heading = headingMap[group.title] ?? group.title;
+                return (
+                  <section
+                    className={`portfolio-skills-category${isBackend ? ' is-featured' : ''}`}
+                    key={group.title}
+                    aria-label={heading}
+                  >
+                    <h3 className="portfolio-skills-category-title">{heading}</h3>
+                    <ul className="portfolio-skills-cards">
+                      {group.items.map((item) => (
+                        <li className="portfolio-tech-chip" key={item}>
+                          <span className="portfolio-tech-chip-icon">
+                            <BrandIcon name={item} size={18} colored />
+                          </span>
+                          <span className="portfolio-tech-chip-name">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                );
+              })}
             </div>
           </div>
         </motion.section>
