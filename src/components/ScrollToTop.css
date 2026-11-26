@@ -1,4 +1,10 @@
 .portfolio-root .scroll-to-top {
+  --stt-bg: var(--card);
+  --stt-border: color-mix(in srgb, var(--border) 70%, transparent);
+  --stt-fg: var(--foreground);
+  --stt-accent: var(--primary);
+  --stt-track: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --stt-shadow: 0 8px 24px rgb(0 0 0 / 22%);
   position: fixed;
   right: max(22px, env(safe-area-inset-right));
   left: auto;
@@ -9,10 +15,11 @@
   height: 52px;
   place-items: center;
   padding: 0;
-  border: 1px solid rgb(255 255 255 / 0.1);
+  border: 1px solid var(--stt-border);
   border-radius: 50%;
-  background: #14161b;
-  color: var(--foreground, #fff);
+  background: var(--stt-bg);
+  color: var(--stt-fg);
+  box-shadow: var(--stt-shadow);
   cursor: pointer;
   opacity: 0;
   visibility: hidden;
@@ -21,7 +28,23 @@
     opacity 260ms ease,
     visibility 260ms ease,
     transform 260ms cubic-bezier(0.2, 0.7, 0.2, 1),
-    border-color 200ms ease;
+    border-color 200ms ease,
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+/* Dark mode: slightly lifted surface so it stands out */
+:root[data-theme='dark'] .portfolio-root .scroll-to-top {
+  --stt-bg: color-mix(in srgb, var(--card) 88%, var(--primary) 4%);
+  --stt-border: color-mix(in srgb, var(--foreground) 16%, transparent);
+  --stt-shadow: 0 10px 28px rgb(0 0 0 / 45%);
+}
+
+/* Light mode: softer shadow, brighter surface */
+:root[data-theme='light'] .portfolio-root .scroll-to-top {
+  --stt-bg: #fff;
+  --stt-border: color-mix(in srgb, var(--foreground) 12%, transparent);
+  --stt-shadow: 0 8px 22px rgb(4 21 31 / 14%);
 }
 
 .scroll-to-top.is-visible {
@@ -38,15 +61,15 @@
 }
 
 .scroll-to-top-progress-track {
-  stroke: rgb(255 255 255 / 0.08);
+  stroke: var(--stt-track);
   stroke-width: 2.5;
 }
 
 .scroll-to-top-progress-bar {
-  stroke: #ff5722;
+  stroke: var(--stt-accent);
   stroke-width: 2.5;
   stroke-linecap: round;
-  transition: stroke-dashoffset 320ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* no transition: the ring follows scroll instantly via rAF updates */
 }
 
 .scroll-to-top-arrow {
@@ -55,17 +78,18 @@
 
 @media (hover: hover) and (pointer: fine) {
   .scroll-to-top:hover {
-    border-color: rgb(255 87 34 / 0.55);
+    border-color: color-mix(in srgb, var(--stt-accent) 55%, transparent);
+    background: color-mix(in srgb, var(--stt-accent) 10%, var(--stt-bg));
     transform: translateY(-2px);
   }
 
   .scroll-to-top:hover .scroll-to-top-arrow {
-    color: #ff5722;
+    color: var(--stt-accent);
   }
 }
 
 .scroll-to-top:focus-visible {
-  outline: 2px solid #ff5722;
+  outline: 2px solid var(--stt-accent);
   outline-offset: 3px;
 }
 
