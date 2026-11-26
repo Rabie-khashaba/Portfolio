@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -3043,3 +3043,270 @@ a {
   }
 }
 
+
+
+/* ================================================================
+   SITE FOOTER  ·  ft-*
+   Minimalist executive footer: Identity + Status/Location + Bar
+   ================================================================ */
+
+/* ── Design tokens (scoped) ──────────────────────────────────── */
+.ft-root {
+  --ft-primary:    var(--primary);
+  --ft-fg:         var(--foreground);
+  --ft-muted:      var(--muted-foreground);
+  --ft-text:       var(--text-secondary);
+  --ft-border:     var(--border);
+  --ft-card:       var(--card);
+  --ft-bg:         var(--background);
+  --ft-hover:      var(--hover);
+  --ft-success:    var(--success);
+  --ft-radius:     8px;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   MAIN FOOTER BODY
+   ════════════════════════════════════════════════════════════════ */
+.ft-main {
+  border-top: 1px solid var(--ft-border);
+  background: color-mix(in srgb, var(--ft-card) 45%, var(--ft-bg));
+}
+
+:root:not([data-theme='dark']) .ft-main {
+  background: color-mix(in srgb, var(--ft-card) 65%, var(--ft-bg));
+}
+
+.ft-main-shell {
+  padding-top:    clamp(36px, 5vw, 56px);
+  padding-bottom: clamp(24px, 3vw, 32px);
+}
+
+/* ── Top Summary Row: Identity (left) + Meta (right) ─────────── */
+.ft-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+@media (min-width: 720px) {
+  .ft-summary {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+  }
+}
+
+/* ── Identity ────────────────────────────────────────────────── */
+.ft-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 460px;
+}
+
+.ft-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.ft-logo-mark {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  flex-shrink: 0;
+  border: 1.5px solid color-mix(in srgb, var(--ft-primary) 38%, transparent);
+  background: color-mix(in srgb, var(--ft-primary) 9%, transparent);
+  color: var(--ft-primary);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  transition: background 200ms ease, border-color 200ms ease;
+}
+
+@media (hover: hover) {
+  .ft-logo:hover .ft-logo-mark {
+    background: color-mix(in srgb, var(--ft-primary) 16%, transparent);
+    border-color: color-mix(in srgb, var(--ft-primary) 60%, transparent);
+  }
+}
+
+.ft-logo-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ft-logo-name {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--ft-fg);
+  line-height: 1.15;
+}
+
+.ft-logo-name strong {
+  color: var(--ft-fg);
+  font-weight: 800;
+}
+
+.ft-title {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--ft-primary);
+  line-height: 1.2;
+}
+
+.ft-desc {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--ft-text);
+  max-width: 42ch;
+}
+
+/* ── Right Meta Block (Status + Location) ────────────────────── */
+.ft-meta {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+@media (min-width: 720px) {
+  .ft-meta {
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: end;
+    gap: 10px;
+    width: auto;
+  }
+}
+
+.ft-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 13px 5px 10px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--ft-success) 28%, transparent);
+  background: color-mix(in srgb, var(--ft-success) 8%, transparent);
+  color: var(--ft-success);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  user-select: none;
+}
+
+.ft-badge-dot {
+  position: relative;
+  display: block;
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.ft-badge-dot::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.4;
+  animation: ft-pulse 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ft-pulse {
+  0%   { transform: scale(1);   opacity: 0.4; }
+  65%  { transform: scale(2.6); opacity: 0;   }
+  100% { transform: scale(2.6); opacity: 0;   }
+}
+
+.ft-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--ft-muted);
+  opacity: 0.85;
+}
+
+.ft-location svg {
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+/* ── Bottom bar ──────────────────────────────────────────────── */
+.ft-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: clamp(22px, 3.5vw, 36px);
+  padding-top: clamp(16px, 2.5vw, 24px);
+  border-top: 1px solid var(--ft-border);
+  text-align: start;
+}
+
+@media (min-width: 720px) {
+  .ft-bar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+}
+
+.ft-bar-left {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--ft-muted);
+  line-height: 1.6;
+}
+
+.ft-bar-left span {
+  opacity: 0.75;
+}
+
+.ft-bar-right {
+  margin: 0;
+  font-size: 12px;
+  color: var(--ft-muted);
+  opacity: 0.55;
+  line-height: 1.5;
+}
+
+@media (min-width: 720px) {
+  .ft-bar-right {
+    white-space: nowrap;
+  }
+}
+
+/* ── Reduced-motion ──────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ft-badge-dot::before { animation: none; opacity: 0.4; }
+  .ft-logo-mark { transition: none; }
+}
+
+/* ── Focus visible ───────────────────────────────────────────── */
+#root .ft-logo:focus-visible {
+  outline: 2px solid var(--ft-primary);
+  outline-offset: 4px;
+  border-radius: var(--ft-radius);
+}
+
+/* ================================================================
+   END PREMIUM FOOTER
+   ================================================================ */
